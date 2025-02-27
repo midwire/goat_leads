@@ -1,8 +1,216 @@
 # Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+# inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+plugins:
+  # - rubocop-factory_bot
+  - rubocop-rspec
+  - rubocop-rails
+
+require:
+  - rubocop-factory_bot
+  - rubocop-rspec_rails
+
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: disable
+
+  Include:
+    - '**/*.gemspec'
+    - '**/*.podspec'
+    - '**/*.jbuilder'
+    - '**/*.rake'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Capfile'
+    - '**/Guardfile'
+    - '**/Podfile'
+    - '**/Thorfile'
+    - '**/Vagrantfile'
+    - '**/*.rb'
+  Exclude:
+    - 'Capfile'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'stubs/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'features/step_definitions/*'
+    - 'app/views/**/*.jbuilder'
+
+# Checks formatting of special comments
+Style/CommentAnnotation:
+  Keywords:
+    - TODO
+    - FIXME
+    - OPTIMIZE
+    - HACK
+    - REVIEW
+
+########################################
+# Style Cops
+
+Style/Documentation:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/SignalException:
+  EnforcedStyle: semantic
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/TrivialAccessors:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: false
+
+Style/AndOr:
+  Enabled: false
+
+  # String#format is private now
+Style/FormatString:
+  Enabled: false
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+########################################
+# Layout Cops
+
+Layout/LineLength:
+  Max: 110
+  Exclude:
+    - 'app/views/**/*'
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/HashAlignment:
+  Enabled: false
+  EnforcedColonStyle: key
+  EnforcedHashRocketStyle: table
+
+Layout/AssignmentIndentation:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+Layout/CaseIndentation:
+  Enabled: false
+
+Layout/ElseAlignment:
+  Enabled: false
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+########################################
+# Naming Cops
+
+Naming/FileName:
+  Enabled: false
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+########################################
+# Security Cops
+
+Security/Eval:
+  Enabled: true
+
+########################################
+# Lint Cops
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+########################################
+# Metrics Cops
+
+Metrics/MethodLength:
+  CountComments: false # count full line comments?
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 120
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+    - lib/tasks/**/*.rake
+    - config/routes.rb
+    - config/environments/*.rb
+
+########################################
+# Rspec Cops
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/IndexedLet:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+########################################
+# Rails Cops
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+########################################
+# Bundler Cops
+
+Bundler/OrderedGems:
+  Enabled: false
+
