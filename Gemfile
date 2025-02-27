@@ -44,7 +44,7 @@ gem "thruster", require: false
 
 ######################################################################################################
 #
-gem 'dotenv-rails', '~> 2.8' # ENV vars
+gem 'dotenv-rails', '~> 3.1' # ENV vars
 gem 'haml-rails', '~> 2.1' # HAML templates
 
 
