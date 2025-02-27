@@ -1,0 +1,18 @@
+%nav.navbar.navbar-expand-lg.bg-primary{'data-bs-theme' => 'dark'}
+  .container-fluid
+    %a.navbar-brand{:href => "#"} GOAT Leads
+    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      %ul.navbar-nav.me-auto
+        %li.nav-item
+          = link_to 'Home', root_path, class: "nav-link #{active_class(root_path)}"
+      %ul.navbar-nav
+        - if authenticated?
+          %li.nav-item
+            = link_to "Hi, #{current_user.email}", root_path, class: "nav-link #{active_class(root_path)}"
+          %li.nav-item
+            = link_to 'Sign Out', session_path, method: :delete, class: "nav-link btn", data: { 'turbo-method': :delete }
+        - else
+          = link_to "Sign up", new_registration_path, class: "navbar-link btn btn-secondary"
+          = link_to "Login", new_session_path, class: "navbar-link btn btn-primary"

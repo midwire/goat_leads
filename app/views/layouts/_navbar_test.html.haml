@@ -1,0 +1,28 @@
+%nav.navbar.navbar-expand-lg.bg-light{"data-bs-theme" => "light"}
+  .container-fluid
+    %a.navbar-brand{:href => "#"} Navbar
+    %button.navbar-toggler{"aria-controls" => "navbarColor03", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarColor03", "data-bs-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    #navbarColor03.collapse.navbar-collapse
+      %ul.navbar-nav.me-auto
+        %li.nav-item
+          %a.nav-link.active{:href => "#"}
+            Home
+            %span.visually-hidden (current)
+        %li.nav-item
+          %a.nav-link{:href => "#"} Features
+        %li.nav-item
+          %a.nav-link{:href => "#"} Pricing
+        %li.nav-item
+          %a.nav-link{:href => "#"} About
+        %li.nav-item.dropdown
+          %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"} Dropdown
+          .dropdown-menu
+            %a.dropdown-item{:href => "#"} Action
+            %a.dropdown-item{:href => "#"} Another action
+            %a.dropdown-item{:href => "#"} Something else here
+            .dropdown-divider
+            %a.dropdown-item{:href => "#"} Separated link
+      %form.d-flex
+        %input.form-control.me-sm-2{:placeholder => "Search", :type => "search"}/
+        %button.btn.btn-secondary.my-2.my-sm-0{:type => "submit"} Search

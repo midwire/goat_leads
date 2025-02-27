@@ -16,4 +16,10 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
   %body
-    = yield
+    = render(partial: 'layouts/navbar')
+    .container-fluid
+      .row
+        .col-md-1
+          = render(partial: 'layouts/sidebar')
+        .col-md-11
+          = yield

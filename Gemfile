@@ -64,7 +64,6 @@ group :development, :test do
   gem 'annotate', require: false
   gem 'bullet'
   gem 'factory_bot_rails'
-  gem 'fakeredis', require: false
   gem 'foreman'
   gem 'pry-nav'
   gem 'rspec-rails'
