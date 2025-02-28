@@ -3,8 +3,10 @@
 class EmailVerificationsController < ApplicationController
   allow_unauthenticated_access
 
-  rate_limit to: 10, within: 3.minutes, only: :create, with: lambda {
-    redirect_to new_session_url, alert: 'Try again later.'
+  layout 'welcome'
+
+  rate_limit to: 10, within: 3.minutes, with: lambda {
+    redirect_to root_path, alert: 'Try again later.'
   }
 
   # rubocop:disable Rails/DynamicFindBy
@@ -19,6 +21,20 @@ class EmailVerificationsController < ApplicationController
   end
   # rubocop:enable Rails/DynamicFindBy
 
+  def new
+  end
+
   def resend
+    user = User.find_by(email_address: params.expect(:email_address))
+    if user
+      if user.verified?
+        redirect_to new_session_url, notice: 'That email address is already verified.'
+      else
+        UserMailer.verify_email(user).deliver_later
+        redirect_to new_session_url, notice: 'Check your email for verification instructions.'
+      end
+    else
+      redirect_to(new_email_verification_path, notice: 'That email address is not found.')
+    end
   end
 end

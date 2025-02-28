@@ -6,7 +6,7 @@ class RegistrationsController < ApplicationController
   layout 'welcome'
 
   wrap_parameters :user, include: User.attribute_names + %i[password password_confirmation]
-  rate_limit to: 10, within: 3.minutes, only: :create, with: lambda {
+  rate_limit to: 10, within: 3.minutes, with: lambda {
     redirect_to new_session_url, alert: 'Try again later.'
   }
 

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resource :registration, only: %i[new create]
   resources :users, except: %i[new destroy create index]
   resources :passwords, param: :token
-  resources :email_verifications, only: %i[show], param: :token do
+  resources :email_verifications, only: %i[show new], param: :token do
     collection do
       post 'resend'
     end

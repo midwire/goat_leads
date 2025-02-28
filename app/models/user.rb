@@ -32,6 +32,10 @@ class User < ApplicationRecord
   def verify!
     update!(email_verified_at: Time.current)
   end
+
+  def verified?
+    email_verified_at.present?
+  end
 end
 
 # == Schema Information

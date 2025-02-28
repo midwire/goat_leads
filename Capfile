@@ -30,7 +30,7 @@ install_plugin Capistrano::SCM::Git
 require "capistrano/rbenv"
 # require "capistrano/chruby"
 require "capistrano/bundler"
-# require "capistrano/rails/assets"
+# require "capistrano/rails/assets" # Handling this manually, see deploy.rb
 require "capistrano/rails/migrations"
 require "capistrano/passenger"
 require "capistrano/yarn"

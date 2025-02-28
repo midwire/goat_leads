@@ -1,0 +1,12 @@
+.container.h-100
+  .row.h-100.justify-content-center.align-items-center
+    %h1
+      Resend Email Verification
+
+    = bootstrap_form_with(url: resend_email_verifications_path) do |form|
+      %div.mb-3
+        = form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: "Enter your email address", value: params[:email_address]
+      = form.submit "Resend"
+    .mt-3
+      = link_to "Sign in", new_session_path
+
