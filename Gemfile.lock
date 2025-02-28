@@ -556,7 +556,7 @@ DEPENDENCIES
   annotate
   bcrypt (~> 3.1.7)
   bootsnap
-  bootstrap_form
+  bootstrap_form (~> 5.4)
   brakeman
   bullet
   bundle-audit
