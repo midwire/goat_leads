@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module CsvConfig
   # NOTE: property needs to be decorated for these methods to work
   # The key is the column name, method is the decorator method to call
@@ -162,6 +163,7 @@ module CsvConfig
   end
 
   def agent_visible_columns_hash
-    csv_columns_hash.select { |col, data| data[:agent_visible] }
+    csv_columns_hash.select { |_col, data| data[:agent_visible] }
   end
 end
+# rubocop:enable Metrics/ModuleLength
