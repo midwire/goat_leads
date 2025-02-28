@@ -37,7 +37,7 @@ gem 'solid_cable'
 gem 'bootsnap', require: false
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem 'kamal', require: false
+# gem 'kamal', require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem 'thruster', require: false
@@ -50,6 +50,8 @@ gem 'thruster', require: false
 #
 gem 'dotenv-rails', '>= 3.1'
 gem 'haml-rails', '~> 2.1' # HAML templates
+gem 'ajax-datatables-rails', '~> 1.5' # Dynamic datatables
+gem 'draper', '~> 4.0' # Decorators
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -63,6 +65,7 @@ group :development, :test do
 
   gem 'annotate', require: false
   gem 'bullet'
+  gem 'faker'
   gem 'factory_bot_rails'
   gem 'foreman'
   gem 'pry-nav'
@@ -81,13 +84,13 @@ group :development do
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   gem 'rack-mini-profiler'
 
-  # gem 'capistrano', '~> 3.1' # Deployment tool
+  gem 'capistrano', '~> 3.1' # Deployment tool
   # gem 'capistrano-nvm', require: false
-  # gem 'capistrano-passenger', '~> 0.2', require: false # Deployment
-  # gem 'capistrano-rails', '~> 1.3', require: false # Deployment
-  # gem 'capistrano-rake', '~> 0.2', require: false # Deployment
-  # gem 'capistrano-rbenv', '~> 2.1', require: false
-  # gem 'capistrano-yarn', '~> 2.0', require: false # Deployment
+  gem 'capistrano-passenger', '~> 0.2', require: false # Deployment
+  gem 'capistrano-rails', '~> 1.3', require: false # Deployment
+  gem 'capistrano-rake', '~> 0.2', require: false # Deployment
+  gem 'capistrano-rbenv', '~> 2.1', require: false
+  gem 'capistrano-yarn', '~> 2.0', require: false # Deployment
 
   gem 'bundle-audit'
   gem 'html2haml'

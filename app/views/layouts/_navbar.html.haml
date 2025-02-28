@@ -1,12 +1,15 @@
 %nav.navbar.navbar-expand-lg.bg-primary{'data-bs-theme' => 'dark'}
   .container-fluid
-    %a.navbar-brand{:href => "#"} GOAT Leads
+    %a.navbar-brand{:href => "#"}
+      %img.img-fluid{src: asset_url("goat_leads_logo.webp"), width: '30px'}
+      G.O.A.T Leads
+
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto
         %li.nav-item
-          = link_to 'Home', root_path, class: "nav-link #{active_class(root_path)}"
+          = link_to 'Home', leads_path, class: "nav-link #{active_class(root_path)}"
       %ul.navbar-nav
         - if authenticated?
           %li.nav-item

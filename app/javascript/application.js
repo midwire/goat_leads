@@ -2,3 +2,7 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
+
+import "./src/add_jquery";
+// import './src/jquery-ui.min';
+import "./src/add_datatables";

@@ -1,12 +1,12 @@
 class CreateLeads < ActiveRecord::Migration[8.0]
   def change
     create_table :leads do |t|
-      t.string :first_name
-      t.string :last_name
-      t.string :phone
-      t.string :email
-      t.string :state
-      t.date :dob
+      t.string :first_name, index: true
+      t.string :last_name, index: true
+      t.string :phone, index: true
+      t.string :email, index: true
+      t.string :state, index: true
+      t.date :dob, index: true
       t.string :marital_status
       t.string :military_status
       t.string :needed_coverage
@@ -14,8 +14,7 @@ class CreateLeads < ActiveRecord::Migration[8.0]
       t.string :rr_state
       t.string :ad
       t.string :adset_id
-      # NOTE: verify owner
-      t.string :owner
+      t.bigint :user_id, index: true # Lead Owner
       t.string :platform
       t.string :campaign_id
       t.string :ringy_code

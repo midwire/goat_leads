@@ -12,4 +12,12 @@ module ApplicationHelper
       ''
     end
   end
+
+  def active_sidebar_class(path)
+    if request.path == path
+      'list-group-item-primary'
+    else
+      ''
+    end
+  end
 end

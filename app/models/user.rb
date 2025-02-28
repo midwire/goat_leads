@@ -3,7 +3,9 @@
 # Most users will be agents but may also be an admin or manager
 class User < ApplicationRecord
   has_secure_password
+
   has_many :sessions, dependent: :destroy
+  has_many :leads, dependent: :nullify
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
@@ -11,6 +13,14 @@ class User < ApplicationRecord
 
   def email
     email_address
+  end
+
+  def display_name
+    fname = object.first_name
+    lname = object.last_name
+    return object.email if fname.blank? && lname.blank?
+
+    [fname, lname].join(' ')
   end
 end
 

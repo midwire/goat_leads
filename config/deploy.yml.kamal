@@ -2,12 +2,12 @@
 service: goat_leads
 
 # Name of the container image.
-image: your-user/goat_leads
+image: deploy/goat_leads
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
+    - 45.33.11.54
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -19,7 +19,7 @@ servers:
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: app.example.com
+  host: crm.goatleads.com
 
 # Credentials for your image host.
 registry:

@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   get 'welcome/index'
   root 'welcome#index'
 
+  concern :with_datatable do
+    post 'datatable', on: :collection
+  end
+  resources :leads, concerns: [:with_datatable]
+
   resource :session
   resource :registration, only: %i[new create]
   resources :passwords, param: :token

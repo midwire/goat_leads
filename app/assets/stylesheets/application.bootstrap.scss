@@ -1,7 +1,11 @@
-@import 'bootswatch/dist/flatly/variables';
+// Distributed flatly vars
+// @import 'bootswatch/dist/flatly/variables';
+
+// Custom flatly theme vars
+@import 'styles/variables';
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'bootswatch/dist/flatly/bootswatch';
 
 // Custom
-// @import 'custom';
+@import 'custom';

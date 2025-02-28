@@ -1,24 +1,4 @@
-# README
+# G.O.A.T Leads
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+https://app.agentcrmcenter.com/v2/preview/PibNxV8i7yM9IrKTOztp
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
