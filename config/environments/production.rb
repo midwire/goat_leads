@@ -38,7 +38,9 @@ Rails.application.configure do
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [:request_id]
   # config.logger   = ActiveSupport::TaggedLogging.logger($stdout)
+  config.log_formatter = Logger::Formatter.new
   config.logger = ActiveSupport::Logger.new("log/production.log")
+  config.logger.formatter = config.log_formatter
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
   config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
