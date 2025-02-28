@@ -1,0 +1,16 @@
+- if flash.any?
+
+  - flash.each do |klass, msg|
+    - if msg.respond_to?(:empty?)
+      %div{ class: flash_classes(klass), role: :alert, 'aria-live' => 'assertive', 'aria-atomic' => "true", 'data-bs-delay' => "8000" }
+        -# .toast-header
+          %button.btn-close{type: :button, 'data-bs-dismiss' => 'toast', 'aria-label' => 'Close'}
+          -# %strong.me-auto
+            -# = klass.capitalize
+            -# %button.me-2.mb-1{type: :button, 'data-dismiss' => 'toast', 'aria-label' => "Close"}
+            -#   %span{'aria-hidden' => 'true'}
+            -#     &times;
+        .toast-body
+          = sanitize(msg)
+          -# %button.btn-close{type: :button, 'data-bs-dismiss' => 'toast', 'aria-label' => 'Close'}
+

@@ -1,8 +1,15 @@
-%h1
-  Sign up
-= form_with url: registration_url do |form|
-  %div
-    = form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: "Enter your email address", value: params[:email_address]
-  %div
-    = form.password_field :password, required: true, autocomplete: "new-password", placeholder: "Create a password", maxlength: 72
-  = form.submit "Sign up"
+.container.h-100
+  .row.h-100.justify-content-center.align-items-center
+    %h1
+      Sign up
+
+    = bootstrap_form_with(url: registration_url, model: @user) do |form|
+      %div.mb-3
+        = form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: "Enter your email address", value: params[:email_address]
+      %div
+        = form.password_field :password, required: true, autocomplete: "new-password", placeholder: "Create a password", maxlength: 72
+      %div
+        = form.password_field :password_confirmation, required: true, autocomplete: "confirm-password", placeholder: "Confirm password", maxlength: 72
+      = form.submit "Sign up"
+    .mt-3
+      = link_to "Sign in", new_session_path

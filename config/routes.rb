@@ -11,7 +11,13 @@ Rails.application.routes.draw do
 
   resource :session
   resource :registration, only: %i[new create]
+  resources :users, except: %i[new destroy create index]
   resources :passwords, param: :token
+  resources :email_verifications, only: %i[show], param: :token do
+    collection do
+      post 'resend'
+    end
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

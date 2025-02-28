@@ -10,7 +10,7 @@
           = hash[:display]
   %tbody
 
-#user_id{data: {token: current_user&.id&.to_s}}
+#user_id{data: {token: Current.user&.id&.to_s}}
 #csrf_token{data: {token: form_authenticity_token}}
 #javascript_data{data: {columns: Class.new.extend(CsvConfig).agent_visible_columns_hash.keys}}
 

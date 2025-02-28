@@ -1,6 +1,11 @@
-%h1 Forgot your password?
-= tag.div(flash[:alert], style: "color:red") if flash[:alert]
-= form_with url: passwords_path do |form|
-  = form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address]
-  %br/
-  = form.submit "Email reset instructions"
+.container.h-100
+  .row.h-100.justify-content-center.align-items-center
+    %h1 Forgot your password?
+
+    = bootstrap_form_with url: passwords_path do |form|
+      %div.mb-3
+        = form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address]
+      %div
+      = form.submit "Email reset instructions"
+    .mt-3
+      = link_to "Sign up", new_registration_path

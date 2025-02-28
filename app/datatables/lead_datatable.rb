@@ -34,9 +34,11 @@ class LeadDatatable < ApplicationDatatable
     end
   end
 
+  # rubocop:disable Naming/AccessorMethodName
   def get_raw_records
     Lead.unscoped.includes(:user).all
   end
+  # rubocop:enable Naming/AccessorMethodName
 
   private
 

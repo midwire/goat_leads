@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/MethodLength
 module CsvConfig
   # NOTE: property needs to be decorated for these methods to work
   # The key is the column name, method is the decorator method to call
@@ -167,3 +168,4 @@ module CsvConfig
   end
 end
 # rubocop:enable Metrics/ModuleLength
+# rubocop:enable Metrics/MethodLength

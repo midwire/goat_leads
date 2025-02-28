@@ -1,0 +1,17 @@
+.container
+  .row
+    %h1 Profile
+
+    %div
+      %p Nothing to do here for now.
+    -# = bootstrap_form_for(@user) do |form|
+    -#   %div.mb-3
+    -#     = form.email_field(:email_address, required: true, autofocus: true, autocomplete: 'username')
+    -#   %div
+    -#     = form.password_field :current_password, required: true, autocomplete: "current-password", placeholder: "Create a password", maxlength: 72
+    -#   %div
+    -#     = form.password_field :new_password, required: true, autocomplete: "new-password", placeholder: "Create a password", maxlength: 72
+    -#   %div
+    -#     = form.password_field :new_password_confirmation, required: true, autocomplete: "confirm-password", placeholder: "Confirm password", maxlength: 72
+    -#   %div
+    -#     = form.submit('Save')

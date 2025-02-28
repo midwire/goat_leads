@@ -1,3 +1,8 @@
 // Custom Styles
 @import 'datatables.net-bs/css/dataTables.bootstrap.min';
 
+.toast {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

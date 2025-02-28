@@ -52,6 +52,7 @@ gem 'dotenv-rails', '>= 3.1'
 gem 'haml-rails', '~> 2.1' # HAML templates
 gem 'ajax-datatables-rails', '~> 1.5' # Dynamic datatables
 gem 'draper', '~> 4.0' # Decorators
+gem 'bootstrap_form', '~> 5.4' # Bootstrap forms
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -6,3 +6,9 @@ import * as bootstrap from "bootstrap"
 import "./src/add_jquery";
 // import './src/jquery-ui.min';
 import "./src/add_datatables";
+
+document.addEventListener('turbo:load', function() {
+  document.querySelectorAll('.toast').forEach((toast) => {
+    return new bootstrap.Toast(toast).show();
+  });
+});
