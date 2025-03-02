@@ -1,0 +1,136 @@
+# Use this file to configure the Overcommit hooks you wish to use. This will
+# extend the default configuration defined in:
+# https://github.com/sds/overcommit/blob/master/config/default.yml
+#
+# At the topmost level of this YAML file is a key representing type of hook
+# being run (e.g. pre-commit, commit-msg, etc.). Within each type you can
+# customize each hook, such as whether to only run it on certain files (via
+# `include`), whether to only display output if it fails (via `quiet`), etc.
+#
+# For a complete list of hooks, see:
+# https://github.com/sds/overcommit/tree/master/lib/overcommit/hook
+#
+# For a complete list of options that you can use to customize hooks, see:
+# https://github.com/sds/overcommit#configuration
+#
+# Uncomment the following lines to make the configuration take effect.
+
+PreCommit:
+  BundleAudit:
+    enabled: true
+    command: ['bundle', 'exec', 'bundle-audit']
+
+  BundleCheck:
+    enabled: true
+
+  ExecutePermissions: # We shouldn't have one-off executable scripts
+    enabled: true
+    exclude:
+      - 'script/**/*'
+      - 'vendor/gems/**/*'
+      - 'bin/*'
+
+  NoPutsInSpecs:
+    enabled: true
+    description: 'Analyzing specs for "puts" statements'
+    include:
+      - '/spec/**/*'
+    exclude:
+      - '**/*.docx'
+      - '**/*.pdf'
+      - '/db/reporting_structure.sql'
+      - '/spec/fixtures/files/**/*'
+      - '/spec/support/simplecov.rb'
+      - '/spec/support/spec_metrics/listener.rb'
+
+  NoBooleanInclusionSpecs:
+    enabled: true
+    description: 'Analyzing specs for "boolean inclusion" tests'
+    include:
+      - '/spec/**/*'
+    exclude:
+      - '/spec/fixtures/files/**/*'
+      - '**/*.docx'
+      - '**/*.pdf'
+
+  NoBindingPry:
+    enabled: true
+    description: 'Analyzing code for stray binding.pry statements'
+    include:
+      - '/spec/**/*'
+      - '/app/**/*'
+    exclude:
+      - '/spec/fixtures/files/**/*'
+      - '/app/assets/skins/**/*'
+      - '/app/assets/fonts/**/*'
+      - '/app/assets/images/**/*'
+      - '/app/assets/stylesheets/skins/**/*'
+      - '/app/assets/stylesheets/vendor/**/*'
+      - '/app/assets/javascripts/vendor/**/*'
+
+  NoFocusInSpecs:
+    enabled: true
+    description: 'Analyzing specs for stray focus tags'
+    include:
+      - '/spec/**/*'
+    exclude:
+      - '/spec/fixtures/files/**/*'
+      - '**/*.docx'
+      - '**/*.pdf'
+
+  FixMe: # Turn this on eventually to force us to address TODO, FIXME, etc
+    enabled: false
+
+  HardTabs:
+    enabled: true
+    exclude:
+      - '**/*.svg'
+      - '/spec/fixtures/files/**/*'
+      - '.gitmodules'
+      - '/app/assets/stylesheets/src/icons.scss'
+
+  ImageOptim:
+    enabled: false
+  RailsBestPractices: # TODO: Turn this on and fix the warnings!
+    enabled: false
+    command: ['rails_best_practices', '.']
+
+  RuboCop:
+    enabled: false
+    required: true
+    required_executable: 'rubocop'
+    command: ['bundle', 'exec', 'rubocop']
+    on_warn: fail # Treat all warnings as failures
+    exclude:
+      - 'vendor/gems/**/*'
+
+  TrailingWhitespace:
+    enabled: true
+    description: 'Checking for trailing whitespace'
+    exclude:
+      - 'seeds/**/*'
+
+  YamlSyntax:
+    enabled: true
+
+PrePush:
+  Brakeman:
+    enabled: true
+    required: true
+    description: 'Analyzing with Brakeman'
+    on_warn: fail
+    command: ['bundle', 'exec', 'brakeman']
+    flags: ['--exit-on-warn', '--skip-files', 'lib/stored_proc/']
+
+  Simplecov: # TODO: Turn this on!
+    enabled: false
+    command: ['bundle', 'exec', 'rake', 'spec:coverage']
+
+  YarnLint:
+    enabled: false
+    description: 'Analyzing with eslint'
+    command: ['yarn', 'run', 'lint']
+
+PreRebase:
+  MergedCommits:
+    enabled: true
