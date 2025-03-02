@@ -13,10 +13,12 @@ class User < ApplicationRecord
 
   validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  # enum :role, { agent: 0, manager: 1, admin: 2 }
+  # Adds predicate methods for each role
+  enum :role, { agent: 0, manager: 1, admin: 2 }
 
   scope :verified, -> { where.not(email_verified_at: nil) }
 
+  # Helper method for email
   def email
     email_address
   end
@@ -42,15 +44,17 @@ end
 #
 # Table name: users
 #
-#  id                :integer          not null, primary key
+#  id                :bigint           not null, primary key
 #  email_address     :string           not null
+#  email_verified_at :datetime
 #  password_digest   :string           not null
+#  role              :integer          default("agent")
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  email_verified_at :datetime
 #
 # Indexes
 #
 #  index_users_on_email_address      (email_address) UNIQUE
 #  index_users_on_email_verified_at  (email_verified_at)
+#  index_users_on_role               (role)
 #

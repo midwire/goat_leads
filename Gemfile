@@ -53,6 +53,8 @@ gem 'haml-rails', '~> 2.1' # HAML templates
 gem 'ajax-datatables-rails', '~> 1.5' # Dynamic datatables
 gem 'draper', '~> 4.0' # Decorators
 gem 'bootstrap_form', '~> 5.4' # Bootstrap forms
+gem 'sidekiq', '~> 7.3' # Background processing jobs
+gem 'sidekiq-failures', '~> 1.0' # monitor sidekiq failures
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -64,7 +66,6 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem 'rubocop-rails-omakase', require: false
 
-  gem 'annotate', require: false
   gem 'bullet'
   gem 'faker'
   gem 'factory_bot_rails'
@@ -93,6 +94,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.1', require: false
   gem 'capistrano-yarn', '~> 2.0', require: false # Deployment
 
+  gem 'annotaterb'
   gem 'bundle-audit'
   gem 'html2haml'
   gem 'rubycritic', require: false

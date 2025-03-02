@@ -7,6 +7,6 @@ class LeadDecorator < ApplicationDecorator
   def owner
     return 'Unassigned' unless object.user
 
-    object.user.display_name
+    object.user.decorate.display_name
   end
 end

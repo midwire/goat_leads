@@ -30,7 +30,7 @@ class EmailVerificationsController < ApplicationController
       if user.verified?
         redirect_to new_session_url, notice: 'That email address is already verified.'
       else
-        UserMailer.verify_email(user).deliver_later
+        UserMailer.verify_email(user).deliver_now
         redirect_to new_session_url, notice: 'Check your email for verification instructions.'
       end
     else

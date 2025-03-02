@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   get 'welcome/index'
   root 'welcome#index'
@@ -31,4 +33,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Mount sidekiq interface
+  mount Sidekiq::Web, at: '/sidekiq', constraints: AdminConstraint
 end
