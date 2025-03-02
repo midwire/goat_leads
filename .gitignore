@@ -50,3 +50,6 @@ spec/examples.txt
 .~*
 coverage
 .null-ls*
+
+/config/credentials/development.key
+/config/credentials/production.key
