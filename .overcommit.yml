@@ -18,7 +18,7 @@
 PreCommit:
   BundleAudit:
     enabled: true
-    command: ['bundle', 'exec', 'bundle-audit']
+    command: ['bundle', 'exec', 'bundle-audit', '--update']
 
   BundleCheck:
     enabled: true
