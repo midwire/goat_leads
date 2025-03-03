@@ -20,7 +20,7 @@ class RegistrationsController < ApplicationController
     if user.save
       # start_new_session_for user
       # redirect_to after_authentication_url, notice: 'Signed up.'
-      UserMailer.verify_email(user).deliver_later
+      UserMailer.verify_email(user.id).deliver_now
       redirect_to new_session_url, notice: 'Check your email for verification instructions.'
     else
       redirect_to new_registration_url,
