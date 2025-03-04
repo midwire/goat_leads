@@ -21,6 +21,8 @@ RSpec.describe EmailJob, type: :job do
 
   it 'delivers the email' do
     described_class.perform_async('UserMailer', 'verify_email', user.id)
-    described_class.drain
+    expect do
+      described_class.drain
+    end.not_to raise_error
   end
 end

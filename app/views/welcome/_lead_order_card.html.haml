@@ -1,0 +1,19 @@
+.card.border-primary.shadow.h-100.p-3
+  .card-body.text-center.d-flex.flex-column
+    .card-title
+      %h4
+        %strong
+          = title
+    .card-text.lead
+      = card_text
+      %p.text-danger.bold.mt-3
+        = lead_origin
+    .align-self-bottom.mt-auto
+      %a.btn.btn-danger.btn-large.btn-lg.my-4{href: order_link}
+        ORDER
+      %p.text-danger.bold
+        5 States Required
+      - if show_lead_rep_link
+        %p.text-info
+          %a{href: '#'}
+            Please read our lead replacement policy.

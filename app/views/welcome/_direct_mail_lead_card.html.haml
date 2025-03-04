@@ -1,0 +1,16 @@
+.card.border-primary.shadow.h-100.p-3
+  .card-body.text-center.d-flex.flex-column
+    .card-title
+      %h4
+        %strong
+          = title
+    .card-text.lead
+      = card_text
+    .align-self-bottom.mt-auto
+      %a.btn.btn-danger.btn-large.btn-lg.my-4{href: order_link}
+        ORDER
+      - if availability_link.present?
+        %p.text-info
+          %a{href: availability_link}
+            Check Availability
+

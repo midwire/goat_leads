@@ -1,0 +1,31 @@
+.row
+  .col-md-12.d-flex.justify-content-center.text-center.pt-5.pb-2
+    %h1
+      %strong Frequently Asked Questions
+
+.row
+  .col-md-12.d-flex.pt-5.pb-5
+    .accordion.w-100{id: 'faqAccordion'}
+      - Faq.all.each do |faq|
+        - head_id = "heading-#{faq.order}"
+        - collapse_id = "collapse-#{faq.order}"
+        .accordion-item
+          %h2.accordion-header{id: head_id}
+            %button.accordion-button{"aria-controls" => collapse_id, "aria-expanded" => "false", "data-bs-target" => "##{collapse_id}", "data-bs-toggle" => "collapse", :type => "button"}
+              .bold
+                = succeed(". ") do
+                  = faq.order
+                = faq.question
+          .accordion-collapse.collapse{id: collapse_id, 'aria-labelledby' => head_id}
+            .accordion-body
+              = faq.answer
+
+:javascript
+
+  document.addEventListener("turbo:load", function() {
+
+    // const bsCollapse = new bootstrap.Collapse('#faqAccordion', {
+    //   toggle: false
+    // });
+
+  });

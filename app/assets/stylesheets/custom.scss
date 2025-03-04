@@ -9,3 +9,16 @@
 .hi-text {
     color: $red;
 }
+.bold {
+    font-weight: bold !important;
+}
+.container-narrow {
+    max-width: 70% !important;
+}
+.float-bottom {
+    position: absolute;
+    bottom: 0;
+}
+.debug {
+    border: 1px solid red;
+}

@@ -3,7 +3,7 @@
 # Used in routes.rb for admin-only routes
 class AdminConstraint
   class << self
-    def matches?(request)
+    def matches?(_request)
       user = Current.user
       return false unless user
 
