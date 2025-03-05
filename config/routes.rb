@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   concern :with_datatable do
     post 'datatable', on: :collection
   end
-  resources :leads, concerns: [:with_datatable]
+  resources :leads, concerns: %i[with_datatable]
 
   resource :session
   resource :registration, only: %i[new create]
@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     collection do
       post 'resend'
     end
+  end
+
+  # Admin Interfaces
+  namespace :admin do
+    resources :users, concerns: %i[with_datatable]
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

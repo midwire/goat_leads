@@ -2,12 +2,12 @@
 
 class LeadsController < ApplicationController
   def index
-    @leads = Lead.all
+    # LeadDatatable handles @leads
   end
 
   def datatable
     respond_to do |format|
-      format.json { render json: LeadDatatable.new(params, user: @user) }
+      format.json { render json: LeadDatatable.new(params, user: @current_user) }
     end
   end
 end

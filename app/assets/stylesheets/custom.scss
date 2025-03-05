@@ -2,23 +2,44 @@
 @import 'datatables.net-bs/css/dataTables.bootstrap.min';
 
 .toast {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .hi-text {
-    color: $red;
+  color: $red;
 }
 .bold {
-    font-weight: bold !important;
+  font-weight: bold !important;
 }
 .container-narrow {
-    max-width: 70% !important;
+  max-width: 70% !important;
 }
-.float-bottom {
-    position: absolute;
-    bottom: 0;
+.sidebar {
+  margin-bottom: 1rem;
+  border-top: 1px solid $gray-400;
+  .list-group-item {
+    padding: 0;
+    border: 0;
+  }
+  .list-group-header {
+    font-weight: bold;
+  }
 }
+
+// Datatables Pagination
+.dt-container {
+  .pagination .page-item .page-link {
+    background-color: $red;
+  }
+  .pagination .page-item.active .page-link {
+    background-color: $black;
+  }
+  .pagination .page-item.disabled .page-link {
+    background-color: $red;
+  }
+}
+
 .debug {
-    border: 1px solid red;
+  border: 1px solid red;
 }

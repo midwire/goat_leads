@@ -3,7 +3,57 @@
 require 'rails_helper'
 
 RSpec.describe Lead, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # Can't instantiate Lead base class so use VeteranLead
+  subject(:lead) { create(:veteran_lead) }
+
+  describe 'validation' do
+    context 'if state is not valid' do
+      it 'generates an error' do
+        lead.state = 'asdf'
+        expect(lead.valid?).to be(false)
+        lead.state = 'XX'
+        expect(lead.valid?).to be(false)
+      end
+    end
+
+    context 'if state is valid state name' do
+      it 'generates no error' do
+        lead.state = 'Washington'
+        expect(lead.valid?).to be(true)
+        lead.state = 'alabama'
+        expect(lead.valid?).to be(true)
+      end
+    end
+
+    context 'if state is valid state abbreviation' do
+      it 'generates an error' do
+        lead.state = 'al'
+        expect(lead.valid?).to be(false)
+        lead.state = 'WA'
+        expect(lead.valid?).to be(false)
+      end
+    end
+
+    context 'if phone number is not valid' do
+      it 'generates an error' do
+        lead.phone = 'asdf'
+        expect(lead.valid?).to be(false)
+      end
+    end
+
+    context 'if phone number is valid' do
+      it 'generates no error' do
+        lead.phone = '8005551212'
+        expect(lead.valid?).to be(true)
+        lead.phone = '123-444-1212'
+        expect(lead.valid?).to be(true)
+        lead.phone = '+123-444-1212'
+        expect(lead.valid?).to be(true)
+        lead.phone = '(123) 444-1212'
+        expect(lead.valid?).to be(true)
+      end
+    end
+  end
 end
 
 # == Schema Information
@@ -59,6 +109,7 @@ end
 #  state                   :string
 #  the_row                 :string
 #  trusted_form_url        :string
+#  type                    :string
 #  unique                  :boolean
 #  utm_adset               :string
 #  utm_campaign            :string
@@ -85,5 +136,6 @@ end
 #  index_leads_on_last_name   (last_name)
 #  index_leads_on_phone       (phone)
 #  index_leads_on_state       (state)
+#  index_leads_on_type        (type)
 #  index_leads_on_user_id     (user_id)
 #

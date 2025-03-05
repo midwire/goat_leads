@@ -1,0 +1,50 @@
+.container-fluid
+  %h1.title
+    User Administraion
+
+%table#users-datatable.table.table-hover{'data-source' => datatable_admin_users_path(format: :json)}
+  %thead
+    %tr
+      %th{scope: 'col'} ID
+      %th{scope: 'col'} Email
+  %tbody
+
+#user_id{data: {token: Current.user&.id&.to_s}}
+#csrf_token{data: {token: form_authenticity_token}}
+
+:javascript
+
+  document.addEventListener("turbo:load", function() {
+
+    var token = $('#csrf_token').data('token');
+    var uid = $('#user_id').data('token');
+
+    $('#users-datatable').dataTable({
+      processing: true,
+      serverSide: true,
+      stateSave: true,
+      scrollX: true,
+      scrollXInner: "110%",
+      bScrollCollapse: true,
+      bDestroy: true,
+
+      ajax: {
+        url: $('#users-datatable').data('source'),
+        type: 'POST',
+        data: {
+          authenticity_token: token,
+          user_id: uid
+        }
+      },
+      pagingType: "full_numbers",
+      columns: [
+        {data: "id"},
+        {data: "email_address"},
+      ],
+      buttons: [
+        'copy', 'csv'
+      ]
+    });
+
+  });
+

@@ -18,7 +18,7 @@
       %ul.navbar-nav
         - if authenticated?
           %li.nav-item
-            = link_to "Hi, #{Current.user.email}", edit_user_path(Current.user), class: "nav-link #{active_class(root_path)}"
+            = link_to "Hi, #{@current_user.email_address}", edit_user_path(@current_user), class: "nav-link #{active_class(root_path)}"
           %li.nav-item
             = link_to 'Sign Out', session_path, method: :delete, class: "nav-link btn", data: { 'turbo-method': :delete }
         - else

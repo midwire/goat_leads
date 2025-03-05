@@ -16,6 +16,15 @@ module CsvConfig
         sortable: true,
         agent_visible: false
       },
+      'type' => {
+        method: 'type',
+        display: 'Lead Type',
+        source: 'Lead.type',
+        cond: :like,
+        searchable: true,
+        sortable: true,
+        agent_visible: true
+      },
       'first_name' => {
         method: 'first_name',
         display: 'First Name',
@@ -136,7 +145,7 @@ module CsvConfig
       'user_id' => {
         method: 'owner',
         display: 'Owner',
-        source: 'User.email',
+        source: 'User.email_address',
         cond: :like,
         agent_visible: true,
         searchable: true,
@@ -154,7 +163,7 @@ module CsvConfig
       'campaign_id' => {
         method: 'campaign_id',
         display: 'Campaign',
-        source: 'Lead.campaign',
+        source: 'Lead.campaign_id',
         cond: :like,
         agent_visible: true,
         searchable: true,
