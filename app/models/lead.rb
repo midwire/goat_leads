@@ -18,7 +18,7 @@ class Lead < ApplicationRecord
 
   # Don't allow Lead base class to be instantiated
   def initialize(*args)
-    fail('Cannot instantiate Lead base class directly.') if self.class == Lead
+    fail('Cannot instantiate Lead base class directly.') if instance_of?(Lead)
 
     super
   end
