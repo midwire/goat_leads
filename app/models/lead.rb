@@ -2,6 +2,26 @@
 
 class Lead < ApplicationRecord
   belongs_to :user, optional: true
+
+  normalizes :email, with: ->(e) { e.strip.downcase }
+  normalizes :phone, with: ->(e) { e.strip.tr('^0-9', '') }
+
+  validates :first_name,
+    :last_name,
+    :phone,
+    :email,
+    :state,
+    presence: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :phone, phone_number: true
+  validates :state, state: true
+
+  # Don't allow Lead base class to be instantiated
+  def initialize(*args)
+    fail('Cannot instantiate Lead base class directly.') if self.class == Lead
+
+    super
+  end
 end
 
 # == Schema Information
@@ -57,6 +77,7 @@ end
 #  state                   :string
 #  the_row                 :string
 #  trusted_form_url        :string
+#  type                    :string
 #  unique                  :boolean
 #  utm_adset               :string
 #  utm_campaign            :string
@@ -83,5 +104,6 @@ end
 #  index_leads_on_last_name   (last_name)
 #  index_leads_on_phone       (phone)
 #  index_leads_on_state       (state)
+#  index_leads_on_type        (type)
 #  index_leads_on_user_id     (user_id)
 #

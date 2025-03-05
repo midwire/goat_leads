@@ -18,19 +18,6 @@ class User < ApplicationRecord
 
   scope :verified, -> { where.not(email_verified_at: nil) }
 
-  # Helper method for email
-  def email
-    email_address
-  end
-
-  def display_name
-    fname = object.first_name
-    lname = object.last_name
-    return object.email if fname.blank? && lname.blank?
-
-    [fname, lname].join(' ')
-  end
-
   def verify!
     update!(email_verified_at: Time.current)
   end

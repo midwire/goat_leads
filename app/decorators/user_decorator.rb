@@ -13,7 +13,7 @@ class UserDecorator < ApplicationDecorator
   def display_name
     fname = object.first_name
     lname = object.last_name
-    return object.email if fname.blank? && lname.blank?
+    return object.email_address if fname.blank? && lname.blank?
 
     [fname, lname].join(' ')
   end

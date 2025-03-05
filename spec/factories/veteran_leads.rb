@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :lead do
-    first_name { 'MyString' }
-    last_name { 'MyString' }
+  factory :veteran_lead do
+    first_name { 'Bob' }
+    last_name { 'Johnson' }
+    phone { '+13108090712' }
+    email { 'bob@example.com' }
+    state { 'Washington' }
+    needed_coverage { 'none' }
   end
 end
 
@@ -60,6 +64,7 @@ end
 #  state                   :string
 #  the_row                 :string
 #  trusted_form_url        :string
+#  type                    :string
 #  unique                  :boolean
 #  utm_adset               :string
 #  utm_campaign            :string
@@ -86,5 +91,6 @@ end
 #  index_leads_on_last_name   (last_name)
 #  index_leads_on_phone       (phone)
 #  index_leads_on_state       (state)
+#  index_leads_on_type        (type)
 #  index_leads_on_user_id     (user_id)
 #

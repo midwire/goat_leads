@@ -5,6 +5,7 @@ module Authentication
 
   included do
     before_action :require_authentication
+    before_action :set_current_user
     helper_method :authenticated?
   end
 
@@ -22,6 +23,16 @@ module Authentication
 
   def require_authentication
     resume_session || request_authentication
+  end
+
+  def require_admin!
+    return nil if @current_user&.admin?
+
+    redirect_to(root_path, alert: 'You are not authorized to access that resource.')
+  end
+
+  def set_current_user
+    @current_user = Current.user
   end
 
   def resume_session
