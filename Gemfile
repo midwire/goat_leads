@@ -53,7 +53,7 @@ gem 'haml-rails', '~> 2.1' # HAML templates
 gem 'ajax-datatables-rails', '~> 1.5' # Dynamic datatables
 gem 'draper', '~> 4.0' # Decorators
 gem 'bootstrap_form', '~> 5.4' # Bootstrap forms
-gem 'sidekiq', '~> 7.3' # Background processing jobs
+gem 'sidekiq', '~> 8.0' # Background processing jobs
 gem 'sidekiq-failures', '~> 1.0' # monitor sidekiq failures
 gem 'postmark-rails', '~> 0.22' # Email sending
 
