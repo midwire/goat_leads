@@ -7,9 +7,7 @@ class LeadDatatable < ApplicationDatatable
     # or in aliased_join_table.column_name format
     @view_columns ||= begin
       cols = {}
-      Class.new.extend(CsvConfig).agent_visible_columns_hash.each do |colname, data|
-        next unless data[:agent_visible]
-
+      columns_hash.each do |colname, data|
         cols[colname.to_sym] = {
           source: data[:source],
           cond: data[:cond],
@@ -22,7 +20,7 @@ class LeadDatatable < ApplicationDatatable
   end
 
   def data
-    hash = Class.new.extend(CsvConfig).agent_visible_columns_hash.symbolize_keys
+    hash = columns_hash.symbolize_keys
     records.map do |record|
       lead = record.decorate
       data = {}
@@ -55,5 +53,11 @@ class LeadDatatable < ApplicationDatatable
 
   def user
     @user ||= options[:user]
+  end
+
+  def columns_hash
+    return Class.new.extend(CsvConfig).admin_visible_columns_hash if user&.admin?
+
+    Class.new.extend(CsvConfig).agent_visible_columns_hash
   end
 end

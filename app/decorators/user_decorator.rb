@@ -17,4 +17,12 @@ class UserDecorator < ApplicationDecorator
 
     [fname, lname].join(' ')
   end
+
+  def last_lead_delivered_at
+    if object.last_lead_delivered_at
+      ymd_date(object.last_lead_delivered_at)
+    else
+      'N/A'
+    end
+  end
 end

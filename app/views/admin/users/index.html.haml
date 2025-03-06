@@ -1,12 +1,21 @@
 .container-fluid
   %h1.title
-    User Administraion
+    User Administration
 
 %table#users-datatable.table.table-hover{'data-source' => datatable_admin_users_path(format: :json)}
   %thead
     %tr
       %th{scope: 'col'} ID
+      %th{scope: 'col'} First Name
+      %th{scope: 'col'} Last Name
       %th{scope: 'col'} Email
+      %th{scope: 'col'} Role
+      %th{scope: 'col'} Phone
+      %th{scope: 'col'} Notes
+      %th{scope: 'col'} Status
+      %th{scope: 'col'} Last Lead Delivered
+      %th{scope: 'col'} Daily Lead Cap
+      %th{scope: 'col'} Total Lead Cap
   %tbody
 
 #user_id{data: {token: Current.user&.id&.to_s}}
@@ -39,7 +48,16 @@
       pagingType: "full_numbers",
       columns: [
         {data: "id"},
+        {data: "first_name"},
+        {data: "last_name"},
         {data: "email_address"},
+        {data: "role"},
+        {data: "phone"},
+        {data: "notes"},
+        {data: "status"},
+        {data: "last_lead_delivered_at"},
+        {data: "daily_lead_cap"},
+        {data: "total_lead_cap"},
       ],
       buttons: [
         'copy', 'csv'

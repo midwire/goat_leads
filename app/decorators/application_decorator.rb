@@ -30,7 +30,7 @@ class ApplicationDecorator < Draper::Decorator
     h.number_with_delimiter(number, delimiter: ',')
   end
 
-  def linked_email
-    h.email_link(email1)
+  def linked_email(email)
+    h.email_link(email)
   end
 end

@@ -175,6 +175,10 @@ module CsvConfig
   def agent_visible_columns_hash
     csv_columns_hash.select { |_col, data| data[:agent_visible] }
   end
+
+  def admin_visible_columns_hash
+    csv_columns_hash
+  end
 end
 # rubocop:enable Metrics/ModuleLength
 # rubocop:enable Metrics/MethodLength

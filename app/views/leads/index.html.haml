@@ -1,18 +1,26 @@
+-# Page variables
+- if @current_user.admin?
+  - column_hash =  Class.new.extend(CsvConfig).admin_visible_columns_hash
+  - page_title = 'Admin Leads'
+- else
+  - column_hash =  Class.new.extend(CsvConfig).agent_visible_columns_hash
+  - page_title = 'My Leads'
+
 .container-fluid
   %h1.title
-    My Leads
+    = page_title
 
 %table#leads-datatable.table.table-hover{'data-source' => datatable_leads_path(format: :json)}
   %thead
     %tr
-      - Class.new.extend(CsvConfig).agent_visible_columns_hash.each do |colname, hash|
+      - column_hash.each do |colname, hash|
         %th{scope: 'col'}
           = hash[:display]
   %tbody
 
 #user_id{data: {token: Current.user&.id&.to_s}}
 #csrf_token{data: {token: form_authenticity_token}}
-#javascript_data{data: {columns: Class.new.extend(CsvConfig).agent_visible_columns_hash.keys}}
+#javascript_data{data: {columns: column_hash.keys}}
 
 :javascript
 
