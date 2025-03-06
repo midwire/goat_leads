@@ -54,6 +54,17 @@ RSpec.describe Lead, type: :model do
       end
     end
   end
+
+  describe 'callback' do
+    context 'before_save' do
+      it 'sets rr_state' do
+        lead.state = 'Alabama'
+        expect(lead.rr_state).not_to eq('AL')
+        lead.save
+        expect(lead.rr_state).to eq('AL')
+      end
+    end
+  end
 end
 
 # == Schema Information

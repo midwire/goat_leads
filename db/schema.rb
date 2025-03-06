@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_05_192458) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_184334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -116,9 +116,37 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_192458) do
     t.datetime "updated_at", null: false
     t.datetime "email_verified_at"
     t.integer "role", default: 0
+    t.text "licensed_states", default: [], array: true
+    t.boolean "lead_status", default: true
+    t.integer "deliver_priority", default: 0
+    t.text "video_types", default: [], array: true
+    t.text "lead_types", default: [], array: true
+    t.datetime "last_lead_delivered_at"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.text "notes"
+    t.integer "status", default: 0
+    t.string "google_sheet_url"
+    t.string "ghl_api_key"
+    t.string "ringy_sid"
+    t.string "ringy_auth_token"
+    t.string "external_id"
+    t.boolean "send_text", default: false
+    t.boolean "send_email", default: true
+    t.integer "daily_lead_cap"
+    t.integer "total_lead_cap"
+    t.index ["deliver_priority"], name: "index_users_on_deliver_priority"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["email_verified_at"], name: "index_users_on_email_verified_at"
+    t.index ["external_id"], name: "index_users_on_external_id"
+    t.index ["last_lead_delivered_at"], name: "index_users_on_last_lead_delivered_at"
+    t.index ["lead_status"], name: "index_users_on_lead_status"
+    t.index ["lead_types"], name: "index_users_on_lead_types", using: :gin
+    t.index ["licensed_states"], name: "index_users_on_licensed_states", using: :gin
     t.index ["role"], name: "index_users_on_role"
+    t.index ["status"], name: "index_users_on_status"
+    t.index ["video_types"], name: "index_users_on_video_types", using: :gin
   end
 
   add_foreign_key "sessions", "users"

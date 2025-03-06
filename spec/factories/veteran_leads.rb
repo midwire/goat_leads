@@ -7,7 +7,8 @@ FactoryBot.define do
     phone { '+13108090712' }
     email { 'bob@example.com' }
     state { 'Washington' }
-    needed_coverage { 'none' }
+    video_type { 'other' }
+    lead_type { 'Standard' }
   end
 end
 

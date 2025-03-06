@@ -69,4 +69,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Test rails logging
+  config.before do
+    %i[info error warn].each do |log_level|
+      allow(Rails.logger).to receive(log_level)
+    end
+  end
 end

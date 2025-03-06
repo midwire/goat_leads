@@ -6,20 +6,23 @@ Rails.application.routes.draw do
   get 'welcome/index'
   root 'welcome#index'
 
+  # Datatable route
   concern :with_datatable do
     post 'datatable', on: :collection
   end
-  resources :leads, concerns: %i[with_datatable]
 
   resource :session
   resource :registration, only: %i[new create]
-  resources :users, except: %i[new destroy create index]
   resources :passwords, param: :token
+
+  # Agents can edit their own info
+  resources :users, only: %i[edit update]
   resources :email_verifications, only: %i[show new], param: :token do
     collection do
       post 'resend'
     end
   end
+  resources :leads, concerns: %i[with_datatable]
 
   # Admin Interfaces
   namespace :admin do
@@ -35,9 +38,6 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 
   # Mount sidekiq interface
   mount Sidekiq::Web, at: '/sidekiq', constraints: AdminConstraint

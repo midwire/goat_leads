@@ -1,26 +1,45 @@
 # frozen_string_literal: true
 
 class Lead < ApplicationRecord
+  before_save :set_rr_state
+
   belongs_to :user, optional: true
 
   normalizes :email, with: ->(e) { e.strip.downcase }
   normalizes :phone, with: ->(e) { e.strip.tr('^0-9', '') }
+  normalizes :rr_state, with: ->(e) { e.strip.upcase }
 
   validates :first_name,
     :last_name,
     :phone,
     :email,
     :state,
+    :video_type,
+    :lead_type,
     presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :phone, phone_number: true
   validates :state, state: true
+  validates :rr_state, state_abbreviation: true
+
+  scope :unassigned, -> { where(user_id: nil) }
+  scope :oldest_first, -> { order(lead_date: :asc) }
 
   # Don't allow Lead base class to be instantiated
   def initialize(*args)
     fail('Cannot instantiate Lead base class directly.') if instance_of?(Lead)
 
     super
+  end
+
+  def delivered?
+    user.present?
+  end
+
+  private
+
+  def set_rr_state
+    self.rr_state = State.code_from_name(state)
   end
 end
 
