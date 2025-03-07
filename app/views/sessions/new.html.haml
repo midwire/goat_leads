@@ -1,11 +1,11 @@
-.container.h-100
-  .row.h-100.justify-content-center.align-items-center
+.container
+  .row.justify-content-center.align-items-center
     %h1 Sign in
 
     = tag.div(flash[:alert], style: "color:red") if flash[:alert]
     = tag.div(flash[:notice], style: "color:green") if flash[:notice]
     = bootstrap_form_with url: session_path do |form|
-      %div.mb-3
+      %div
         = form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address]
       %div
       = form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72

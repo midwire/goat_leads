@@ -7,7 +7,7 @@ FactoryBot.define do
     password_confirmation { FactoryBot::DEFAULT_TEST_PASSWORD }
     lead_status { true }
     licensed_states { %w[CA NY WA] }
-    lead_types { %w[VeteranLead FinalExpenseLead] }
+    lead_types { %w[VeteranLeadPremium FinalExpenseLeadPremium] }
     video_types { %w[dom other] }
 
     trait :admin do

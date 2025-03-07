@@ -6,12 +6,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.hi-text {
-  color: $red;
-}
-.bold {
-  font-weight: bold !important;
-}
 .container-narrow {
   max-width: 70% !important;
 }
@@ -24,6 +18,30 @@
   }
   .list-group-header {
     font-weight: bold;
+  }
+}
+
+// Text
+.hi-text {
+  color: $red;
+}
+.normal-text {
+  color: var(--bs-body-color);
+}
+.bold {
+  font-weight: bold !important;
+}
+.not-bold {
+  font-weight: normal !important;
+}
+
+// Lists
+ol.list-group-flush.lower-alpha {
+  list-style: none;
+  counter-reset: item;
+  li:before {
+    counter-increment: item;
+    content: counter(item, lower-alpha) ") ";
   }
 }
 

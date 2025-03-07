@@ -6,7 +6,7 @@ require 'sidekiq/testing'
 Sidekiq::Testing.fake!
 
 RSpec.describe AssignLeadsJob, type: :job do
-  let(:leads) { create_list(:veteran_lead, 2) }
+  let(:leads) { create_list(:veteran_lead_premium, 2) }
 
   after do
     described_class.clear # Clear the queue
