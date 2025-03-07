@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :veteran_lead do
+  factory :veteran_lead_premium do
     first_name { 'Bob' }
     last_name { 'Johnson' }
     phone { '+13108090712' }

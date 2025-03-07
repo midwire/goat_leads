@@ -3,17 +3,28 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get 'welcome/index'
-  root 'welcome#index'
-
   # Datatable route
   concern :with_datatable do
     post 'datatable', on: :collection
   end
 
+  # Welcome routes, non-authenticated
+  get 'welcome/index'
+  get 'welcome/terms'
+  get 'welcome/privacy'
+  root 'welcome#index'
+
+  # auth routes
   resource :session
   resource :registration, only: %i[new create]
   resources :passwords, param: :token
+
+  resources :faqs, only: %i[index]
+
+  # Incoming lead endpoints
+  namespace :leads do
+    resource :veteran_lead, only: %i[create]
+  end
 
   # Agents can edit their own info
   resources :users, only: %i[edit update]

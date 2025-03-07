@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe LeadDistributor do
   describe '.assign_lead' do
-    let(:lead) { create(:veteran_lead) }
+    let(:lead) { create(:veteran_lead_premium) }
 
     context 'with no eligible users' do
       it 'returns nil when no users match criteria' do
@@ -21,14 +21,14 @@ RSpec.describe LeadDistributor do
       end
 
       it 'returns nil with invalid lead' do
-        invalid_lead = build(:veteran_lead, rr_state: nil)
+        invalid_lead = build(:veteran_lead_premium, rr_state: nil)
         result = described_class.assign_lead(invalid_lead)
         expect(result).to be_nil
       end
 
       it 'returns nil with delivered lead' do
         user = create(:user, :confirmed)
-        lead = build(:veteran_lead, user: user)
+        lead = build(:veteran_lead_premium, user: user)
         result = described_class.assign_lead(lead)
         expect(result).to be_nil
       end
@@ -54,7 +54,7 @@ RSpec.describe LeadDistributor do
         expect(result_1).to eq(user_1)
 
         # Create new lead and assign - should go to user_2
-        new_lead = create(:veteran_lead)
+        new_lead = create(:veteran_lead_premium)
         result_2 = described_class.assign_lead(new_lead)
         expect(result_2).to eq(user_2)
       end

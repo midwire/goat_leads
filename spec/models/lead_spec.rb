@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Lead, type: :model do
   # Can't instantiate Lead base class so use VeteranLead
-  subject(:lead) { create(:veteran_lead) }
+  subject(:lead) { create(:veteran_lead_premium) }
 
   describe 'validation' do
     context 'if state is not valid' do
@@ -87,8 +87,11 @@ end
 #  dob                     :date
 #  email                   :string
 #  employment_status       :string
+#  fbclid                  :string
 #  first_name              :string
+#  full_name               :string
 #  ip_address              :string
+#  is_dropoff              :boolean
 #  iul_goal                :string
 #  last_name               :string
 #  lead_age                :integer
@@ -122,12 +125,15 @@ end
 #  trusted_form_url        :string
 #  type                    :string
 #  unique                  :boolean
+#  user_agent              :string
 #  utm_adset               :string
 #  utm_campaign            :string
 #  utm_content             :string
 #  utm_medium              :string
+#  utm_owner               :string
 #  utm_site_source         :string
 #  utm_source              :string
+#  utm_term                :string
 #  verified_lead           :boolean
 #  veteran                 :boolean
 #  video_type              :string
@@ -138,6 +144,7 @@ end
 #  external_lead_id        :string
 #  google_click_id         :string
 #  user_id                 :bigint
+#  utm_id                  :string
 #
 # Indexes
 #
