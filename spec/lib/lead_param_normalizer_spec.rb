@@ -14,7 +14,9 @@ RSpec.describe LeadParamNormalizer, type: :lib do
   describe '.normalize' do
     it 'normalizes mapped parameters and keeps macthing ones' do
       expect(norm_params).to eq(
-        { 'military_status'=>'Disabled Veteran',
+        {
+          'military_status'=>'Disabled Veteran',
+          'marital_status'=>'Married',
           'email'=>'wiggins.charles43@gmail.com',
           'needed_coverage'=>'$25,001 - $50,000',
           'contact_time_of_day'=>'Afternoon',

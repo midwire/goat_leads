@@ -49,10 +49,10 @@ class LeadParamNormalizer
     value # Fallback to raw value if conversion fails
   end
 
-  def add_defaults
-    normalized[:full_name] ||= make_fullname(normalized[:first_name], normalized[:last_name])
-    normalized[:first_name] ||= make_firstname(normalized[:full_name])
-    normalized[:last_name] ||= make_lastname(normalized[:full_name])
+  def add_defaults(params)
+    params[:full_name] ||= make_fullname(params[:first_name], params[:last_name])
+    params[:first_name] ||= make_firstname(params[:full_name])
+    params[:last_name] ||= make_lastname(params[:full_name])
   end
 
   def make_fullname(first_name, last_name)
