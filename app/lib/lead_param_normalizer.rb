@@ -4,7 +4,7 @@ class LeadParamNormalizer
   # Mapping of webhook keys to model attributes
   PARAMETER_MAPPING = {
     'step_2_-_military_status' => :military_status,
-    'step_3_-_marital_status' => :email,
+    'step_3_-_marital_status' => :marital_status,
     'step_4_-_how_much_coverage' => :needed_coverage,
     'step_6_-_best_time_to_contact' => :contact_time_of_day
   }.freeze
