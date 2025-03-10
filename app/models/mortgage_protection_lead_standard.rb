@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MortgageProtectionLead < Lead
+class MortgageProtectionLeadStandard < Lead
 end
 
 # == Schema Information

@@ -28,20 +28,22 @@ RSpec.describe User, type: :model do
     end
 
     context 'eligible_for_lead_type' do
-      let!(:user_1) { create_user(lead_types: %w[VeteranLead FinalExpenseLead]) }
-      let!(:user_2) { create_user(lead_types: %w[VeteranLead]) }
-      let!(:user_3) { create_user(lead_types: %w[FinalExpenseLead]) }
+      let!(:user_1) { create_user(lead_types: %w[VeteranLeadPremium FinalExpenseLeadPremium]) }
+      let!(:user_2) { create_user(lead_types: %w[VeteranLeadPremium]) }
+      let!(:user_3) { create_user(lead_types: %w[FinalExpenseLeadPremium]) }
 
       it 'returns users eligible for lead type' do
-        expect(described_class.eligible_for_lead_type('VeteranLead')).to eq([user_1, user_2])
-        expect(described_class.eligible_for_lead_type('FinalExpenseLead')).to eq([user_1, user_3])
+        expect(described_class.eligible_for_lead_type('VeteranLeadPremium')).to eq([user_1, user_2])
+        expect(described_class.eligible_for_lead_type('FinalExpenseLeadPremium')).to eq([user_1, user_3])
       end
     end
 
     context 'by_deliver_priority' do
-      let!(:user_1) { create_user(lead_types: %w[VeteranLead FinalExpenseLead], deliver_priority: 1) }
-      let!(:user_2) { create_user(lead_types: %w[VeteranLead], deliver_priority: -1) }
-      let(:user_3) { create_user(lead_types: %w[FinalExpenseLead]) }
+      let!(:user_1) do
+        create_user(lead_types: %w[VeteranLeadPremium FinalExpenseLeadPremium], deliver_priority: 1)
+      end
+      let!(:user_2) { create_user(lead_types: %w[VeteranLeadPremium], deliver_priority: -1) }
+      let(:user_3) { create_user(lead_types: %w[FinalExpenseLeadPremium]) }
 
       it 'returns user with lowest priority first' do
         expect(user_3).to be_present
@@ -69,7 +71,7 @@ RSpec.describe User, type: :model do
       lead_status: true,
       deliver_priority: deliver_priority,
       licensed_states: states || %w[WA TX],
-      lead_types: lead_types || %w[VeteranLead FinalExpenseLead],
+      lead_types: lead_types || %w[VeteranLeadPremium FinalExpenseLeadPremium],
       video_types: video_types || %w[dom other]
     )
   end

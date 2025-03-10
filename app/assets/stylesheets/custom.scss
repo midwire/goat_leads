@@ -1,6 +1,7 @@
 // Custom Styles
 @import 'datatables.net-bs/css/dataTables.bootstrap.min';
 
+// Utility
 .toast {
   position: absolute;
   left: 50%;
@@ -43,6 +44,19 @@ ol.list-group-flush.lower-alpha {
     counter-increment: item;
     content: counter(item, lower-alpha) ") ";
   }
+}
+ul.checkmarks {
+  li::before {
+    content: '✓';
+    margin-right: 5px;
+    font-size: 120%;
+  }
+  margin-bottom: 15px;
+}
+
+// Footer
+.footer {
+  border-top: 1px solid black;
 }
 
 // Datatables Pagination

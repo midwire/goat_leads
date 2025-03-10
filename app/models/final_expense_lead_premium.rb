@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FinalExpenseLead < Lead
+class FinalExpenseLeadPremium < Lead
 end
 
 # == Schema Information
