@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class IndexUniversalLifeLead < Lead
+class FinalExpenseLeadStandard < Lead
 end
 
 # == Schema Information

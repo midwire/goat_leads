@@ -12,7 +12,16 @@ Faker::Config.locale = 'en-US'
 
 Lead.destroy_all
 puts('>>> Seeding Leads')
-lead_const = [VeteranLead, FinalExpenseLead, IndexUniversalLifeLead, MortgageProtectionLead]
+lead_const = [
+  VeteranLeadPremium,
+  VeteranLeadStandard,
+  FinalExpenseLeadPremium,
+  FinalExpenseLeadStandard,
+  IndexUniversalLifeLeadPremium,
+  IndexUniversalLifeLeadStandard,
+  MortgageProtectionLeadPremium,
+  MortgageProtectionLeadStandard
+]
 50.times do |i|
   lead = lead_const.sample.new
   lead.first_name = Faker::Name.first_name
