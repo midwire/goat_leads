@@ -38,7 +38,8 @@ RSpec.describe LeadParamNormalizer, type: :lib do
           'first_name'=>'Charles',
           'full_name'=>'Charles E wiggins',
           'is_dropoff'=>false,
-          'last_name'=>'wiggins' }
+          'last_name'=>'wiggins'
+        }
       )
     end
 
