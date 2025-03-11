@@ -2,7 +2,15 @@
 
 class AssignLeadsJob
   include Sidekiq::Job
-  sidekiq_options queue: :critical
+  sidekiq_options queue: :critical,
+    lock: :until_executed,
+    on_conflict: :reject
+  # lock: :while_executing,
+  # lock_timeout: nil,
+  # on_conflict: {
+  #   client: :log,
+  #   server: :reschedule
+  # }
 
   def perform
     leads = Lead.unassigned.oldest_first

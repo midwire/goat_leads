@@ -93,5 +93,5 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   # Local tunnels
-  config.hosts << 'vast-kids-roll.loca.lt'
+  config.hosts << 'ten-pears-hope.loca.lt'
 end

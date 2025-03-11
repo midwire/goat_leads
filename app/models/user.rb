@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
   # Adds predicate methods for each role
   enum :role, { agent: 0, manager: 1, admin: 2 }
-  enum :status, { available: 0, not_available: 1 }
+  enum :status, { available: 0, paused: 1 }
 
   scope :verified, -> { where.not(email_verified_at: nil) }
   scope :lead_eligible, -> { where(lead_status: true) }

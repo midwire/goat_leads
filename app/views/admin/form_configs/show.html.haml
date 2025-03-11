@@ -1,0 +1,19 @@
+.container-fluid
+  %h1 Lead Form Configuration
+  %p
+    When setting up a lead form make sure to include all fields that you want to track.
+  %p
+    Defaults are denoted with an asterisk * in the description column.
+  %p
+    Here are the fields we currently track.
+  %table.table.table-hover
+    %tr
+      %th Field
+      %th Description
+    - WebhookController::ALLOWED_PARAMS.each do |field, desc|
+      %tr
+        %td
+          = field
+        %td
+          = desc
+
