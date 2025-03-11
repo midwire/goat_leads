@@ -6,8 +6,8 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: <%= ENV.fetch("POSTGRES_HOST", "localhost") %>
-  <% if password = ENV["POSTGRES_PASSWORD"] %>password: <%= password %><% end %>
-  username: <%= ENV["POSTGRES_USER"] %>
+  <% if password = Rails.application.credentials.postgres[:password] %>password: <%= password %><% end %>
+  username: <%= Rails.application.credentials.postgres[:user] %>
 
 development:
   primary:
