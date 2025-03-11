@@ -38,8 +38,8 @@ RSpec.describe AssignLeadsJob, type: :job do
 
     it 'prevents duplicate jobs from being scheduled' do
       SidekiqUniqueJobs.use_config(enabled: true) do
-        expect(described_class.perform_in(3600)).not_to eq(nil)
-        expect(described_class.perform_async).to eq(nil)
+        expect(described_class.perform_in(3600)).not_to be_nil
+        expect(described_class.perform_async).to be_nil
       end
     end
   end

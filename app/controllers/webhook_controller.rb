@@ -34,7 +34,7 @@ class WebhookController < ApplicationController
     'step_3_-_marital_status' => 'Marital Status string',
     'step_4_-_how_much_coverage' => 'Needed Coverage string',
     'step_6_-_best_time_to_contact' => 'Contact Time string'
-  }
+  }.freeze
 
   private
 
