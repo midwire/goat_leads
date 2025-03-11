@@ -25,4 +25,22 @@ RSpec.describe AssignLeadsJob, type: :job do
       described_class.drain
     end.not_to raise_error
   end
+
+  context 'when Sidekiq::Testing.disabled?' do
+    before do
+      Sidekiq::Testing.disable!
+      Sidekiq.redis(&:flushdb)
+    end
+
+    after do
+      Sidekiq.redis(&:flushdb)
+    end
+
+    it 'prevents duplicate jobs from being scheduled' do
+      SidekiqUniqueJobs.use_config(enabled: true) do
+        expect(described_class.perform_in(3600)).not_to eq(nil)
+        expect(described_class.perform_async).to eq(nil)
+      end
+    end
+  end
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sidekiq/web'
+require 'sidekiq_unique_jobs/web'
 
 Rails.application.routes.draw do
   # Datatable route
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
   # Admin Interfaces
   namespace :admin do
     resources :users, concerns: %i[with_datatable]
+    resource :form_config, only: %i[show]
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
