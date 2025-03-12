@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  # Whitelabel delegation
+  delegate :site_title, to: :Whitelabel
+  delegate :site_description, to: :Whitelabel
+  delegate :social_media_description, to: :Whitelabel
+  delegate :social_media_title, to: :Whitelabel
+  delegate :site_domain, to: :Whitelabel
+
   def active_class(path)
     if request.path == path
       'active'

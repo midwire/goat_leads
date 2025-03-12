@@ -58,6 +58,8 @@ gem 'sidekiq-failures', '~> 1.0' # monitor sidekiq failures
 gem 'postmark-rails', '~> 0.22' # Email sending
 gem 'sidekiq-unique-jobs', '~> 8.0' # Prevent duplicate sidekiq jobs
 gem 'whenever', '~> 1.0', require: false # OOB Task Scheduler
+gem 'premailer-rails', '~> 1.12' # Styling for emails
+gem 'config', '~> 5.0' # Rails yaml settings
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

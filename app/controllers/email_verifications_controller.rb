@@ -16,7 +16,7 @@ class EmailVerificationsController < ApplicationController
       user.verify!
       redirect_to(new_session_path, notice: 'Your email has been verified.')
     else
-      redirect_to(root_path, alert: 'The verification toke is invalid or has expired.')
+      redirect_to(root_path, alert: 'The verification token is invalid or has expired.')
     end
   end
   # rubocop:enable Rails/DynamicFindBy

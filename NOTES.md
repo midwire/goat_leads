@@ -18,3 +18,7 @@ NPN - unique to each agent which gets sent with integration from GHL.
 -- LC will provide endpoints
 -- We will sync leads with them
 
+## Info
+
+* https://app.agentcrmcenter.com/v2/preview/PibNxV8i7yM9IrKTOztp - Site preview
+* https://mycrmcenter.com/update-lead-order - Lead Orders

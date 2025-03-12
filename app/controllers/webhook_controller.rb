@@ -28,6 +28,8 @@ class WebhookController < ApplicationController
     state: 'Lead State string',
     dob: 'Date of Birth string - example: "12-01-1943"',
     full_name: 'Full Name string',
+    first_name: 'First Name string',
+    lasat_name: 'Last Name string',
     email: 'Email string',
     phone: 'Phone string - at least 10 digits',
     'step_2_-_military_status' => 'Military Status string',

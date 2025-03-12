@@ -33,8 +33,8 @@ class LeadDistributor
           .where('licensed_states @> ARRAY[?]::text[]', lead.rr_state)
           .where('lead_types @> ARRAY[?]::text[]', lead.type)
           .where('video_types @> ARRAY[?]::text[]', lead.video_type)
-          # Offset by attempt number to try different users if first choice fails
           .order(deliver_priority: :asc, last_lead_delivered_at: :asc)
+          # Offset by attempt number to try different users if first choice fails
           .offset(attempt)
           .first
     end
