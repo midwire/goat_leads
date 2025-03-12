@@ -40,5 +40,10 @@ module GoatLeads
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Configure which whitelabel we are using
+    def whitelabel
+      @whitelabel ||= ENV.fetch('WHITELABEL', '')
+    end
   end
 end

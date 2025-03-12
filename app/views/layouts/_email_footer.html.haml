@@ -1,0 +1,35 @@
+<!-- start text/html -->
+%hr
+%footer
+  .container.footer.my-5
+    .row.my-5
+      .col-md-4
+        .link-item
+          = link_to('Home', root_url)
+        .link-item
+          = link_to('Order Leads', root_url)
+        .link-item
+          = link_to('FAQs', faqs_url)
+        .link-item
+          = link_to('G.O.A.T. CRM', root_url)
+        .link-item
+          = link_to('Become and Affiliate', root_url)
+        .link-item
+          = link_to('Terms & Conditions', welcome_terms_url)
+        .link-item
+          = link_to('Privacy Policy', welcome_privacy_url)
+      .col-md-6.justify-content-right.text-end
+        %strong.text-right
+          We believe in true exclusivity.
+  .container.my-5
+    .row
+      .col.md-12.justify-content-center.text-center
+        .fs-2.mb3
+          %a{href: 'https://www.youtube.com/channel/UCDsbKygADJw-ApaJfE5t0qQ'}
+            %img{ src: asset_path('youtube.svg'), alt: 'YouTube', style: 'width: 32px; height: 32px;' }
+    .row
+      .col.md-12.justify-content-center.text-center
+        &copy;
+        = Date.current.strftime("%Y")
+        G.O.A.T. Leads | All Rights Reserved
+<!-- end text/html -->

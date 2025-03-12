@@ -1,3 +1,16 @@
-%p
-  You can reset your password within the next 15 minutes on
-  \#{link_to "this password reset page", edit_password_url(@user.password_reset_token)}.
+%h4.mb-3
+  Greetings
+  = succeed '!' do
+    = @user.display_name
+.lead
+  %p
+    You can reset your password within the next 15 minutes on
+    \#{link_to "this password reset page", edit_password_url(@user.password_reset_token)}.
+
+  %p.content.is-size-5
+    Best Regards,
+
+  %p.content.is-size-5
+    The
+    = @app_title
+    Team

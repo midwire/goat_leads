@@ -1,0 +1,9 @@
+%h4.mb-3
+  Greetings
+  = succeed '!' do
+    = @user.display_name
+%p.lead
+  Welcome to
+  = succeed('!') do
+    = @app_title
+  We're excited to have you on board.

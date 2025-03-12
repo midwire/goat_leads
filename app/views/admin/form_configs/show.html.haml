@@ -1,6 +1,21 @@
 .container-fluid
   %h1 Lead Form Configuration
   %p
+    Lead Type Webhook URLS:
+  %table.table.table-hover
+    %tr
+      %th Lead Type
+      %th URL
+      %th Description
+    %tr
+      %td
+        Veteran Leads
+      %td
+        https://crm.goatleads.com/leads/veteran_lead
+      %td
+        Handles Premium and Standard Veteran Leads
+
+  %p
     When setting up a lead form make sure to include all fields that you want to track.
   %p
     Defaults are denoted with an asterisk * in the description column.
@@ -16,4 +31,3 @@
           = field
         %td
           = desc
-

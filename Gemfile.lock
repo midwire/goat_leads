@@ -136,11 +136,16 @@ GEM
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.3.5)
+    config (5.5.2)
+      deep_merge (~> 1.2, >= 1.2.1)
+      ostruct
     connection_pool (2.5.0)
     crack (1.0.0)
       bigdecimal
       rexml
     crass (1.0.6)
+    css_parser (1.21.1)
+      addressable
     cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
     database_cleaner (2.1.0)
@@ -150,6 +155,7 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     date (3.4.1)
+    deep_merge (1.2.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.6.0)
@@ -236,6 +242,7 @@ GEM
       haml (>= 4.0)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
+    htmlentities (4.3.4)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -249,7 +256,7 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.10.1)
+    json (2.10.2)
     language_server-protocol (3.17.0.4)
     launchy (3.1.1)
       addressable (~> 2.8)
@@ -315,6 +322,14 @@ GEM
       postmark (>= 1.21.3, < 2.0)
     pp (0.6.2)
       prettyprint
+    premailer (1.27.0)
+      addressable
+      css_parser (>= 1.19.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.12.0)
+      actionmailer (>= 3)
+      net-smtp
+      premailer (~> 1.7, >= 1.7.9)
     prettyprint (0.2.0)
     propshaft (1.1.0)
       actionpack (>= 7.0.0)
@@ -334,7 +349,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.11)
+    rack (3.1.12)
     rack-mini-profiler (3.3.1)
       rack (>= 1.2.0)
     rack-session (2.1.0)
@@ -588,6 +603,7 @@ DEPENDENCIES
   capistrano-rake (~> 0.2)
   capistrano-rbenv (~> 2.1)
   capistrano-yarn (~> 2.0)
+  config (~> 5.0)
   cssbundling-rails
   database_cleaner
   dotenv-rails (>= 3.1)
@@ -601,6 +617,7 @@ DEPENDENCIES
   jsbundling-rails
   pg (~> 1.1)
   postmark-rails (~> 0.22)
+  premailer-rails (~> 1.12)
   propshaft
   pry-nav
   puma (>= 5.0)

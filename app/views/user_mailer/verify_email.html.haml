@@ -1,3 +1,20 @@
-%p
-  Please verify your email by clicking the link below:
-  = link_to('Verify Email', email_verification_url(@user.email_verification_token))
+%h4.mb-3
+  Greetings
+  = succeed '!' do
+    = @user.display_name
+.lead
+  %p
+    Please verify your email by clicking the link below within the next 15 minutes:
+    = link_to('Verify Email', email_verification_url(@user.email_verification_token))
+
+  %p
+    If the link expires you can generate another one here:
+    = link_to('Resend Email Verification', new_email_verification_url)
+
+  %p.content.is-size-5
+    Best Regards,
+
+  %p.content.is-size-5
+    The
+    = @app_title
+    Team
