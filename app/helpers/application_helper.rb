@@ -37,4 +37,8 @@ module ApplicationHelper
       classes << 'alert-warning'
     end
   end
+
+  def tel_to(phone)
+    link_to(phone, "tel:#{phone}")
+  end
 end

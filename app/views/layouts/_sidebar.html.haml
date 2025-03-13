@@ -1,5 +1,5 @@
 -# Admin Sidebar
-- if @current_user.admin?
+- if @current_user&.admin?
   .list-group.sidebar
     .list-group-header
       Admin
@@ -12,4 +12,6 @@
 .list-group.sidebar
   %a.list-group-item.list-group-item-action.d-flex{href: leads_path, class: active_sidebar_class(leads_path)}
     Leads
+  %a.list-group-item.list-group-item-action.d-flex{href: lead_orders_path, class: active_sidebar_class(lead_orders_path)}
+    Lead Orders
 

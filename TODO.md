@@ -3,8 +3,7 @@
 * Build out lead order model, lead order history
 * Setup Stripe integration and user-subscriptions and one-off payments for lead orders
 * Agent should see ordered vs delivered leads on navbar
-* Stylize email templates
-* Setup incoming lead endpoints
+* Setup additional incoming lead endpoints
 * Configure exception/error notifications to send emails to me and in a slack channel
 * Setup chat support
 * Flesh out the whitelabeling support
@@ -23,6 +22,7 @@ Guessing we will build each of these out with the appropriate functionality.
 * Refactor leads to use Single Table Inheritance so we can handle them differently based on lead type
 * Reverse engineer the lead-assignment algorithm
 * Configure asynchronous job to run the lead-assignment algorithm - Use Sidekiq
+* Stylize email templates
 
 ## Completed Incoming Lead Endpoints
 
@@ -38,5 +38,4 @@ Guessing we will build each of these out with the appropriate functionality.
 *   licensed states
 * When they click on the CRM link at crm.goatleads.com what should they see? In other words what functionality do we want for the CRM portion of the site?
 *   Lead cards with clickable telephone and email links? Notes, Date Contacted, etc?
-
 

@@ -26,10 +26,4 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params.expect(:id))
   end
-
-  def normalize_array_param(parms, attribute)
-    # Normalize licensed_states array
-    p = parms[attribute].map { |e| e.split(',') }.flatten
-    p.map(&:strip)
-  end
 end

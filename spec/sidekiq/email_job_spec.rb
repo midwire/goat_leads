@@ -13,12 +13,13 @@ RSpec.describe EmailJob, type: :job do
   end
 
   it 'queues the job' do
+    expect(user).to be_present
     expect do
       described_class.perform_async('UserMailer', 'verify_email', user.id)
     end.to change(described_class.jobs, :size).by(1)
   end
 
-  it 'delivers the email' do
+  it 'permforms' do
     described_class.perform_async('UserMailer', 'verify_email', user.id)
     expect do
       described_class.drain

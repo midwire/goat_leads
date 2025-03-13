@@ -19,9 +19,9 @@
     = render(partial: 'layouts/navbar')
     .container-fluid
       .row
-        .col-md-1
+        .col-md-1.col-sm-2.col-xs-3
           = render(partial: 'layouts/sidebar')
-        .col-md-11
+        .col-md-11.col-sm10.col-xs-9
           = render(partial: 'layouts/flash')
           = yield
           = render(partial: 'layouts/footer')

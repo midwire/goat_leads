@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @lead_order.user
+%p
+  %b Expire On:
+  = @lead_order.expire_on
+%p
+  %b Lead class:
+  = @lead_order.lead_class
+%p
+  %b Active:
+  = @lead_order.active
+%p
+  %b Max per day:
+  = @lead_order.max_per_day
+%p
+  %b Paused until:
+  = @lead_order.paused_until
+%p
+  %b Days per week:
+  = @lead_order.days_per_week
+%p
+  %b States:
+  = @lead_order.states
+
+= link_to 'Edit', edit_lead_order_path(@lead_order)
+\|
+= link_to 'Back', lead_orders_path
