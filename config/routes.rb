@@ -39,7 +39,7 @@ Rails.application.routes.draw do
       patch :cancel
     end
   end
-  resources :leads, concerns: %i[with_datatable]
+  resources :leads, only: %i[index show destroy], concerns: %i[with_datatable]
 
   # Admin Interfaces
   namespace :admin do

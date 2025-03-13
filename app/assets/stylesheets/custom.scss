@@ -21,6 +21,12 @@
     font-weight: bold;
   }
 }
+.fixed-left {
+  width: 200px;
+}
+.hover-row:hover {
+  background-color: $gray-400;
+}
 
 // Text
 .hi-text {

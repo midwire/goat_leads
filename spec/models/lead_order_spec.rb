@@ -3,7 +3,33 @@
 require 'rails_helper'
 
 RSpec.describe LeadOrder, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject(:lead_order) { create(:lead_order, :with_user) }
+
+  describe 'validation' do
+    context 'if phone number is not valid' do
+      it 'generates an error' do
+        lead_order.phone = 'asdf'
+        expect(lead_order.valid?).to be(false)
+        lead_order.phone = '123-444-1212'
+        expect(lead_order.valid?).to be(false)
+        lead_order.phone = '+123-444-1212'
+        expect(lead_order.valid?).to be(false)
+        lead_order.phone = '(123) 444-1212'
+        expect(lead_order.valid?).to be(false)
+        lead_order.phone = '+8005551222212'
+        expect(lead_order.valid?).to be(false)
+      end
+    end
+
+    context 'if phone number is valid' do
+      it 'generates no error' do
+        lead_order.phone = '8005551212'
+        expect(lead_order.valid?).to be(true)
+        lead_order.phone = '18005551212'
+        expect(lead_order.valid?).to be(true)
+      end
+    end
+  end
 end
 
 # == Schema Information

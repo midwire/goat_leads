@@ -13,7 +13,7 @@ RSpec.describe UserMailer do
     end
 
     it 'renders the body' do
-      expect(mail.body.encoded).to match('Thanks for reaching out')
+      expect(mail.body.encoded).to match('Please verify your email')
     end
 
     it 'delivers message' do

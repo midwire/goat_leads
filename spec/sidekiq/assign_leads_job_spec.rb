@@ -33,6 +33,7 @@ RSpec.describe AssignLeadsJob, type: :job do
     end
 
     after do
+      Sidekiq::Testing.fake!
       Sidekiq.redis(&:flushdb)
     end
 

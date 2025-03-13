@@ -72,6 +72,7 @@ class LeadOrdersController < ApplicationController
   end
 
   # To load lead order datatable
+  # POST /lead_orders/datatable
   def datatable
     respond_to do |format|
       format.json { render json: LeadOrderDatatable.new(params, user: @current_user) }

@@ -45,7 +45,7 @@ class LeadDatatable < ApplicationDatatable
   private
 
   def format_value(key, value, record)
-    return value unless key == :address
+    return value unless key == :type
 
     url = lead_path(record)
     buttoned(url, value)

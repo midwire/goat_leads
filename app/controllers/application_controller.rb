@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   # Make sure to expect the params like this:
   # params.expect(model: [:some_param, {some_array_param: []}])
   def normalize_array_param(parms, attribute)
+    return [] if parms[attribute].blank?
+
     p = parms[attribute].map { |e| e.split(',') }.flatten
     p.map!(&:strip)
     p.reject!(&:empty?)

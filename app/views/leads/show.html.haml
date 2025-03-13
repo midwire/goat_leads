@@ -1,0 +1,36 @@
+.container-fluid
+  .row
+    .col.md-12
+      .card.mb-3
+        %h3.card-header
+          = @lead.display_name
+        .card-body
+          .card-title.lead.bold
+            = @lead.type
+          .row.hover-row
+            .col-auto.fixed-left.bold
+              Phone
+            .col
+              = tel_to(@lead.phone)
+          .row.hover-row
+            .col-auto.fixed-left.bold
+              Email
+            .col
+              = mail_to(@lead.email)
+          .row.hover-row
+            .col-auto.fixed-left.bold
+              Current Age
+            .col
+              = @lead.current_age
+        .card-body
+          .card-text
+            -# - Class.new.extend(CsvConfig).agent_visible_columns_hash.each do |colname, hash|
+            - lead_card_body_data.each do |colname, hash|
+              .row.hover-row
+                .col-auto.fixed-left.bold
+                  = hash[:display]
+                .col
+                  = @lead.send(hash[:method])
+        .card-footer.text-muted
+          Lead generated
+          = @lead.days_ago

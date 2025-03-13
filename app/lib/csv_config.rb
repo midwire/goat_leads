@@ -147,7 +147,7 @@ module CsvConfig
         display: 'Owner',
         source: 'User.email_address',
         cond: :like,
-        agent_visible: true,
+        agent_visible: false,
         searchable: true,
         sortable: true
       },
