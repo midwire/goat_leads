@@ -1,0 +1,8 @@
+%h1 New Lead Order
+
+.container-fluid
+  .row
+    = bootstrap_form_for(@lead_order, layout: :horizontal) do |f|
+      = f.select :lead_class, lead_class_options
+
+      = render(partial: 'form_fields', locals: {f: f})

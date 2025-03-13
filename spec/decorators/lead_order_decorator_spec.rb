@@ -1,4 +1,3 @@
 # frozen_string_literal: true
 
-module Admin::UsersHelper
-end
+require 'rails_helper'

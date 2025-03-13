@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
   has_many :leads, dependent: :nullify
+  has_many :lead_orders, dependent: :nullify
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   normalizes :video_types, with: ->(e) { e.map(&:downcase) }

@@ -1,0 +1,11 @@
+%h1 Edit Lead Order
+
+.container-fluid
+  .row
+    = bootstrap_form_for(@lead_order, layout: :horizontal) do |f|
+      = f.text_field(:lead_class, disabled: true)
+
+      = render(partial: 'form_fields', locals: {f: f})
+    -# = button_to("Cancel Order", cancel_lead_order_path(@lead_order), class: %i[btn btn-warning], data: { confirm: cancel_order_confirmation_text, turbo_confirm: cancel_order_confirmation_text }, type: :button, method: :patch)
+
+  = link_to('Order New Leads', new_lead_order_path, class: %i[btn btn-secondary]) unless @current_user.admin?

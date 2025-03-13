@@ -31,7 +31,12 @@ Rails.application.routes.draw do
   resources :users, only: %i[edit update]
   resources :email_verifications, only: %i[show new], param: :token do
     collection do
-      post 'resend'
+      post :resend
+    end
+  end
+  resources :lead_orders, concerns: %i[with_datatable] do
+    member do
+      patch :cancel
     end
   end
   resources :leads, concerns: %i[with_datatable]

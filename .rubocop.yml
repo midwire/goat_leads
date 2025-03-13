@@ -2,14 +2,16 @@
 # inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
 plugins:
-  # - rubocop-factory_bot
+  - rubocop-factory_bot
   - rubocop-rails
   - rubocop-rspec
   - rubocop-rspec_rails
 
-require:
-  # - rubocop-factory_bot
-  # - rubocop-rspec_rails
+# require:
+#   - rubocop-factory_bot
+#   - rubocop-rails
+#   - rubocop-rspec
+#   - rubocop-rspec_rails
 
 AllCops:
   TargetRubyVersion: 3.2

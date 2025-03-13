@@ -1,6 +1,6 @@
 .container-fluid
   %h1.title
-    User Administration
+    Admin Users
 
 %table#users-datatable.table.table-hover{'data-source' => datatable_admin_users_path(format: :json)}
   %thead
@@ -58,9 +58,6 @@
         {data: "last_lead_delivered_at"},
         {data: "daily_lead_cap"},
         {data: "total_lead_cap"},
-      ],
-      buttons: [
-        'copy', 'csv'
       ]
     });
 

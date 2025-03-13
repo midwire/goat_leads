@@ -1,0 +1,22 @@
+= f.number_field :max_per_day
+= f.text_field(:days_per_week, multiple: true, value: @lead_order.days_per_week.join(','))
+.mb-3.row
+  %label.col-form-label.col-sm-2
+  .col-sm-10
+    %small.text-muted
+      Comma-separated list of delivery days: "mon,tue,wed,thu,fri,sat,sun"
+= f.text_field(:states, multiple: true, value: @lead_order.states.join(','))
+.mb-3.row
+  %label.col-form-label.col-sm-2
+  .col-sm-10
+    %small.form-text.text-muted
+      Comma-separated list of states
+
+= f.date_field(:expire_on)
+= f.date_field :paused_until
+= f.email_field :email
+= f.text_field :phone
+= f.check_box(:active)
+.actions.mb-3
+  = link_to('Cancel', lead_orders_path, class: %i[btn btn-secondary])
+  = f.submit 'Save'

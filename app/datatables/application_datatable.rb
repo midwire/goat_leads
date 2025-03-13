@@ -8,13 +8,13 @@ class ApplicationDatatable < AjaxDatatablesRails::ActiveRecord
 
   private
 
-  def linked(url, label)
-    "<a href='#{url}'>#{label}</a>".html_safe
+  def linked(url, label, alt = nil)
+    "<a href='#{url}' alt='#{alt}' title='#{alt}'>#{label}</a>".html_safe
   end
 
   def buttoned(url, label)
     html = <<~STRING
-      <a href='#{url}' class='button is-link', title='Click for property detail and comparables.'>
+      <a href='#{url}' class='btn btn-primary', title='Click to Edit.'>
         #{label}
       </a>
     STRING

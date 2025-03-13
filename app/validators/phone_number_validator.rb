@@ -2,7 +2,7 @@
 
 class PhoneNumberValidator < ActiveModel::EachValidator
   # Match at least 10 digits
-  PHONE_REGEX = /\A\d{10,}\z/
+  PHONE_REGEX = /\A\+?\d{10,}\z/
 
   def validate_each(record, attribute, value)
     # return nil if value.blank? # blank phone is acceptable

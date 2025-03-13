@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_07_205607) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_12_173741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,6 +21,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_205607) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order"], name: "index_faqs_on_order", unique: true
+  end
+
+  create_table "lead_orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "expire_on"
+    t.datetime "canceled_at"
+    t.string "lead_class"
+    t.string "email"
+    t.string "phone"
+    t.boolean "active"
+    t.integer "max_per_day"
+    t.date "paused_until"
+    t.text "days_per_week", default: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], array: true
+    t.text "states", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_lead_orders_on_active"
+    t.index ["expire_on"], name: "index_lead_orders_on_expire_on"
+    t.index ["lead_class"], name: "index_lead_orders_on_lead_class"
+    t.index ["user_id"], name: "index_lead_orders_on_user_id"
   end
 
   create_table "leads", force: :cascade do |t|
@@ -156,5 +176,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_205607) do
     t.index ["video_types"], name: "index_users_on_video_types", using: :gin
   end
 
+  add_foreign_key "lead_orders", "users"
   add_foreign_key "sessions", "users"
 end
