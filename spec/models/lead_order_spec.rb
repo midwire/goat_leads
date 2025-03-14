@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe LeadOrder, type: :model do
-  subject(:lead_order) { create(:lead_order, :with_user) }
+  subject(:lead_order) { create(:lead_order) }
 
   describe 'validation' do
     context 'if phone number is not valid' do
@@ -27,6 +27,52 @@ RSpec.describe LeadOrder, type: :model do
         expect(lead_order.valid?).to be(true)
         lead_order.phone = '18005551212'
         expect(lead_order.valid?).to be(true)
+      end
+    end
+  end
+
+  describe 'scopes' do
+    context 'active' do
+      let(:lo) { create(:lead_order) }
+
+      it 'returns only active lead_orders' do
+        create(:lead_order, :inactive)
+        expect(described_class.active).to eq([lo])
+      end
+    end
+
+    context 'with_unreached_daily_cap_of' do
+      context 'when cap reached' do
+        it 'returns no lead orders' do
+          expect(described_class.with_unreached_daily_cap_of(100)).to eq([])
+        end
+      end
+
+      context 'when cap not reached' do
+        it 'returns lead orders where max_per_day cap is met' do
+          expect(described_class.with_unreached_daily_cap_of(99)).to eq([lead_order])
+        end
+      end
+    end
+
+    context 'for_lead_type' do
+      it 'returns only lead orders matching lead type' do
+        expect(described_class.for_lead_type(lead_order.lead_class)).to eq([lead_order])
+        expect(described_class.for_lead_type('bogus')).to eq([])
+      end
+    end
+
+    context 'not_canceled' do
+      it 'returns only un-canceled lead orders' do
+        create(:lead_order, canceled_at: Time.current)
+        expect(described_class.not_canceled).to eq([lead_order])
+      end
+    end
+
+    context 'for_day_of_week' do
+      it 'returns only matching lead orders' do
+        create(:lead_order, days_per_week: %w[tue fri])
+        expect(described_class.for_day_of_week('mon')).to eq([lead_order])
       end
     end
   end

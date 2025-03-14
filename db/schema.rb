@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_12_173741) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_13_214803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -117,6 +117,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_12_173741) do
     t.string "fbclid"
     t.string "full_name"
     t.boolean "is_dropoff"
+    t.datetime "delivered_at"
+    t.index ["delivered_at"], name: "index_leads_on_delivered_at"
     t.index ["dob"], name: "index_leads_on_dob"
     t.index ["email"], name: "index_leads_on_email"
     t.index ["first_name"], name: "index_leads_on_first_name"
@@ -144,7 +146,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_12_173741) do
     t.datetime "email_verified_at"
     t.integer "role", default: 0
     t.text "licensed_states", default: [], array: true
-    t.boolean "lead_status", default: true
     t.integer "deliver_priority", default: 0
     t.text "video_types", default: [], array: true
     t.text "lead_types", default: [], array: true
@@ -168,7 +169,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_12_173741) do
     t.index ["email_verified_at"], name: "index_users_on_email_verified_at"
     t.index ["external_id"], name: "index_users_on_external_id"
     t.index ["last_lead_delivered_at"], name: "index_users_on_last_lead_delivered_at"
-    t.index ["lead_status"], name: "index_users_on_lead_status"
     t.index ["lead_types"], name: "index_users_on_lead_types", using: :gin
     t.index ["licensed_states"], name: "index_users_on_licensed_states", using: :gin
     t.index ["role"], name: "index_users_on_role"

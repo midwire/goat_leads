@@ -9,6 +9,7 @@ class LeadOrder < ApplicationRecord
   normalizes :email, with: ->(e) { e.strip.downcase }
 
   validates :states, presence: true
+  validates :lead_class, presence: true
   validates :days_per_week, presence: true
   validates :phone, phone_number: true, allow_blank: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
@@ -16,7 +17,30 @@ class LeadOrder < ApplicationRecord
   validate :validate_permitted_states
   validate :validate_permitted_days_of_week
 
+  scope :active, -> { where(active: true) }
+  scope :for_user, ->(user) { where(user_id: user.respond_to?(:id) ? user.id : user) }
   scope :not_canceled, -> { where(canceled_at: nil) }
+  scope :not_expired, lambda {
+    where(
+      arel_table[:expire_on].eq(nil).or(
+        arel_table[:expire_on].gt(Time.current)
+      )
+    )
+  }
+  arel_table[:expires_at].gt(Time.current)
+  scope :for_lead_type, ->(lead_type) { where(lead_class: lead_type) }
+  scope :for_day_of_week, lambda { |dow = Date.current.strftime('%a').downcase|
+    where('days_per_week @> ARRAY[?]::text[]', dow)
+  }
+  scope :with_unreached_daily_cap_of, lambda { |cap|
+    where(
+      arel_table[:max_per_day].eq(nil).or(
+        arel_table[:max_per_day].eq(0).or(
+          arel_table[:max_per_day].gteq(cap)
+        )
+      )
+    )
+  }
 
   private
 

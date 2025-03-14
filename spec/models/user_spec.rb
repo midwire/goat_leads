@@ -3,12 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:user) { create(:user) }
 
   describe 'scopes' do
     context 'licensed_in_state' do
-      let!(:user_1) { create_user(states: %w[WA TX]) }
-      let!(:user_2) { create_user(states: %w[TX]) }
-      let!(:user_3) { create_user(states: %w[WA]) }
+      let!(:user_1) { create(:user, licensed_states: %w[WA TX]) }
+      let!(:user_2) { create(:user, licensed_states: %w[TX]) }
+      let!(:user_3) { create(:user, licensed_states: %w[WA]) }
 
       it 'returns users licensed in the given state' do
         expect(described_class.licensed_in_state('WA')).to eq([user_1, user_3])
@@ -17,9 +18,9 @@ RSpec.describe User, type: :model do
     end
 
     context 'eligible_for_video_type' do
-      let!(:user_1) { create_user(video_types: %w[Dom other]) }
-      let!(:user_2) { create_user(video_types: %w[DOM]) }
-      let!(:user_3) { create_user(video_types: %w[Other]) }
+      let!(:user_1) { create(:user, video_types: %w[Dom other]) }
+      let!(:user_2) { create(:user, video_types: %w[DOM]) }
+      let!(:user_3) { create(:user, video_types: %w[Other]) }
 
       it 'returns users eligible for video type' do
         expect(described_class.eligible_for_video_type('dom')).to eq([user_1, user_2])
@@ -28,22 +29,20 @@ RSpec.describe User, type: :model do
     end
 
     context 'eligible_for_lead_type' do
-      let!(:user_1) { create_user(lead_types: %w[VeteranLeadPremium FinalExpenseLeadPremium]) }
-      let!(:user_2) { create_user(lead_types: %w[VeteranLeadPremium]) }
-      let!(:user_3) { create_user(lead_types: %w[FinalExpenseLeadPremium]) }
+      let!(:user_1) { create(:lead_order, lead_class: 'VeteranLeadPremium').user }
+      let!(:user_2) { create(:lead_order, lead_class: 'VeteranLeadPremium').user }
+      let!(:user_3) { create(:lead_order, lead_class: 'FinalExpenseLeadPremium').user }
 
       it 'returns users eligible for lead type' do
         expect(described_class.eligible_for_lead_type('VeteranLeadPremium')).to eq([user_1, user_2])
-        expect(described_class.eligible_for_lead_type('FinalExpenseLeadPremium')).to eq([user_1, user_3])
+        expect(described_class.eligible_for_lead_type('FinalExpenseLeadPremium')).to eq([user_3])
       end
     end
 
     context 'by_deliver_priority' do
-      let!(:user_1) do
-        create_user(lead_types: %w[VeteranLeadPremium FinalExpenseLeadPremium], deliver_priority: 1)
-      end
-      let!(:user_2) { create_user(lead_types: %w[VeteranLeadPremium], deliver_priority: -1) }
-      let(:user_3) { create_user(lead_types: %w[FinalExpenseLeadPremium]) }
+      let!(:user_1) { create(:user, :low_priority) }
+      let!(:user_2) { create(:user, :high_priority) }
+      let!(:user_3) { create(:user) }
 
       it 'returns user with lowest priority first' do
         expect(user_3).to be_present
@@ -60,22 +59,51 @@ RSpec.describe User, type: :model do
         expect(described_class.by_last_delivered).to eq([user_2, user_3, user_1])
       end
     end
+
+    context 'available' do
+      let!(:user_1) { create(:user, status: :available) }
+
+      it 'returns available user' do
+        create(:user, status: :paused)
+        expect(described_class.available).to eq([user_1])
+      end
+    end
+
+    context 'paused' do
+      let!(:user_1) { create(:user, status: :paused) }
+
+      it 'returns available user' do
+        create(:user, status: :available)
+        expect(described_class.paused).to eq([user_1])
+      end
+    end
   end
 
-  private
+  describe '.fulfilled_leads_for_lead_type?' do
+    context 'when max_per_day leads have been delivered today for a lead order' do
+      before do
+        user.lead_orders << create(:lead_order, max_per_day: 2)
+        user.leads << create(:veteran_lead_premium, delivered_at: Time.current)
+        user.leads << create(:veteran_lead_premium, delivered_at: Time.current)
+      end
 
-  def create_user(states: nil, lead_types: nil, video_types: nil, deliver_priority: 0)
-    create(
-      :user,
-      :confirmed,
-      lead_status: true,
-      deliver_priority: deliver_priority,
-      licensed_states: states || %w[WA TX],
-      lead_types: lead_types || %w[VeteranLeadPremium FinalExpenseLeadPremium],
-      video_types: video_types || %w[dom other]
-    )
+      it 'returns true' do
+        expect(user.fulfilled_leads_for_lead_type?('VeteranLeadPremium')).to be(true)
+      end
+    end
+
+    context 'when max_per_day leads have not been delivered today for a lead order' do
+      before do
+        user.lead_orders << create(:lead_order, max_per_day: 3)
+        user.leads << create(:veteran_lead_premium, delivered_at: Time.current)
+        user.leads << create(:veteran_lead_premium, delivered_at: Time.current)
+      end
+
+      it 'returns false' do
+        expect(user.fulfilled_leads_for_lead_type?('VeteranLeadPremium')).to be(false)
+      end
+    end
   end
-
 end
 
 # == Schema Information
@@ -92,7 +120,6 @@ end
 #  google_sheet_url       :string
 #  last_lead_delivered_at :datetime
 #  last_name              :string
-#  lead_status            :boolean          default(TRUE)
 #  lead_types             :text             default([]), is an Array
 #  licensed_states        :text             default([]), is an Array
 #  notes                  :text
@@ -117,7 +144,6 @@ end
 #  index_users_on_email_verified_at       (email_verified_at)
 #  index_users_on_external_id             (external_id)
 #  index_users_on_last_lead_delivered_at  (last_lead_delivered_at)
-#  index_users_on_lead_status             (lead_status)
 #  index_users_on_lead_types              (lead_types) USING gin
 #  index_users_on_licensed_states         (licensed_states) USING gin
 #  index_users_on_role                    (role)

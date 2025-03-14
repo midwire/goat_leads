@@ -24,6 +24,11 @@ class Lead < ApplicationRecord
 
   scope :unassigned, -> { where(user_id: nil) }
   scope :oldest_first, -> { order(lead_date: :asc) }
+  scope :delivered_today_by_type, lambda { |lead_type|
+    today = Date.current
+    where(type: lead_type)
+        .where(delivered_at: today.beginning_of_day..today.end_of_day)
+  }
 
   # Don't allow Lead base class to be instantiated
   def initialize(*args)
@@ -60,6 +65,7 @@ end
 #  crm_status              :string
 #  crm_user                :string
 #  current_retirement_plan :string
+#  delivered_at            :datetime
 #  dob                     :date
 #  email                   :string
 #  employment_status       :string
@@ -124,12 +130,13 @@ end
 #
 # Indexes
 #
-#  index_leads_on_dob         (dob)
-#  index_leads_on_email       (email)
-#  index_leads_on_first_name  (first_name)
-#  index_leads_on_last_name   (last_name)
-#  index_leads_on_phone       (phone)
-#  index_leads_on_state       (state)
-#  index_leads_on_type        (type)
-#  index_leads_on_user_id     (user_id)
+#  index_leads_on_delivered_at  (delivered_at)
+#  index_leads_on_dob           (dob)
+#  index_leads_on_email         (email)
+#  index_leads_on_first_name    (first_name)
+#  index_leads_on_last_name     (last_name)
+#  index_leads_on_phone         (phone)
+#  index_leads_on_state         (state)
+#  index_leads_on_type          (type)
+#  index_leads_on_user_id       (user_id)
 #

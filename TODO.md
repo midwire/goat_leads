@@ -1,6 +1,8 @@
 # TODO List
 
-* Build out lead order model, lead order history
+* Modify algorithm to use lead_order.lead_class instead of user.lead_types and account for lead_order being active (or paused), expired_on, days_per_week and max_per_day
+* Build out agent ability to order leads
+* Build out lead order history
 * Setup Stripe integration and user-subscriptions and one-off payments for lead orders
 * Agent should see ordered vs delivered leads on navbar
 * Setup additional incoming lead endpoints
@@ -23,6 +25,7 @@ Guessing we will build each of these out with the appropriate functionality.
 * Reverse engineer the lead-assignment algorithm
 * Configure asynchronous job to run the lead-assignment algorithm - Use Sidekiq
 * Stylize email templates
+* Build out lead order model
 
 ## Completed Incoming Lead Endpoints
 

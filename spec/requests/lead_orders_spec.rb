@@ -16,7 +16,7 @@ RSpec.describe '/lead_orders', type: :request do
     valid_attributes.merge(states: nil)
   end
 
-  let(:lead_order) { create(:lead_order, :with_user) }
+  let(:lead_order) { create(:lead_order) }
   let(:user) { lead_order.user }
 
   before { login_user(user) }

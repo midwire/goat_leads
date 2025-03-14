@@ -27,16 +27,7 @@ class LeadDistributor
     private
 
     def find_next_eligible_user(lead, attempt)
-      User.agent
-          .where.not(email_verified_at: nil)
-          .where(lead_status: true)
-          .where('licensed_states @> ARRAY[?]::text[]', lead.rr_state)
-          .where('lead_types @> ARRAY[?]::text[]', lead.type)
-          .where('video_types @> ARRAY[?]::text[]', lead.video_type)
-          .order(deliver_priority: :asc, last_lead_delivered_at: :asc)
-          # Offset by attempt number to try different users if first choice fails
-          .offset(attempt)
-          .first
+      User.eligible_for_lead(lead).offset(attempt).first
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -46,12 +37,16 @@ class LeadDistributor
         user.lock!
 
         # Double-check availability within transaction
-        return false unless user.lead_status &&
+        return false unless user.available? &&
             user.licensed_states.include?(lead.rr_state) &&
             user.lead_types.include?(lead.type) &&
-            user.video_types.include?(lead.video_type)
+            !user.fulfilled_leads_for_lead_type?(lead.type)
 
-        lead.update!(user: user)
+        # user.lead_orders.with_unreached_daily_cap_of(user.)
+        # user.video_types.include?(lead.video_type)
+
+        lead.update!(user: user, delivered_at: Time.current)
+
         user.update!(last_lead_delivered_at: Time.current)
 
         true

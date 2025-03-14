@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
   has_many :leads, dependent: :nullify
-  has_many :lead_orders, dependent: :nullify
+  has_many :lead_orders, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   normalizes :video_types, with: ->(e) { e.map(&:downcase) }
@@ -23,27 +23,34 @@ class User < ApplicationRecord
   enum :status, { available: 0, paused: 1 }
 
   scope :verified, -> { where.not(email_verified_at: nil) }
-  scope :lead_eligible, -> { where(lead_status: true) }
   scope :by_deliver_priority, -> { order(deliver_priority: :asc) }
   scope :by_last_delivered, -> { order(arel_table[:last_lead_delivered_at].asc.nulls_first) }
   scope :licensed_in_state, lambda { |state_abbr|
-    where('? = ANY(licensed_states)', state_abbr)
+    where('licensed_states @> ARRAY[?]::text[]', state_abbr)
   }
   scope :eligible_for_video_type, lambda { |video_type|
-    where('? = ANY(video_types)', video_type)
+    where('video_types @> ARRAY[?]::text[]', video_type)
   }
   scope :eligible_for_lead_type, lambda { |lead_type|
-    where('? = ANY(lead_types)', lead_type)
+    # TODO: Make this account for active, matching lead orders
+    # Not to exceed the daily cap for lead order
+    joins(:lead_orders)
+        .merge(LeadOrder.active)
+        .merge(LeadOrder.not_canceled)
+        .merge(LeadOrder.not_expired)
+        .merge(LeadOrder.for_lead_type(lead_type))
+        .merge(LeadOrder.for_day_of_week)
+    # where('lead_types @> ARRAY[?]::text[]', lead_type)
   }
   scope :eligible_for_lead, lambda { |lead|
-    verified
-        .agent
-        .lead_eligible
+    agent
+        .verified
+        .available
+        .licensed_in_state(lead.rr_state)
+        .eligible_for_lead_type(lead.type)
+        # .eligible_for_video_type(lead.video_type)
         .by_deliver_priority
         .by_last_delivered
-        .licensed_in_state(lead.rr_state)
-        .eligible_for_lead_type(lead.class.name)
-        .eligible_for_video_type(lead.video_type)
   }
 
   def verify!
@@ -52,6 +59,27 @@ class User < ApplicationRecord
 
   def verified?
     email_verified_at.present?
+  end
+
+  # Account for all matching lead orders and compare max_per_day to matching delivered leads
+  def fulfilled_leads_for_lead_type?(lead_type, dow = Date.current.strftime('%a').downcase)
+    matching_leads = leads.delivered_today_by_type(lead_type)
+    return false if matching_leads.empty?
+
+    delivered_count = matching_leads.count
+
+    lead_orders
+        .for_lead_type(lead_type)
+        .for_day_of_week(dow)
+        .with_unreached_daily_cap_of(matching_leads.count)
+
+    return true if lead_orders.empty?
+
+    fulfilled = true
+    lead_orders.each do |order|
+      fulfilled &= delivered_count >= order.max_per_day
+    end
+    fulfilled
   end
 end
 
@@ -69,7 +97,6 @@ end
 #  google_sheet_url       :string
 #  last_lead_delivered_at :datetime
 #  last_name              :string
-#  lead_status            :boolean          default(TRUE)
 #  lead_types             :text             default([]), is an Array
 #  licensed_states        :text             default([]), is an Array
 #  notes                  :text
@@ -94,7 +121,6 @@ end
 #  index_users_on_email_verified_at       (email_verified_at)
 #  index_users_on_external_id             (external_id)
 #  index_users_on_last_lead_delivered_at  (last_lead_delivered_at)
-#  index_users_on_lead_status             (lead_status)
 #  index_users_on_lead_types              (lead_types) USING gin
 #  index_users_on_licensed_states         (licensed_states) USING gin
 #  index_users_on_role                    (role)

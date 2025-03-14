@@ -55,6 +55,17 @@ RSpec.describe Lead, type: :model do
     end
   end
 
+  describe 'scopes' do
+    context 'delivered_today_by_type' do
+      let(:lead_today) { create(:veteran_lead_premium, delivered_at: Time.current) }
+
+      it 'returns only leads delivered today matching the type' do
+        records = described_class.delivered_today_by_type('VeteranLeadPremium')
+        expect(records).to eq([lead_today])
+      end
+    end
+  end
+
   describe 'callback' do
     context 'before_save' do
       it 'sets rr_state' do
@@ -84,6 +95,7 @@ end
 #  crm_status              :string
 #  crm_user                :string
 #  current_retirement_plan :string
+#  delivered_at            :datetime
 #  dob                     :date
 #  email                   :string
 #  employment_status       :string
@@ -148,12 +160,13 @@ end
 #
 # Indexes
 #
-#  index_leads_on_dob         (dob)
-#  index_leads_on_email       (email)
-#  index_leads_on_first_name  (first_name)
-#  index_leads_on_last_name   (last_name)
-#  index_leads_on_phone       (phone)
-#  index_leads_on_state       (state)
-#  index_leads_on_type        (type)
-#  index_leads_on_user_id     (user_id)
+#  index_leads_on_delivered_at  (delivered_at)
+#  index_leads_on_dob           (dob)
+#  index_leads_on_email         (email)
+#  index_leads_on_first_name    (first_name)
+#  index_leads_on_last_name     (last_name)
+#  index_leads_on_phone         (phone)
+#  index_leads_on_state         (state)
+#  index_leads_on_type          (type)
+#  index_leads_on_user_id       (user_id)
 #
