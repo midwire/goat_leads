@@ -1,0 +1,15 @@
+.container-fluid
+  .row
+    %h1 Admin Edit User
+
+    %div
+      = bootstrap_form_for(@user) do |form|
+        = form.text_field(:first_name, required: true)
+        = form.text_field(:last_name, required: true)
+        = form.text_field(:phone)
+        = form.text_field(:licensed_states, multiple: true, value: @user.licensed_states.join(','))
+        %small.form-text.text-muted
+          Comma-separated list of states where you are licensed
+        .mt-3
+          = form.submit('Save')
+

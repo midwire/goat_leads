@@ -16,3 +16,13 @@ document.addEventListener('turbo:load', function() {
   });
 
 });
+
+// Fix datatable back-button reinitialization
+document.addEventListener("turbo:before-cache", function() {
+  var dataTable = $($.fn.dataTable.tables(true)).DataTable();
+  if (dataTable !== null) {
+    dataTable.destroy();
+    dataTable = null;
+  }
+});
+
