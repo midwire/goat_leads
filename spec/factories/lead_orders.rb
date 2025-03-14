@@ -2,13 +2,14 @@
 
 FactoryBot.define do
   factory :lead_order do
-    lead_class { 'MyString' }
+    user
+    lead_class { 'VeteranLeadPremium' }
     active { true }
     max_per_day { 100 }
     states { %w[wy or] }
 
-    trait :with_user do
-      user
+    trait :inactive do
+      active { false }
     end
   end
 end

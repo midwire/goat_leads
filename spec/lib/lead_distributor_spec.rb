@@ -39,6 +39,12 @@ RSpec.describe LeadDistributor do
       let!(:user_2) { create(:user, :confirmed, last_lead_delivered_at: 1.day.ago) }
       let!(:high_priority_user) { create(:user, :confirmed, :high_priority, last_lead_delivered_at: nil) }
 
+      before do
+        create(:lead_order, user: user_1)
+        create(:lead_order, user: user_2)
+        create(:lead_order, user: high_priority_user)
+      end
+
       it 'assigns lead to user with highest priority' do
         result = described_class.assign_lead(lead)
         expect(result).to eq(high_priority_user)
@@ -74,7 +80,8 @@ RSpec.describe LeadDistributor do
     context 'with database errors' do
       it 'handles transaction failures gracefully' do
         allow_any_instance_of(User).to receive(:update!).and_raise(ActiveRecord::RecordInvalid)
-        create(:user, :confirmed)
+        user = create(:user, :confirmed)
+        create(:lead_order, user:)
 
         result = described_class.assign_lead(lead)
         expect(Rails.logger).to have_received(:error).with(/Failed to assign lead/)
@@ -91,8 +98,10 @@ RSpec.describe LeadDistributor do
           fail ActiveRecord::LockWaitTimeout if count == 1
           # Optionally, define behavior for subsequent calls
         end
-        create(:user, :confirmed) # First user that will fail
+        failed_user = create(:user, :confirmed) # First user that will fail
+        create(:lead_order, user: failed_user)
         successful_user = create(:user, :confirmed)
+        create(:lead_order, user: successful_user)
 
         result = described_class.assign_lead(lead)
         expect(result).to eq(successful_user)
