@@ -60,6 +60,8 @@ gem 'sidekiq-unique-jobs', '~> 8.0' # Prevent duplicate sidekiq jobs
 gem 'whenever', '~> 1.0', require: false # OOB Task Scheduler
 gem 'premailer-rails', '~> 1.12' # Styling for emails
 gem 'config', '~> 5.0' # Rails yaml settings
+gem 'slack-notifier', '~> 2.4' # Notify slack channels
+gem 'exception_notification', github: 'smartinez87/exception_notification', ref: '60e1588'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

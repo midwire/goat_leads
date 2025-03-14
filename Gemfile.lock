@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/smartinez87/exception_notification.git
+  revision: 60e158888bbff96f7a9ae00ae97305cdd33726e9
+  ref: 60e1588
+  specs:
+    exception_notification (4.5.0)
+      actionmailer (>= 5.2, < 9)
+      activesupport (>= 5.2, < 9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -503,6 +512,7 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.13.1)
     simplecov_json_formatter (0.1.4)
+    slack-notifier (2.4.0)
     solid_cable (3.0.7)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -608,6 +618,7 @@ DEPENDENCIES
   database_cleaner
   dotenv-rails (>= 3.1)
   draper (~> 4.0)
+  exception_notification!
   factory_bot_rails
   faker
   foreman
@@ -637,6 +648,7 @@ DEPENDENCIES
   sidekiq-failures (~> 1.0)
   sidekiq-unique-jobs (~> 8.0)
   simplecov
+  slack-notifier (~> 2.4)
   solid_cable
   solid_cache
   solid_queue

@@ -1,9 +1,8 @@
 # TODO List
 
-* Modify algorithm to use lead_order.lead_class instead of user.lead_types and account for lead_order being active (or paused), expired_on, days_per_week and max_per_day
+* Setup Stripe integration and user-subscriptions and one-off payments for lead orders
 * Build out agent ability to order leads
 * Build out lead order history
-* Setup Stripe integration and user-subscriptions and one-off payments for lead orders
 * Agent should see ordered vs delivered leads on navbar
 * Setup additional incoming lead endpoints
 * Configure exception/error notifications to send emails to me and in a slack channel
@@ -15,7 +14,7 @@
 
 Guessing we will build each of these out with the appropriate functionality.
 
-* Order Leads - Internal lead order system or integration with 3rd party?
+* Order Leads - Needs Stripe integration
 * G.O.A.T. CRM - Get details on CRM functionality
 * Become an Affiliate - Build out an affiliate program?
 
@@ -26,10 +25,12 @@ Guessing we will build each of these out with the appropriate functionality.
 * Configure asynchronous job to run the lead-assignment algorithm - Use Sidekiq
 * Stylize email templates
 * Build out lead order model
+* Modify algorithm to use lead_order.lead_class instead of user.lead_types and account for lead_order being active (or paused), expired_on, days_per_week and max_per_day
 
 ## Completed Incoming Lead Endpoints
 
 * https://crm.goatleads.com/leads/veteran_lead - All veteran lead types
+* https://mycrmcenter.com/update-lead-order - CRM lead orders
 
 ## Questions
 

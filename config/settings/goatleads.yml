@@ -8,4 +8,4 @@ whitelabel:
 notifications:
   slack_channel: '#goatleads-support'
   email: leadsupport@goatleads.com
-  twitter: 'goatleads'
+  twitter: 'bogus'

@@ -2,7 +2,7 @@
 
 class LeadDistributor
   class << self
-    def assign_lead(lead, max_attempts: 3)
+    def assign_lead(lead, max_attempts: 6)
       return nil unless lead&.valid?
       return nil if lead&.delivered?
 
@@ -42,7 +42,6 @@ class LeadDistributor
             user.lead_types.include?(lead.type) &&
             !user.fulfilled_leads_for_lead_type?(lead.type)
 
-        # user.lead_orders.with_unreached_daily_cap_of(user.)
         # user.video_types.include?(lead.video_type)
 
         lead.update!(user: user, delivered_at: Time.current)
