@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
 class SettingsHelper
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def self.setting_paths
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     [].tap do |a|
       a << Rails.root.join('config/settings.yml')
 
-      if Rails.env.local?
+      if Rails.env.local? # development, test
         whitelabel = Rails.application.whitelabel.presence
-        a << Rails.root.join('config/settings/local.yml')
         a << Rails.root.join('config', 'settings', "#{Rails.env}.yml")
         if whitelabel
           a << Rails.root.join('config', 'settings', "#{whitelabel}.yml")

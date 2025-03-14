@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   # webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
+  before_action :prepare_exception_notifier
+
   private
 
   # Normalize array params for postgres array columns
@@ -18,5 +20,11 @@ class ApplicationController < ActionController::Base
     p.map!(&:strip)
     p.reject!(&:empty?)
     p
+  end
+
+  def prepare_exception_notifier
+    request.env['exception_notifier.exception_data'] = {
+      current_user: "User ID: #{@current_user&.id}, EMAIL: #{@current_user.email_address}"
+    }
   end
 end
