@@ -2,9 +2,9 @@
 
 # Move this require to your `config/application.rb` if you want to be notified from runner commands too.
 require 'exception_notification/rails'
-require 'exception_notification/rake'
 
 # NOTE: This doesn't work in production
+# require 'exception_notification/rake'
 # require 'exception_notification/sidekiq'
 
 ExceptionNotification.configure do |config|
