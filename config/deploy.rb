@@ -77,3 +77,17 @@ namespace :assets do
     end
   end
 end
+
+# Notify slack after deploys
+after 'deploy:updated', 'notify:slack'
+namespace :notify do
+  task :slack do
+    require_relative 'application'
+    require 'config'
+    require_relative '../app/lib/settings_helper'
+    require_relative '../app/lib/slack_pipe'
+    Config.load_and_set_settings(SettingsHelper.setting_paths)
+    Settings.reload_from_files(SettingsHelper.setting_paths)
+    SlackPipe.send_msg('New features and updates have just been deployed successfully.')
+  end
+end
