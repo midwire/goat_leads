@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def prepare_exception_notifier
     request.env['exception_notifier.exception_data'] = {
-      current_user: "User ID: #{@current_user&.id}, EMAIL: #{@current_user.email_address}"
+      current_user: "User ID: #{@current_user&.id}, EMAIL: #{@current_user&.email_address}"
     }
   end
 end
