@@ -8,6 +8,14 @@ module ApplicationHelper
   delegate :social_media_title, to: :Whitelabel
   delegate :site_domain, to: :Whitelabel
 
+  def app_version
+    if File.exist?(Rails.root.join('REVISION'))
+      File.read(Rails.root.join('REVISION')).strip
+    else
+      'unknown'
+    end
+  end
+
   def active_class(path)
     if request.path == path
       'active'
