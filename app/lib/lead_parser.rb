@@ -32,7 +32,7 @@ class LeadParser
   end
 
   def lead_class
-    params[:lead_class].classify.constantize
+    lead_class_param.classify.constantize
   end
 
   def lead_params
@@ -40,5 +40,9 @@ class LeadParser
     params[:video_type] = video_type
     normalizer = LeadParamNormalizer.new(params)
     normalizer.normalize
+  end
+
+  def lead_class_param
+    params.expect(:lead_class)
   end
 end
