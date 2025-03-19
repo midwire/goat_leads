@@ -23,8 +23,8 @@ Rails.application.routes.draw do
   resources :faqs, only: %i[index]
 
   # Incoming lead endpoints
-  namespace :leads do
-    resource :veteran_lead, only: %i[create]
+  namespace :hooks do
+    resources :leads, only: %i[create]
   end
 
   # Agents can edit their own info

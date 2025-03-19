@@ -111,7 +111,7 @@ end
 #  lead_form_at            :datetime
 #  lead_form_name          :string
 #  lead_program            :string
-#  lead_type               :string
+#  lead_quality            :string
 #  location                :string
 #  marital_status          :string
 #  military_status         :string

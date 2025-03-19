@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class Leads::VeteranLeadsController < WebhookController
-  # POST /leads/veteran_lead
+class Hooks::LeadsController < WebhookController
+  # POST /leads/leads
   def create
-    parser = LeadParser.new(lead_params, :veteran_lead)
+    parser = LeadParser.new(lead_params)
     lead = parser.model_instance
     if lead.save
       head :created

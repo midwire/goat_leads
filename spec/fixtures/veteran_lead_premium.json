@@ -27,9 +27,10 @@
     "full_name": "Charles E wiggins",
     "email": "wiggins.charles43@gmail.com",
     "phone": "+15308678274",
-    "xxtrustedformcerturl": "https://cert.trustedform.com/6b4c52af255d4a8d87969b8efd3d6b82b3a8d0aa"
+    "xxtrustedformcerturl": "https://cert.trustedform.com/6b4c52af255d4a8d87969b8efd3d6b82b3a8d0aa",
+    "lead_class": "VeteranLeadPremium"
   },
-  "controller": "leads/veteran_leads",
+  "controller": "hooks/leads",
   "action": "create",
   "veteran_lead": {}
 }
