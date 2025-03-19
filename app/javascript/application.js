@@ -8,6 +8,7 @@ import "./src/add_jquery";
 import "./src/add_datatables";
 
 // window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
+window.bootstrap = bootstrap;
 
 document.addEventListener('turbo:load', function() {
 

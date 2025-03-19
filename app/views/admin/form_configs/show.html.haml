@@ -1,10 +1,15 @@
 .container-fluid
   %h1 Lead Form Configuration
   %p.bold
-    Lead Webhook URL:
+    Lead Webhook URL: (click to copy)
     %span.not-bold
-      https://crm.goatleads.com/hooks/leads
+      %input.form-control{id: 'webhook-url', type: :text, readonly: true, width: '40', value: 'https://crm.goatleads.com/hooks/leads', 'data-bs-toggle' => 'tooltip', 'data-bs-placement' => 'top', title: 'Copied!'}
 
+  %h2 Lead Classes
+  %p
+    = lead_class_options
+
+  %h2 Form Fields
   %p
     When setting up a lead form make sure to include all fields that you want to track.
   %p
@@ -23,3 +28,33 @@
           = field
         %td{class: cls}
           = desc
+
+:javascript
+
+  document.addEventListener("turbo:load", function() {
+
+    const $input = $('#webhook-url');
+    if (!$input.length) return;
+
+    const tooltip = new bootstrap.Tooltip($input[0], {
+      trigger: 'manual',
+      placement: 'top',
+      title: 'Copied!'
+    });
+
+    $input.on('click', function() {
+      $(this).select();
+      navigator.clipboard.writeText($(this).val())
+        .then(() => {
+          tooltip.show();
+          setTimeout(() => {
+            tooltip.hide();
+          }, 1500);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    });
+
+  });
+

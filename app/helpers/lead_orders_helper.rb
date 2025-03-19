@@ -41,6 +41,6 @@ module LeadOrdersHelper
 
   def lead_class_options
     Rails.application.eager_load!
-    ObjectSpace.each_object(Class).select { |klass| klass < Lead }.map(&:to_s)
+    ObjectSpace.each_object(Class).select { |klass| klass < Lead }.map(&:to_s).sort
   end
 end

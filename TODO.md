@@ -71,3 +71,6 @@ Guessing we will build each of these out with the appropriate functionality.
 
 Push leads into our system, assign them and push to another system
 
+## Reporting Site
+
+* Upload CSV files by each manager
