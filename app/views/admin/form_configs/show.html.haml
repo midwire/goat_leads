@@ -1,33 +1,25 @@
 .container-fluid
   %h1 Lead Form Configuration
-  %p
-    Lead Type Webhook URLS:
-  %table.table.table-hover
-    %tr
-      %th Lead Type
-      %th URL
-      %th Description
-    %tr
-      %td
-        Veteran Leads
-      %td
-        https://crm.goatleads.com/leads/veteran_lead
-      %td
-        Handles Premium and Standard Veteran Leads
+  %p.bold
+    Lead Webhook URL:
+    %span.not-bold
+      https://crm.goatleads.com/hooks/leads
 
   %p
     When setting up a lead form make sure to include all fields that you want to track.
   %p
     Defaults are denoted with an asterisk * in the description column.
   %p
-    Here are the fields we currently track.
+    Here are the fields we currently track:
+
   %table.table.table-hover
     %tr
       %th Field
       %th Description
     - WebhookController::ALLOWED_PARAMS.each do |field, desc|
+      - cls = desc.match?('REQUIRED') ? 'bold' : ''
       %tr
-        %td
+        %td{class: cls}
           = field
-        %td
+        %td{class: cls}
           = desc

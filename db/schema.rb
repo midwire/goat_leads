@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_13_214803) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_19_120106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,7 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_214803) do
     t.integer "age"
     t.boolean "veteran"
     t.string "branch_of_service"
-    t.string "lead_type"
+    t.string "lead_quality"
     t.string "outside_company"
     t.string "google_click_id"
     t.datetime "lead_form_at"

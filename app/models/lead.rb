@@ -15,7 +15,6 @@ class Lead < ApplicationRecord
     :email,
     :state,
     :video_type,
-    :lead_type,
     presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :phone, phone_number: true
@@ -24,9 +23,9 @@ class Lead < ApplicationRecord
 
   scope :unassigned, -> { where(user_id: nil) }
   scope :oldest_first, -> { order(lead_date: :asc) }
-  scope :delivered_today_by_type, lambda { |lead_type|
+  scope :delivered_today_by_type, lambda { |lead_class|
     today = Date.current
-    where(type: lead_type)
+    where(type: lead_class)
         .where(delivered_at: today.beginning_of_day..today.end_of_day)
   }
 
@@ -81,7 +80,7 @@ end
 #  lead_form_at            :datetime
 #  lead_form_name          :string
 #  lead_program            :string
-#  lead_type               :string
+#  lead_quality            :string
 #  location                :string
 #  marital_status          :string
 #  military_status         :string

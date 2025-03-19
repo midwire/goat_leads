@@ -8,7 +8,7 @@ FactoryBot.define do
     email { 'bob@example.com' }
     state { 'Washington' }
     video_type { 'other' }
-    lead_type { 'Standard' }
+    lead_quality { 'Standard' }
   end
 end
 

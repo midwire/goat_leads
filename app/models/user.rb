@@ -32,8 +32,6 @@ class User < ApplicationRecord
     where('video_types @> ARRAY[?]::text[]', video_type)
   }
   scope :eligible_for_lead_type, lambda { |lead_type|
-    # TODO: Make this account for active, matching lead orders
-    # Not to exceed the daily cap for lead order
     joins(:lead_orders)
         .merge(LeadOrder.active)
         .merge(LeadOrder.not_canceled)
@@ -62,14 +60,14 @@ class User < ApplicationRecord
   end
 
   # Account for all matching lead orders and compare max_per_day to matching delivered leads
-  def fulfilled_leads_for_lead_type?(lead_type, dow = Date.current.strftime('%a').downcase)
-    matching_leads = leads.delivered_today_by_type(lead_type)
+  def fulfilled_leads_for_lead_type?(lead_class, dow = Date.current.strftime('%a').downcase)
+    matching_leads = leads.delivered_today_by_type(lead_class)
     return false if matching_leads.empty?
 
     delivered_count = matching_leads.count
 
     lead_orders
-        .for_lead_type(lead_type)
+        .for_lead_type(lead_class)
         .for_day_of_week(dow)
         .with_unreached_daily_cap_of(matching_leads.count)
 

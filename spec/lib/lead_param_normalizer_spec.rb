@@ -6,7 +6,7 @@ RSpec.describe LeadParamNormalizer, type: :lib do
   subject(:norm_params) { described_class.new(raw_params).normalize }
 
   let(:raw_params) do
-    params = param_fixture(:veteran_lead)
+    params = param_fixture(:veteran_lead_premium)
     ActionController::Parameters.new(params)[:form]
   end
 
