@@ -2,13 +2,25 @@
 
 FactoryBot.define do
   factory :veteran_lead_premium do
-    first_name { 'Bob' }
-    last_name { 'Johnson' }
-    phone { '+13108090712' }
-    email { 'bob@example.com' }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    phone { Faker::Base.numerify('1##########') }
+    email { Faker::Internet.email }
     state { 'Washington' }
-    video_type { 'other' }
-    lead_quality { 'Standard' }
+    dob { Faker::Date.between(from: '1930-01-01', to: 21.years.ago) }
+    marital_status { Faker::Demographic.marital_status }
+    military_status { Faker::Military.army_rank }
+    needed_coverage { ['250,000+', '40,000 - 50,000', '20,000 - 30,000'].sample }
+    contact_time_of_day { %w[Afternoon Evening Morning].sample }
+    ad { Faker::Lorem.word }
+    adset_id { Faker::Lorem.words(number: 3).join(' ') }
+    platform { %w[yt fb ig].sample }
+    campaign_id { Faker::Lorem.words(number: 5).join(' ') }
+    ip_address { Faker::Internet.public_ip_v4_address }
+    location { Faker::Address.city }
+    trusted_form_url { Faker::Internet.url(host: 'example.com') }
+    video_type { %w[other dom].sample }
+    lead_date { Faker::Date.between(from: 1.day.ago, to: 1.year.ago) }
   end
 end
 

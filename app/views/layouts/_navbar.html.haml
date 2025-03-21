@@ -8,24 +8,24 @@
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto
         %li.nav-item
-          = link_to 'Home', leads_path, class: "nav-link #{active_class(leads_path)}"
+          = nav_link('Home', leads_path)
         %li.nav-item
-          = link_to 'Order Leads', new_lead_order_path, class: "nav-link #{active_class(new_lead_order_path)}"
+          = nav_link('Order Leads', new_lead_order_path)
         %li.nav-item
-          = link_to 'FAQs', faqs_path, class: "nav-link #{active_class(faqs_path)}"
+          = nav_link('FAQs', faqs_path)
         %li.nav-item
-          = link_to 'G.O.A.T CRM', root_path, class: "nav-link #{active_class(root_path)}"
+          = nav_link('G.O.A.T. CRM', root_path)
       %ul.navbar-nav
         - if authenticated?
           %li.nav-item.dropdown
             %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
               = @current_user.email_address
             .dropdown-menu
-              - path = edit_user_path(@current_user)
+              -# - path = edit_user_path(@current_user)
               -# = link_to("Hi, #{@current_user.email_address}", path, class: "nav-link dropdown-toggle #{active_class(path)}")
               %a.dropdown-item.nav-link{href: edit_user_path(@current_user)}
                 Profile
-              %a.dropdown-item.nav-link{href: session_path, method: :delete, data: { 'turbo-method': :delete}}
+              %a.dropdown-item.nav-link{href: session_path, method: :delete, data: { 'turbo-method': :delete }}
                 Sign Out
               -# %a.dropdown-item{:href => "#"} Another action
               -# %a.dropdown-item{:href => "#"} Something else here

@@ -26,6 +26,12 @@ class ApplicationDecorator < Draper::Decorator
     date.to_fs(:ymd)
   end
 
+  def datetime_format(time)
+    return '' if time.blank?
+
+    time.strftime('%-m/%-d/%Y %H:%M:%S')
+  end
+
   def comma_number(number)
     h.number_with_delimiter(number, delimiter: ',')
   end

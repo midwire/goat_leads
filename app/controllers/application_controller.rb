@@ -10,16 +10,17 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # array_value = if parms[attribute].respond_to?(:map) ? parms[attribute] : parms[attribute].split(/,\w*/)
   # Normalize array params for postgres array columns
   # Make sure to expect the params like this:
   # params.expect(model: [:some_param, {some_array_param: []}])
   def normalize_array_param(parms, attribute)
-    return [] if parms[attribute].blank?
+    value = parms[attribute]
+    return [] if value.blank?
 
-    p = parms[attribute].map { |e| e.split(',') }.flatten
-    p.map!(&:strip)
-    p.reject!(&:empty?)
-    p
+    Array(value).flat_map do |item|
+      item.to_s.split(/\s*,\s*/)
+    end.map(&:strip).reject(&:empty?)
   end
 
   def prepare_exception_notifier

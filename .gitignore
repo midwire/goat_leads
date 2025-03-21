@@ -53,3 +53,4 @@ coverage
 
 /config/credentials/development.key
 /config/credentials/production.key
+/config/secrets/sheets_config.json

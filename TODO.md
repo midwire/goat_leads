@@ -4,15 +4,21 @@
 2. Build out agent ability to order leads
 3. Build out lead order history
 4. Agent should see ordered vs delivered lead counts on navbar
-5. Setup additional incoming lead endpoints
-6. Setup chat support
-7. Refine interface, make all links resolvable
-8. Add twitter-card
-9. Add CRM functionality to the lead-card for agents
+5. Setup chat support
+6. Refine interface, make all links resolvable
+7. Add twitter-card
+8. Add CRM functionality to the lead-card for agents
+
+## Priorities
+
+* Build distribution system first
+* Orders get fed into us - build webhook
+* Assign leads to google sheet after assignment
+* Google sheet URL will be attached to the lead order
+* Lead Order endpoint
+* Make lead distributor lead-order based instead of user-based
 
 ## Currently In-Progress
-
-Number 2
 
 Waiting for access to do stripe integration
 
@@ -41,6 +47,7 @@ Guessing we will build each of these out with the appropriate functionality.
 
 ## Links to remember
 
+* zoom.fflall.com - Zoom Meetings
 * https://mycrmcenter.com/update-lead-order - CRM lead orders
 * https://app.agentcrmcenter.com/v2/preview/PibNxV8i7yM9IrKTOztp - Site preview
 * https://mycrmcenter.com/update-lead-order - Lead Orders
@@ -49,6 +56,17 @@ Guessing we will build each of these out with the appropriate functionality.
 * https://docs.google.com/spreadsheets/d/1q_GkCYBSQ_zLRm1I0fVde8Nu5r751otb_FjKEdI0FxQ/edit?gid=0#gid=0 - IUL Leads Example
 * https://docs.google.com/spreadsheets/d/1wBqtF-NN-HsX7Xri0a7Ck4pdDrbNRsdbj7xP2VENS3I/edit?gid=0#gid=0 - Agent Lead Spreadsheet Example
 * https://docs.google.com/spreadsheets/d/1zFKhSUJpb1ZiAWi8C-oExnu3RYGIIZzv9lmq_OevbaA/edit?gid=0#gid=0 - Lead Assignment Spreadsheet Example
+
+### Spreadsheet Links
+
+#### Agent Spreadsheets
+
+Spreadsheet format
+
+* https://docs.google.com/spreadsheets/d/1ZbqBYHY_BcZ_rXIaQcaw4P0KlzdyL3T8KvDhYV6qWp0/edit?usp=sharing - FEX
+* https://docs.google.com/spreadsheets/d/1tFZ4fIJgO8zJnxnqK3Mb634Ho9Gls9T76MVXey1DdQY/edit?usp=sharing - Veteran
+* https://docs.google.com/spreadsheets/d/1fgaf0t15pe8M2qEo_aZAEkXv5nlVD7z_QnWdS3n-_nM/edit?usp=sharing - IUL
+* https://docs.google.com/spreadsheets/d/17cHSlPESchjMHF6ze8FLCEhZZLWE8VSqOMS4UyYkYyA/edit?usp=sharing - Mortgage Protection
 
 ## Questions
 
@@ -74,3 +92,8 @@ Push leads into our system, assign them and push to another system
 ## Reporting Site
 
 * Upload CSV files by each manager
+* Did they earn a raise (dollar amt. over time)
+* Everyone who reached the next milestone month to month
+* Dashboard interface
+* Reports based of agency name, or agent, date ranges
+

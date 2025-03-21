@@ -49,4 +49,10 @@ module ApplicationHelper
   def tel_to(phone)
     link_to(phone, "tel:#{phone}")
   end
+
+  def nav_link(text, url)
+    content_tag(:a, href: url, class: "nav-link #{active_class(url)}") do
+      text
+    end
+  end
 end
