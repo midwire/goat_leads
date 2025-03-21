@@ -25,7 +25,7 @@ class Hooks::LeadOrdersController < WebhookController
 
   # PUT /hooks/lead_orders/:id
   def update
-    if @lead_order.update(states: params.expect(:states))
+    if @lead_order.update(states: normalize_array_param(params.expect(:states), :states))
       head :success
     else
       Rails.logger.error(
