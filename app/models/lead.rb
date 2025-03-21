@@ -4,6 +4,7 @@ class Lead < ApplicationRecord
   before_save :set_rr_state
 
   belongs_to :user, optional: true
+  belongs_to :lead_order, optional: true
 
   normalizes :email, with: ->(e) { e.strip.downcase }
   normalizes :phone, with: ->(e) { e.strip.tr('^0-9', '') }
@@ -40,6 +41,13 @@ class Lead < ApplicationRecord
     user.present?
   end
 
+  # Transforms the lead to an array for Agent display
+  # Each Lead child class must define 'spreadsheet_data'
+  def to_array
+    decorated = decorate
+    spreadsheet_data.values.map { |method| decorated.public_send(method) }
+  end
+
   private
 
   def set_rr_state
@@ -53,10 +61,15 @@ end
 #
 #  id                      :bigint           not null, primary key
 #  ad                      :string
+#  address                 :string
 #  age                     :integer
 #  agent_sold              :string
+#  amt_requested           :string
+#  beneficiary             :string
+#  beneficiary_name        :string
 #  branch_of_service       :string
 #  carrier_sold            :string
+#  city                    :string
 #  client_age              :integer
 #  contact_time_of_day     :string
 #  crm                     :string
@@ -65,12 +78,18 @@ end
 #  crm_user                :string
 #  current_retirement_plan :string
 #  delivered_at            :datetime
+#  desired_monthly_contrib :string
+#  desired_retirement_age  :string
 #  dob                     :date
 #  email                   :string
 #  employment_status       :string
+#  favorite_hobby          :string
 #  fbclid                  :string
 #  first_name              :string
 #  full_name               :string
+#  gender                  :string
+#  has_life_insurance      :string
+#  health_history          :boolean
 #  ip_address              :string
 #  is_dropoff              :boolean
 #  iul_goal                :string
@@ -85,6 +104,8 @@ end
 #  marital_status          :string
 #  military_status         :string
 #  monthly_contribution    :string
+#  mortgage_balance        :string
+#  mortgage_payment        :string
 #  needed_coverage         :string
 #  otp_code                :string
 #  outside_company         :string
@@ -118,24 +139,27 @@ end
 #  verified_lead           :boolean
 #  veteran                 :boolean
 #  video_type              :string
+#  zip                     :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  adset_id                :string
 #  campaign_id             :string
 #  external_lead_id        :string
 #  google_click_id         :string
+#  lead_order_id           :bigint
 #  user_id                 :bigint
 #  utm_id                  :string
 #
 # Indexes
 #
-#  index_leads_on_delivered_at  (delivered_at)
-#  index_leads_on_dob           (dob)
-#  index_leads_on_email         (email)
-#  index_leads_on_first_name    (first_name)
-#  index_leads_on_last_name     (last_name)
-#  index_leads_on_phone         (phone)
-#  index_leads_on_state         (state)
-#  index_leads_on_type          (type)
-#  index_leads_on_user_id       (user_id)
+#  index_leads_on_delivered_at   (delivered_at)
+#  index_leads_on_dob            (dob)
+#  index_leads_on_email          (email)
+#  index_leads_on_first_name     (first_name)
+#  index_leads_on_last_name      (last_name)
+#  index_leads_on_lead_order_id  (lead_order_id)
+#  index_leads_on_phone          (phone)
+#  index_leads_on_state          (state)
+#  index_leads_on_type           (type)
+#  index_leads_on_user_id        (user_id)
 #

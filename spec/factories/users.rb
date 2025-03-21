@@ -8,6 +8,8 @@ FactoryBot.define do
     licensed_states { %w[CA NY WA] }
     lead_types { %w[VeteranLeadPremium FinalExpenseLeadPremium] }
     video_types { %w[dom other] }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
 
     trait :admin do
       role { 2 }

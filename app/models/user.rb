@@ -79,6 +79,25 @@ class User < ApplicationRecord
     end
     fulfilled
   end
+
+  def unfulfilled_lead_orders_for_lead_type(lead_class, dow = Date.current.strftime('%a').downcase)
+    matching_leads = leads.delivered_today_by_type(lead_class)
+
+    delivered_count = matching_leads.count
+
+    lead_orders
+        .for_lead_type(lead_class)
+        .for_day_of_week(dow)
+        .with_unreached_daily_cap_of(matching_leads.count)
+
+    return true if lead_orders.empty?
+
+    fulfilled = true
+    lead_orders.each do |order|
+      fulfilled &= delivered_count >= order.max_per_day
+    end
+    fulfilled
+  end
 end
 
 # == Schema Information

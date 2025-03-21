@@ -44,9 +44,7 @@ class LeadDistributor
 
         # user.video_types.include?(lead.video_type)
 
-        lead.update!(user: user, delivered_at: Time.current)
-
-        user.update!(last_lead_delivered_at: Time.current)
+        deliver_lead!(user, lead)
 
         true
       end
@@ -58,5 +56,17 @@ class LeadDistributor
       false
     end
     # rubocop:enable Metrics/AbcSize
+
+    def deliver_lead!(lead, user)
+      lead_orders = user.lead_orders.for_lead(lead)
+      lead.update!(
+        user: user,
+        lead_order: lead_order,
+        delivered_at: Time.current
+      )
+      user.update!(last_lead_delivered_at: Time.current)
+
+      # TODO: If the related lead_order has integration settings, deliver to those systems
+    end
   end
 end

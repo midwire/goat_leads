@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
+# This webhook is for incoming leads of all types
 class Hooks::LeadsController < WebhookController
-  # POST /leads/leads
+  # POST /hooks/leads
   def create
     parser = LeadParser.new(lead_params)
     lead = parser.model_instance

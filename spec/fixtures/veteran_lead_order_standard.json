@@ -1,0 +1,32 @@
+{
+  "row_number": 1,
+  "data": {
+    "ordered_at": "2025-03-12 22:39:33.444574000 +0000",
+    "detail": "(1) 30 VET Leads - 1 Time Order",
+    "amount": 960,
+    "discount": 96,
+    "paid": 864,
+    "frequency": "one_time",
+    "count": 1,
+    "lead_program": "Real-Time Vet IUL, FEX",
+    "lead_type": "Standard",
+    "agent_email": "lillybolson.ffl@gmail.com",
+    "agent_phone": "15099481626",
+    "google_sheet_url": "https://docs.google.com/spreadsheets/d/1VjU13yhRerOMc3Y4zKM7yGyezGrwpeYEhUNtTADqJFc",
+    "states": "WA, MT, VT, NJ, NH, TX, MN, OH, SD, SC, IA, NM, MI",
+    "url_source": "https://mycrmcenter.com/veteran-life-leads-1082",
+    "quantity": "1",
+    "total_leads": 30,
+    "bump_order": 10,
+    "total_lead_order": 30,
+    "ringy_sid": "",
+    "ringy_auth_token": null,
+    "max_per_day": null,
+    "order_id": "67c78dbd839d799c99cb09e6",
+    "days_per_week": "Mon, Tue, Wed, Thu, Fri, Sat, Sun",
+    "name_on_sheet": "Lilly Bolson | 030525 | 1",
+    "imo": "FFL"
+  },
+  "controller": "hooks/lead_orders",
+  "action": "create"
+}

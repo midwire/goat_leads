@@ -46,4 +46,12 @@ class LeadDecorator < ApplicationDecorator
     age -= 1 if current_date < Date.new(current_date.year, dob.month, dob.day)
     age
   end
+
+  def created_at
+    datetime_format(object.created_at)
+  end
+
+  def new_lead
+    'New Lead'
+  end
 end
