@@ -93,5 +93,5 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   # Local tunnels
-  config.hosts << 'quiet-horses-move.loca.lt'
+  config.hosts << 'petite-chairs-leave.loca.lt'
 end

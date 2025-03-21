@@ -1,0 +1,50 @@
+on new_lead_arrival(lead):
+    # 1. Filter eligible agents for this lead
+    eligible_agents = []
+    for agent in all_agents:
+        if lead.state in agent.accepted_states \
+           and agent.leads_assigned_today < agent.daily_limit \
+           and agent.total_assigned < agent.order_size:
+            eligible_agents.append(agent)
+    if eligible_agents is empty:
+        // No agent can take this lead (handle separately, e.g., send to overflow queue)
+        return
+    # 2. Calculate priority scores for each eligible agent
+    current_time = now()
+    best_agent = None
+    best_score = -∞
+    for agent in eligible_agents:
+        # Calculate order size weight
+        W = agent.order_size  # (or normalize by sum of all orders if needed)
+        # Calculate backlog factor based on 3-day fulfillment progress
+        time_since_order = current_time - agent.order_start_time
+        time_ratio = time_since_order / (3 days)
+        fulfillment_ratio = agent.total_assigned / agent.order_size
+        if fulfillment_ratio < time_ratio:
+            # behind schedule, boost priority
+            backlog_factor = 1 + (time_ratio - fulfillment_ratio)
+        else:
+            backlog_factor = 1  # on track or ahead
+        B = backlog_factor
+        # Calculate recency factor based on time since last lead
+        time_since_last = current_time - agent.last_lead_time
+        # For example, R could scale up to 2x if waiting longer than a threshold
+        if time_since_last > some_threshold:
+            R = 1 + f(time_since_last)  # f could be a function giving a larger boost for longer waits
+        else:
+            R = 1  # no boost if recently got a lead
+        score = W * B * R
+        if score > best_score:
+            best_score = score
+            best_agent = agent
+        elif score == best_score:
+            # Tie-break: choose agent who has waited longer since last lead
+            if agent.last_lead_time < best_agent.last_lead_time:
+                best_agent = agent
+    # 3. Assign the lead to the best agent
+    assign(lead, to=best_agent)
+    best_agent.total_assigned += 1
+    best_agent.leads_assigned_today += 1
+    best_agent.last_lead_time = current_time
+    # 4. (Optional) Log assignment, update any tracking dashboards
+    # 5. Recalculate priorities dynamically for next lead (implicit as we'll compute fresh scores on next lead arrival)

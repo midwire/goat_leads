@@ -1,0 +1,31 @@
+{
+  "row_number": 0,
+  "data": {
+    "ordered_at": "{{order.created_on}}",
+    "detail": "(1) 30 VET Leads - 1 Time Order",
+    "amount": null,
+    "discount": "{{order.total_discount}}",
+    "paid": "{{order.total_cart_price}}",
+    "frequency": null,
+    "count": 1,
+    "lead_program": "Real-Time Vet IUL, FEX",
+    "lead_type": "Standard",
+    "agent_email": "{{order.customer.email}}",
+    "agent_phone": "{{order.customer.phone}}",
+    "agent_name": "{{order.customer.name}}",
+    "google_sheet_url": "{{contact.google_sheet_location_for_email}}",
+    "states": "WA, MT, VT, NJ, NH, TX, MN, OH, SD, SC, IA, NM, MI",
+    "url_source": "{{order.source}}",
+    "quantity": 1,
+    "total_leads": 0,
+    "bump_order": 10,
+    "total_lead_order": 30,
+    "ringy_sid": "{{contact.ringy_sid}}",
+    "ringy_auth_token": "{{contact.ringy_authtoken}}",
+    "max_per_day": null,
+    "order_id": null,
+    "days_per_week": "Mon, Tue, Wed, Thu, Fri, Sat, Sun",
+    "name_on_sheet": "Lilly Bolson | 030525 | 1",
+    "imo": "FFL"
+  }
+}

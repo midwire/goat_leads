@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   # Incoming lead endpoints
   namespace :hooks do
     resources :leads, only: %i[create]
-    resources :lead_orders, only: %i[create]
+    resources :lead_orders, only: %i[create update]
   end
 
   # Agents can edit their own info

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_20_211852) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_21_184901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -28,8 +28,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_211852) do
     t.date "expire_on"
     t.datetime "canceled_at"
     t.string "lead_class"
-    t.string "email"
-    t.string "phone"
     t.boolean "active"
     t.integer "max_per_day"
     t.date "paused_until"
@@ -72,7 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_211852) do
     t.index ["expire_on"], name: "index_lead_orders_on_expire_on"
     t.index ["fulfilled_at"], name: "index_lead_orders_on_fulfilled_at"
     t.index ["lead_class"], name: "index_lead_orders_on_lead_class"
-    t.index ["order_id"], name: "index_lead_orders_on_order_id"
+    t.index ["order_id"], name: "index_lead_orders_on_order_id", unique: true
     t.index ["user_id"], name: "index_lead_orders_on_user_id"
   end
 

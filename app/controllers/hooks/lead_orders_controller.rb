@@ -6,8 +6,9 @@ require 'securerandom'
 class Hooks::LeadOrdersController < WebhookController
   include LeadClassMapping
 
-  before_action :set_or_create_agent
-  before_action :set_lead_class
+  before_action :set_or_create_agent, only: %i[create]
+  before_action :set_lead_class, only: %i[create]
+  before_action :set_lead_order, only: %i[update]
 
   # POST /hooks/lead_orders
   def create
@@ -17,6 +18,18 @@ class Hooks::LeadOrdersController < WebhookController
     else
       Rails.logger.error(
         "Failed to create Lead Order: RowID: #{params[:row_number]} - #{lead_order.errors.full_messages}"
+      )
+      head :unprocessable_content
+    end
+  end
+
+  # PUT /hooks/lead_orders/:id
+  def update
+    if @lead_order.update(states: params.expect(:states))
+      head :success
+    else
+      Rails.logger.error(
+        "Failed to update Lead Order: - #{lead_order.errors.full_messages}"
       )
       head :unprocessable_content
     end
@@ -81,8 +94,13 @@ class Hooks::LeadOrdersController < WebhookController
     )
   end
 
+  # Don't use lead_order_params here as it will cause infinite recursion
   def set_lead_class
     @lead_class = lead_class(params[:data][:lead_program], params[:data][:lead_type])
+  end
+
+  def set_lead_order
+    @lead_order = LeadOrder.find_by(order_id: params[:id])
   end
 
   def random_password(length = 20)

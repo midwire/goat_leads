@@ -11,11 +11,11 @@
 
 ## Priorities
 
+* Get lead orders feeding from GHL to bypass google sheets
 * Build distribution system first
 * Orders get fed into us - build webhook
 * Assign leads to google sheet after assignment
 * Google sheet URL will be attached to the lead order
-* Lead Order endpoint
 * Make lead distributor lead-order based instead of user-based
 
 ## Currently In-Progress
@@ -40,6 +40,7 @@ Guessing we will build each of these out with the appropriate functionality.
 * Modify algorithm to use lead_order.lead_class instead of user.lead_types and account for lead_order being active (or paused), expired_on, days_per_week and max_per_day
 * Configure exception/error notifications to send emails to me and in a slack channel
 * Flesh out the whitelabeling support
+* Lead Order endpoint
 
 ## Completed Incoming Lead Endpoints
 

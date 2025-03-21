@@ -11,14 +11,14 @@ class LeadOrder < ApplicationRecord
 
   enum :frequency, { one_time: 0, recurring: 1 }
 
-  normalizes :email, with: ->(e) { e.strip.downcase }
+  normalizes :agent_email, with: ->(e) { e.strip.downcase }
 
-  validates :states, presence: true
+  # validates :states, presence: true
   validates :lead_class, presence: true
   validates :days_per_week, presence: true
-  validates :phone, phone_number: true, allow_blank: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
-  validates :order_id, presence: true, uniqueness: true
+  validates :agent_phone, phone_number: true, allow_blank: true
+  validates :agent_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+  validates :order_id, presence: true # has a unique index
 
   validate :validate_permitted_states
   validate :validate_permitted_days_of_week
@@ -106,7 +106,6 @@ end
 #  days_per_week    :text             default(["mon", "tue", "wed", "thu", "fri", "sat", "sun"]), is an Array
 #  detail           :string
 #  discount_cents   :integer
-#  email            :string
 #  expire_on        :date
 #  frequency        :integer
 #  fulfilled_at     :datetime
@@ -122,7 +121,6 @@ end
 #  ordered_at       :datetime
 #  paid_cents       :integer
 #  paused_until     :date
-#  phone            :string
 #  quantity         :integer
 #  ringy_auth_token :string
 #  ringy_sid        :string
@@ -145,7 +143,7 @@ end
 #  index_lead_orders_on_expire_on     (expire_on)
 #  index_lead_orders_on_fulfilled_at  (fulfilled_at)
 #  index_lead_orders_on_lead_class    (lead_class)
-#  index_lead_orders_on_order_id      (order_id)
+#  index_lead_orders_on_order_id      (order_id) UNIQUE
 #  index_lead_orders_on_user_id       (user_id)
 #
 # Foreign Keys

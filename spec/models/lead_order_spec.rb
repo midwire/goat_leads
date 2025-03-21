@@ -103,7 +103,6 @@ end
 #  days_per_week    :text             default(["mon", "tue", "wed", "thu", "fri", "sat", "sun"]), is an Array
 #  detail           :string
 #  discount_cents   :integer
-#  email            :string
 #  expire_on        :date
 #  frequency        :integer
 #  fulfilled_at     :datetime
@@ -119,7 +118,6 @@ end
 #  ordered_at       :datetime
 #  paid_cents       :integer
 #  paused_until     :date
-#  phone            :string
 #  quantity         :integer
 #  ringy_auth_token :string
 #  ringy_sid        :string
@@ -142,7 +140,7 @@ end
 #  index_lead_orders_on_expire_on     (expire_on)
 #  index_lead_orders_on_fulfilled_at  (fulfilled_at)
 #  index_lead_orders_on_lead_class    (lead_class)
-#  index_lead_orders_on_order_id      (order_id)
+#  index_lead_orders_on_order_id      (order_id) UNIQUE
 #  index_lead_orders_on_user_id       (user_id)
 #
 # Foreign Keys
