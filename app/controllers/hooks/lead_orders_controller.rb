@@ -23,10 +23,10 @@ class Hooks::LeadOrdersController < WebhookController
     end
   end
 
-  # PUT /hooks/lead_orders/:id
+  # PUT /hooks/lead_orders/:order_id
   def update
-    if @lead_order.update(states: normalize_array_param(params.expect(:states), :states))
-      head :success
+    if @lead_order.update(lead_order_update_params)
+      head :ok
     else
       Rails.logger.error(
         "Failed to update Lead Order: - #{@lead_order.errors.full_messages}"
@@ -76,6 +76,43 @@ class Hooks::LeadOrdersController < WebhookController
     parms
   end
   # rubocop:enable Metrics/MethodLength
+
+  def lead_order_update_params
+    parms = params.expect(
+      data: %i[
+        ordered_at
+        detail
+        agent_name
+        amount
+        discount
+        paid
+        frequency
+        count
+        lead_program
+        lead_type
+        agent_email
+        agent_phone
+        google_sheet_url
+        states
+        url_source
+        quantity
+        total_leads
+        bump_order
+        total_lead_order
+        ringy_sid
+        ringy_auth_token
+        max_per_day
+        order_id
+        days_per_week
+        name_on_sheet
+        imo
+        lead_class
+      ]
+    )
+    parms[:states] = normalize_array_param(parms, :states) if parms[:states].present?
+    parms[:days_per_week] = normalize_array_param(parms, :days_per_week) if parms[:days_per_week].present?
+    parms
+  end
 
   def set_or_create_agent
     agent_email = lead_order_params[:agent_email].downcase
