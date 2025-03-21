@@ -14,8 +14,8 @@
 
 = f.date_field(:expire_on)
 = f.date_field :paused_until
-= f.email_field :email
-= f.text_field :phone
+= f.email_field :agent_email
+= f.text_field :agent_phone
 = f.check_box(:active)
 .actions.mb-3
   = link_to('Cancel', lead_orders_path, class: %i[btn btn-secondary])

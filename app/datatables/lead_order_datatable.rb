@@ -15,8 +15,8 @@ class LeadOrderDatatable < ApplicationDatatable
       lead_class: { source: 'LeadOrder.lead_class', cond: :like },
       paused_until: { source: 'LeadOrder.paused_until', cond: :like },
       states: { source: 'LeadOrder.states', cond: :like },
-      email: { source: 'LeadOrder.email', cond: :like },
-      phone: { source: 'LeadOrder.phone', cond: :like },
+      agent_email: { source: 'LeadOrder.agent_email', cond: :like },
+      agent_phone: { source: 'LeadOrder.agent_phone', cond: :like },
       active: { source: 'LeadOrder.active', cond: :eq }
     }
   end
@@ -36,8 +36,8 @@ class LeadOrderDatatable < ApplicationDatatable
         lead_class: buttoned(edit_lead_order_url(lead_order), lead_order.lead_class),
         paused_until: lead_order.paused_until,
         states: lead_order.states,
-        email: lead_order.email,
-        phone: lead_order.phone,
+        agent_email: lead_order.agent_email,
+        agent_phone: lead_order.agent_phone,
         active: lead_order.active,
         DT_RowId: record.id
       }

@@ -6,26 +6,26 @@ RSpec.describe LeadOrder, type: :model do
   subject(:lead_order) { create(:lead_order) }
 
   describe 'validation' do
-    context 'if phone number is not valid' do
+    context 'if agent_phone number is not valid' do
       it 'generates an error' do
-        lead_order.phone = 'asdf'
+        lead_order.agent_phone = 'asdf'
         expect(lead_order.valid?).to be(false)
-        lead_order.phone = '123-444-1212'
+        lead_order.agent_phone = '123-444-1212'
         expect(lead_order.valid?).to be(false)
-        lead_order.phone = '+123-444-1212'
+        lead_order.agent_phone = '+123-444-1212'
         expect(lead_order.valid?).to be(false)
-        lead_order.phone = '(123) 444-1212'
+        lead_order.agent_phone = '(123) 444-1212'
         expect(lead_order.valid?).to be(false)
-        lead_order.phone = '+8005551222212'
+        lead_order.agent_phone = '+8005551222212'
         expect(lead_order.valid?).to be(false)
       end
     end
 
-    context 'if phone number is valid' do
+    context 'if agent_phone number is valid' do
       it 'generates no error' do
-        lead_order.phone = '8005551212'
+        lead_order.agent_phone = '8005551212'
         expect(lead_order.valid?).to be(true)
-        lead_order.phone = '18005551212'
+        lead_order.agent_phone = '18005551212'
         expect(lead_order.valid?).to be(true)
       end
     end

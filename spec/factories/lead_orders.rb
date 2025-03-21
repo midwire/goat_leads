@@ -8,6 +8,10 @@ FactoryBot.define do
     max_per_day { 100 }
     states { %w[wy or] }
     amount_cents { nil }
+    order_id do
+      random_string = (0...30).map { rand(65..90).chr }.join + (0...30).map { rand(10).to_s }.join
+      random_string.chars.sample(30).join
+    end
 
     trait :inactive do
       active { false }

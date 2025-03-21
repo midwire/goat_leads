@@ -13,7 +13,7 @@ RSpec.describe '/lead_orders', type: :request do
   end
 
   let(:invalid_attributes) do
-    valid_attributes.merge(states: nil)
+    valid_attributes.merge(lead_class: nil)
   end
 
   let(:lead_order) { create(:lead_order) }

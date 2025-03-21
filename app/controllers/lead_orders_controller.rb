@@ -91,13 +91,14 @@ class LeadOrdersController < ApplicationController
     parms = params.expect(
       lead_order: [
         :user_id,
+        :order_id,
         :expire_on,
         :lead_class,
         :active,
         :max_per_day,
         :paused_until,
-        :email,
-        :phone,
+        :agent_email,
+        :agent_phone,
         { days_per_week: [] },
         { states: [] }
       ]
