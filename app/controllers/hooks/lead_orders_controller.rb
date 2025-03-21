@@ -29,7 +29,7 @@ class Hooks::LeadOrdersController < WebhookController
       head :success
     else
       Rails.logger.error(
-        "Failed to update Lead Order: - #{lead_order.errors.full_messages}"
+        "Failed to update Lead Order: - #{@lead_order.errors.full_messages}"
       )
       head :unprocessable_content
     end
