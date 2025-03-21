@@ -10,8 +10,9 @@
     "count": 1,
     "lead_program": "Real-Time Vet IUL, FEX",
     "lead_type": "Standard",
-    "agent_email": "lillybolson.ffl@gmail.com",
+    "agent_email": "lillybogus.ffl@gmail.com",
     "agent_phone": "15099481626",
+    "agent_name": "PATRICK SULLIVAN",
     "google_sheet_url": "https://docs.google.com/spreadsheets/d/1VjU13yhRerOMc3Y4zKM7yGyezGrwpeYEhUNtTADqJFc",
     "states": "WA, MT, VT, NJ, NH, TX, MN, OH, SD, SC, IA, NM, MI",
     "url_source": "https://mycrmcenter.com/veteran-life-leads-1082",
@@ -26,7 +27,5 @@
     "days_per_week": "Mon, Tue, Wed, Thu, Fri, Sat, Sun",
     "name_on_sheet": "Lilly Bolson | 030525 | 1",
     "imo": "FFL"
-  },
-  "controller": "hooks/lead_orders",
-  "action": "create"
+  }
 }

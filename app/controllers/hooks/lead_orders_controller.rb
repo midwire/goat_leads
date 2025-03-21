@@ -74,6 +74,8 @@ class Hooks::LeadOrdersController < WebhookController
       email_address: agent_email,
       phone: lead_order_params[:agent_phone],
       licensed_states: normalize_array_param(lead_order_params, :states),
+      first_name: agent_first_name,
+      last_name: agent_last_name,
       password: password,
       password_confirmation: password
     )
@@ -86,5 +88,13 @@ class Hooks::LeadOrdersController < WebhookController
   def random_password(length = 20)
     characters = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a + %w[! @ # $ % ^ & * - +]
     Array.new(length) { characters.sample(random: SecureRandom) }.join
+  end
+
+  def agent_first_name
+    lead_order_params[:agent_name].split(' ').first&.titleize
+  end
+
+  def agent_last_name
+    lead_order_params[:agent_name].split(' ').last&.titleize
   end
 end
