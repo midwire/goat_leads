@@ -25,7 +25,7 @@ class Hooks::LeadOrdersController < WebhookController
 
   # PUT /hooks/lead_orders/:order_id
   def update
-    if @lead_order.update(lead_order_update_params)
+    if @lead_order&.update(lead_order_update_params)
       head :ok
     else
       Rails.logger.error(
