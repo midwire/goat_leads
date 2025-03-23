@@ -28,14 +28,20 @@ class Hooks::LeadOrdersController < WebhookController
     if @lead_order&.update(lead_order_update_params)
       head :ok
     else
-      Rails.logger.error(
-        "Failed to update Lead Order: - #{@lead_order.errors.full_messages}"
-      )
+      Rails.logger.error(error_message)
       head :unprocessable_content
     end
   end
 
   private
+
+  def error_message
+    if @lead_order.present?
+      "Failed to update Lead Order: - #{@lead_order&.errors&.full_messages}"
+    else
+      "Lead order not found for ID: #{params[:id]}"
+    end
+  end
 
   # rubocop:disable Metrics/MethodLength
   def lead_order_params

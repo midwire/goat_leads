@@ -28,23 +28,10 @@ ExceptionNotification.configure do |config|
   # Notifiers =================================================================
 
   # Email notifier sends notifications by email.
-  config.add_notifier :email, {
-    email_prefix: '[ERROR] ',
-    sender_address: %("Notifier" <leadsupport@goatleads.com>),
-    exception_recipients: %w[goatleads@beachghost.com]
-  }
-
-  # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.
-  # config.add_notifier :campfire, {
-  #   subdomain: 'my_subdomain',
-  #   token: 'my_token',
-  #   room_name: 'my_room'
-  # }
-
-  # HipChat notifier sends notifications to your HipChat room. Requires 'hipchat' gem.
-  # config.add_notifier :hipchat, {
-  #   api_token: 'my_token',
-  #   room_name: 'my_room'
+  # config.add_notifier :email, {
+  #   email_prefix: '[ERROR] ',
+  #   sender_address: %("Notifier" <leadsupport@goatleads.com>),
+  #   exception_recipients: %w[goatleads@beachghost.com]
   # }
 
   # Webhook notifier sends notifications over HTTP protocol. Requires 'httparty' gem.
