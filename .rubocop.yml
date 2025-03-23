@@ -99,6 +99,8 @@ Style/Alias:
 
 Layout/LineLength:
   Max: 110
+  AllowedPatterns:
+    - '^ *#'
   Exclude:
     - 'app/views/**/*'
 
