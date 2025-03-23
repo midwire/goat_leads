@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_21_184901) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_23_173110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -28,7 +28,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_184901) do
     t.date "expire_on"
     t.datetime "canceled_at"
     t.string "lead_class"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.integer "max_per_day"
     t.date "paused_until"
     t.text "days_per_week", default: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], array: true
@@ -45,8 +45,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_184901) do
     t.string "detail"
     t.string "agent_name"
     t.integer "amount_cents"
-    t.integer "discount_cents"
-    t.integer "paid_cents"
+    t.integer "discount_cents", default: 0
+    t.integer "paid_cents", default: 0
     t.integer "frequency"
     t.integer "count"
     t.string "lead_program"
@@ -57,7 +57,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_184901) do
     t.string "url_source"
     t.integer "quantity"
     t.integer "total_leads"
-    t.integer "bump_order"
+    t.integer "bump_order", default: 0
     t.integer "total_lead_order"
     t.string "order_id"
     t.string "name_on_sheet"

@@ -3,6 +3,7 @@
 require 'securerandom'
 
 # This webhook is for incoming lead orders
+# rubocop:disable Metrics/ClassLength
 class Hooks::LeadOrdersController < WebhookController
   include LeadClassMapping
 
@@ -83,6 +84,7 @@ class Hooks::LeadOrdersController < WebhookController
   end
   # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def lead_order_update_params
     parms = params.expect(
       data: %i[
@@ -119,6 +121,7 @@ class Hooks::LeadOrdersController < WebhookController
     parms[:days_per_week] = normalize_array_param(parms, :days_per_week) if parms[:days_per_week].present?
     parms
   end
+  # rubocop:enable Metrics/MethodLength
 
   def set_or_create_agent
     agent_email = lead_order_params[:agent_email].downcase
@@ -159,3 +162,4 @@ class Hooks::LeadOrdersController < WebhookController
     lead_order_params[:agent_name].split(' ').last&.titleize
   end
 end
+# rubocop:enable Metrics/ClassLength

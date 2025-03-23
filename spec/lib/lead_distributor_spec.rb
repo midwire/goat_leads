@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe LeadDistributor do
+RSpec.describe LeadDistributor, type: :lib do
   describe '.assign_lead' do
     let(:lead) { create(:veteran_lead_premium) }
 

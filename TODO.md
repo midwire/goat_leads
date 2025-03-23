@@ -1,19 +1,30 @@
 # TODO List
 
-1. Setup Stripe integration and user-subscriptions and one-off payments for lead orders
-2. Build out agent ability to order leads
-3. Build out lead order history
-4. Agent should see ordered vs delivered lead counts on navbar
-5. Setup chat support
-6. Refine interface, make all links resolvable
-7. Add twitter-card
-8. Add CRM functionality to the lead-card for agents
+1. Phase 1 - Lead Distribution platform and Lead Repository. Able to distribute leads any platform or multiple platforms, ie. Google Sheets, GHL, Ringy, any Webhook. Our software needs settings screen to be able to build Webhook to any platform. Reporting dashboard to monitor costs. Interface for staff to handle lead returns. Ability for us to feed leads to system.
+2. Phase 2 - move purchasing/stripe to the software and have stripe integration. Main GHL site will have links to purchase from our integrated system. Build landing pages in system to collect leads directly.
+3. Phase 3 - move entire store website from GHl to new platform
+4. Phase 4 - build Lead portal to replace google sheets. “Lite CRM”
+5. Phase 5 - build CRM to replace GHl with Twilio and email integration and wavv and kixie integration.
+
+## Phase 1
+
+[x] Accept incoming LeadOrders on webhook endpoint
+[] Accept incoming Leads on webhook endpoint (incoming lead handler)
+    - The initial endpoint for veteran leads is built and tested
+    - We need to test the other lead types and automate feeding leads to the endpoint.
+[] Assign Leads to Agents through LeadOrders
+    - The initial assignment algo. is in written but needs to be refactored to use a dynamic "priority"
+[x] Distribute Leads to Agents Google Sheets
+[] Distribute Leads to Agents GHL
+[] Distribute Leads to Agents Ringy
+[] Distribute Leads to Agents Webhook
+[] Build Reporting Dashboard to monitor costs
+[] Build Manager interface to handle Lead returns
+
 
 ## Priorities
 
-* Get lead orders feeding from GHL to bypass google sheets
 * Build distribution system first
-* Orders get fed into us - build webhook
 * Assign leads to google sheet after assignment
 * Google sheet URL will be attached to the lead order
 * Make lead distributor lead-order based instead of user-based
@@ -41,6 +52,7 @@ Guessing we will build each of these out with the appropriate functionality.
 * Configure exception/error notifications to send emails to me and in a slack channel
 * Flesh out the whitelabeling support
 * Lead Order endpoint
+* Get lead orders feeding from GHL
 
 ## Completed Incoming Lead Endpoints
 
@@ -97,4 +109,14 @@ Push leads into our system, assign them and push to another system
 * Everyone who reached the next milestone month to month
 * Dashboard interface
 * Reports based of agency name, or agent, date ranges
+
+## Old
+1. Setup Stripe integration and user-subscriptions and one-off payments for lead orders
+2. Build out agent ability to order leads
+3. Build out lead order history
+4. Agent should see ordered vs delivered lead counts on navbar
+5. Setup chat support
+6. Refine interface, make all links resolvable
+7. Add twitter-card
+8. Add CRM functionality to the lead-card for agents
 

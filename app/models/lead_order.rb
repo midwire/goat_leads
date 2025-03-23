@@ -94,18 +94,18 @@ end
 # Table name: lead_orders
 #
 #  id               :bigint           not null, primary key
-#  active           :boolean
+#  active           :boolean          default(TRUE)
 #  agent_email      :string
 #  agent_name       :string
 #  agent_phone      :string
 #  agent_sheet      :string
 #  amount_cents     :integer
-#  bump_order       :integer
+#  bump_order       :integer          default(0)
 #  canceled_at      :datetime
 #  count            :integer
 #  days_per_week    :text             default(["mon", "tue", "wed", "thu", "fri", "sat", "sun"]), is an Array
 #  detail           :string
-#  discount_cents   :integer
+#  discount_cents   :integer          default(0)
 #  expire_on        :date
 #  frequency        :integer
 #  fulfilled_at     :datetime
@@ -119,7 +119,7 @@ end
 #  name_on_sheet    :string
 #  notes            :string
 #  ordered_at       :datetime
-#  paid_cents       :integer
+#  paid_cents       :integer          default(0)
 #  paused_until     :date
 #  quantity         :integer
 #  ringy_auth_token :string
