@@ -58,7 +58,6 @@ class LeadDistributor
     # rubocop:enable Metrics/AbcSize
 
     def deliver_lead!(lead, user)
-      lead_orders = user.lead_orders.for_lead(lead)
       lead.update!(
         user: user,
         lead_order: lead_order,

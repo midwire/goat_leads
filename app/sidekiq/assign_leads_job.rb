@@ -17,7 +17,7 @@ class AssignLeadsJob
 
     # For each lead, assign it to an appropriate user with weighted priority
     leads.each do |lead|
-      LeadDistributor.assign_lead(lead)
+      LeadAssigner.assign_lead(lead)
     end
   end
 end

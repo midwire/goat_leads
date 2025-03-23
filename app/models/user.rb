@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :sessions, dependent: :destroy
-  has_many :leads, dependent: :nullify
   has_many :lead_orders, dependent: :destroy
+  has_many :leads, through: :lead_orders
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   normalizes :video_types, with: ->(e) { e.map(&:downcase) }
@@ -57,46 +57,6 @@ class User < ApplicationRecord
 
   def verified?
     email_verified_at.present?
-  end
-
-  # Account for all matching lead orders and compare max_per_day to matching delivered leads
-  def fulfilled_leads_for_lead_type?(lead_class, dow = Date.current.strftime('%a').downcase)
-    matching_leads = leads.delivered_today_by_type(lead_class)
-    return false if matching_leads.empty?
-
-    delivered_count = matching_leads.count
-
-    lead_orders
-        .for_lead_type(lead_class)
-        .for_day_of_week(dow)
-        .with_unreached_daily_cap_of(matching_leads.count)
-
-    return true if lead_orders.empty?
-
-    fulfilled = true
-    lead_orders.each do |order|
-      fulfilled &= delivered_count >= order.max_per_day
-    end
-    fulfilled
-  end
-
-  def unfulfilled_lead_orders_for_lead_type(lead_class, dow = Date.current.strftime('%a').downcase)
-    matching_leads = leads.delivered_today_by_type(lead_class)
-
-    delivered_count = matching_leads.count
-
-    lead_orders
-        .for_lead_type(lead_class)
-        .for_day_of_week(dow)
-        .with_unreached_daily_cap_of(matching_leads.count)
-
-    return true if lead_orders.empty?
-
-    fulfilled = true
-    lead_orders.each do |order|
-      fulfilled &= delivered_count >= order.max_per_day
-    end
-    fulfilled
   end
 end
 

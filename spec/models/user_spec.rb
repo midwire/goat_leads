@@ -78,32 +78,6 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
-  describe '.fulfilled_leads_for_lead_type?' do
-    context 'when max_per_day leads have been delivered today for a lead order' do
-      before do
-        user.lead_orders << create(:lead_order, max_per_day: 2)
-        user.leads << create(:veteran_lead_premium, delivered_at: Time.current)
-        user.leads << create(:veteran_lead_premium, delivered_at: Time.current)
-      end
-
-      it 'returns true' do
-        expect(user.fulfilled_leads_for_lead_type?('VeteranLeadPremium')).to be(true)
-      end
-    end
-
-    context 'when max_per_day leads have not been delivered today for a lead order' do
-      before do
-        user.lead_orders << create(:lead_order, max_per_day: 3)
-        user.leads << create(:veteran_lead_premium, delivered_at: Time.current)
-        user.leads << create(:veteran_lead_premium, delivered_at: Time.current)
-      end
-
-      it 'returns false' do
-        expect(user.fulfilled_leads_for_lead_type?('VeteranLeadPremium')).to be(false)
-      end
-    end
-  end
 end
 
 # == Schema Information

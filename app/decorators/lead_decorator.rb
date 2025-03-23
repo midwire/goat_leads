@@ -5,9 +5,9 @@ class LeadDecorator < ApplicationDecorator
   delegate_all
 
   def owner
-    return 'Unassigned' unless object.user
+    return 'Unassigned' unless object.lead_order&.user
 
-    object.user.decorate.display_name
+    object.lead_order.user.decorate&.display_name
   end
 
   def display_name
