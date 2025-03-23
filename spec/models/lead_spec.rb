@@ -177,7 +177,6 @@ end
 #  external_lead_id        :string
 #  google_click_id         :string
 #  lead_order_id           :bigint
-#  user_id                 :bigint
 #  utm_id                  :string
 #
 # Indexes
@@ -191,5 +190,4 @@ end
 #  index_leads_on_phone          (phone)
 #  index_leads_on_state          (state)
 #  index_leads_on_type           (type)
-#  index_leads_on_user_id        (user_id)
 #

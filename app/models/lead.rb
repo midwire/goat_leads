@@ -3,8 +3,8 @@
 class Lead < ApplicationRecord
   before_save :set_rr_state
 
-  belongs_to :user, optional: true
   belongs_to :lead_order, optional: true
+  has_one :user, through: :lead_order
 
   normalizes :email, with: ->(e) { e.strip.downcase }
   normalizes :phone, with: ->(e) { e.strip.tr('^0-9', '') }
@@ -22,7 +22,7 @@ class Lead < ApplicationRecord
   validates :state, state: true
   validates :rr_state, state_abbreviation: true
 
-  scope :unassigned, -> { where(user_id: nil) }
+  scope :unassigned, -> { where(delivered_at: nil) }
   scope :oldest_first, -> { order(lead_date: :asc) }
   scope :delivered_today_by_type, lambda { |lead_class|
     today = Date.current
@@ -38,7 +38,7 @@ class Lead < ApplicationRecord
   end
 
   def delivered?
-    user.present?
+    delivered_at.present?
   end
 
   # Transforms the lead to an array for Agent display
@@ -147,7 +147,6 @@ end
 #  external_lead_id        :string
 #  google_click_id         :string
 #  lead_order_id           :bigint
-#  user_id                 :bigint
 #  utm_id                  :string
 #
 # Indexes
@@ -161,5 +160,4 @@ end
 #  index_leads_on_phone          (phone)
 #  index_leads_on_state          (state)
 #  index_leads_on_type           (type)
-#  index_leads_on_user_id        (user_id)
 #

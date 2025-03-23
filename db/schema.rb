@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_23_173110) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_23_204822) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,13 +64,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_173110) do
     t.string "imo"
     t.string "notes"
     t.datetime "ordered_at"
+    t.datetime "last_lead_delivered_at"
     t.index ["active"], name: "index_lead_orders_on_active"
     t.index ["agent_email"], name: "index_lead_orders_on_agent_email"
     t.index ["agent_phone"], name: "index_lead_orders_on_agent_phone"
+    t.index ["canceled_at"], name: "index_lead_orders_on_canceled_at"
+    t.index ["days_per_week"], name: "index_lead_orders_on_days_per_week", using: :gin
     t.index ["expire_on"], name: "index_lead_orders_on_expire_on"
     t.index ["fulfilled_at"], name: "index_lead_orders_on_fulfilled_at"
+    t.index ["last_lead_delivered_at"], name: "index_lead_orders_on_last_lead_delivered_at"
     t.index ["lead_class"], name: "index_lead_orders_on_lead_class"
+    t.index ["max_per_day"], name: "index_lead_orders_on_max_per_day"
     t.index ["order_id"], name: "index_lead_orders_on_order_id", unique: true
+    t.index ["states"], name: "index_lead_orders_on_states", using: :gin
     t.index ["user_id"], name: "index_lead_orders_on_user_id"
   end
 
@@ -88,7 +94,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_173110) do
     t.string "rr_state"
     t.string "ad"
     t.string "adset_id"
-    t.bigint "user_id"
     t.string "platform"
     t.string "campaign_id"
     t.string "ringy_code"
@@ -173,7 +178,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_23_173110) do
     t.index ["phone"], name: "index_leads_on_phone"
     t.index ["state"], name: "index_leads_on_state"
     t.index ["type"], name: "index_leads_on_type"
-    t.index ["user_id"], name: "index_leads_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
