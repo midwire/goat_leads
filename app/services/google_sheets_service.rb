@@ -132,10 +132,10 @@ class GoogleSheetsService
   def with_error_handling
     yield
   rescue Google::Apis::AuthorizationError => e
-    Rails.logger.error "Authorization Error: #{e.message} (Status: #{e.status_code})"
+    Rails.logger.error "Authorization Error: #{e.inspect} (Status: #{e.status_code})"
     raise
   rescue Google::Apis::ClientError => e
-    Rails.logger.error "Client Error: #{e.message} (Status: #{e.status_code})"
+    Rails.logger.error "Client Error: #{e.inspect} (Status: #{e.status_code})"
     raise
   rescue StandardError => e
     Rails.logger.error "Unexpected error in find_spreadsheet_by_name: #{e.inspect}"

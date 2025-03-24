@@ -15,6 +15,7 @@ class LeadOrder < ApplicationRecord
 
   # validates :states, presence: true
   validates :lead_class, presence: true
+  validates :total_lead_order, presence: true
   validates :days_per_week, presence: true
   validates :agent_phone, phone_number: true, allow_blank: true
   validates :agent_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
@@ -22,6 +23,7 @@ class LeadOrder < ApplicationRecord
 
   validate :validate_permitted_states
   validate :validate_permitted_days_of_week
+  validate :validate_lead_caps
 
   scope :active, -> { where(active: true) }
   scope :fulfilled, -> { where.not(fulfilled_at: nil) }
@@ -51,6 +53,22 @@ class LeadOrder < ApplicationRecord
       )
     )
   }
+  scope :with_unreached_total_cap, lambda {
+    sql = <<-SQL.squish
+      LEFT JOIN (
+        SELECT lead_order_id, COUNT(*) AS leads_delivered_total
+        FROM leads
+        GROUP BY lead_order_id
+      ) ld_total ON ld_total.lead_order_id = lead_orders.id
+    SQL
+    joins(sql).where(
+      <<-SQL.squish
+        (
+          COALESCE(ld_total.leads_delivered_total, 0) < lead_orders.total_lead_order
+        )
+      SQL
+    )
+  }
   scope :with_unreached_daily_cap, lambda { |date = Time.current.strftime('%Y-%m-%d')|
     raw_sql = <<-SQL.squish
       LEFT JOIN (
@@ -58,14 +76,14 @@ class LeadOrder < ApplicationRecord
         FROM leads
         WHERE DATE(delivered_at) = ?
         GROUP BY lead_order_id
-      ) ld ON ld.lead_order_id = lead_orders.id
+      ) ld_daily ON ld_daily.lead_order_id = lead_orders.id
     SQL
     sql = sanitize_sql_array([raw_sql, date])
     joins(sql).where(
       <<-SQL.squish
         (
           lead_orders.max_per_day IS NULL
-          OR COALESCE(ld.leads_delivered_today, 0) < lead_orders.max_per_day
+          OR COALESCE(ld_daily.leads_delivered_today, 0) < lead_orders.max_per_day
         )
       SQL
     )
@@ -93,6 +111,7 @@ class LeadOrder < ApplicationRecord
         .for_day_of_week
         .for_lead_type(lead.type)
         .with_unreached_daily_cap
+        .with_unreached_total_cap
         .by_last_delivered
     # .by_delivery_priority # TODO: Enable this when ready
   }
@@ -135,6 +154,13 @@ class LeadOrder < ApplicationRecord
       Permitted values are: #{permitted_days_per_week}
     STRING
     errors.add(:days_per_week, msg)
+  end
+
+  # total_lead_order must be greater than max_per_day
+  def validate_lead_caps
+    return nil if total_lead_order.to_i >= max_per_day.to_i
+
+    errors.add(:total_lead_order, "must be greater or equal to max_per_day: #{max_per_day.to_i}")
   end
 end
 

@@ -16,6 +16,7 @@ module LeadOrdersHelper
         expire_on: 'Expire On',
         days_per_week: 'Days per Week',
         max_per_day: 'Max per Day',
+        total_lead_order: 'Total Lead Cap',
         paused_until: 'Paused Until',
         states: 'States'
       }
@@ -28,6 +29,7 @@ module LeadOrdersHelper
         expire_on: 'Expire On',
         days_per_week: 'Days per Week',
         max_per_day: 'Max per Day',
+        total_lead_order: 'Total Lead Cap',
         paused_until: 'Paused Until',
         states: 'States'
       }

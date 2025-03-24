@@ -58,7 +58,7 @@ RSpec.describe LeadOrder, type: :model do
       end
     end
 
-    describe 'with_unreached_daily_cap' do
+    describe '.with_unreached_daily_cap' do
       let!(:lo) { create(:lead_order, max_per_day: 3) }
 
       context 'when cap reached' do
@@ -74,6 +74,26 @@ RSpec.describe LeadOrder, type: :model do
       context 'when cap not reached' do
         it 'returns lead orders where max_per_day cap is met' do
           expect(described_class.with_unreached_daily_cap).to eq([lo])
+        end
+      end
+    end
+
+    describe '.with_unreached_total_cap' do
+      let!(:lo) { create(:lead_order, total_lead_order: 3, max_per_day: 3) }
+
+      context 'when cap reached' do
+        it 'returns no lead orders' do
+          3.times do
+            lead = create(:veteran_lead_premium, lead_order: lo)
+            lo.assign_lead(lead)
+          end
+          expect(described_class.with_unreached_total_cap).to eq([])
+        end
+      end
+
+      context 'when cap not reached' do
+        it 'returns lead orders where total_lead_order cap is met' do
+          expect(described_class.with_unreached_total_cap).to eq([lo])
         end
       end
     end

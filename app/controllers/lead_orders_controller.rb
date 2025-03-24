@@ -96,6 +96,7 @@ class LeadOrdersController < ApplicationController
         :lead_class,
         :active,
         :max_per_day,
+        :total_lead_order,
         :paused_until,
         :agent_email,
         :agent_phone,
