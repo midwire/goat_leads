@@ -115,6 +115,7 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'timecop'
   gem 'vcr'
   gem 'webmock'
   gem 'rails-controller-testing'

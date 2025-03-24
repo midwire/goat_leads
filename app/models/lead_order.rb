@@ -69,6 +69,8 @@ class LeadOrder < ApplicationRecord
 
   # total_lead_order must be greater than max_per_day
   def validate_lead_caps
+    return nil if max_per_day.blank?
+
     return nil if total_lead_order.to_i >= max_per_day.to_i
 
     errors.add(:total_lead_order, "must be greater or equal to max_per_day: #{max_per_day.to_i}")

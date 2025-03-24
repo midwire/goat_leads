@@ -580,6 +580,7 @@ GEM
     thruster (0.1.12-x86_64-darwin)
     thruster (0.1.12-x86_64-linux)
     tilt (2.6.0)
+    timecop (0.9.10)
     timeout (0.4.3)
     traceroute (0.8.1)
       rails (>= 3.0.0)
@@ -689,6 +690,7 @@ DEPENDENCIES
   solid_cache
   stimulus-rails
   thruster
+  timecop
   traceroute
   turbo-rails
   tzinfo-data
