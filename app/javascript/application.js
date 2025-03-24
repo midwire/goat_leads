@@ -4,7 +4,6 @@ import "./controllers"
 import * as bootstrap from "bootstrap"
 
 import "./src/add_jquery";
-// import './src/jquery-ui.min';
 import "./src/add_datatables";
 
 // window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
