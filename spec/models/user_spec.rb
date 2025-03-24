@@ -28,28 +28,6 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'eligible_for_lead_type' do
-      let!(:user_1) { create(:lead_order, lead_class: 'VeteranLeadPremium').user }
-      let!(:user_2) { create(:lead_order, lead_class: 'VeteranLeadPremium').user }
-      let!(:user_3) { create(:lead_order, lead_class: 'FinalExpenseLeadPremium').user }
-
-      it 'returns users eligible for lead type' do
-        expect(described_class.eligible_for_lead_type('VeteranLeadPremium')).to eq([user_1, user_2])
-        expect(described_class.eligible_for_lead_type('FinalExpenseLeadPremium')).to eq([user_3])
-      end
-    end
-
-    context 'by_deliver_priority' do
-      let!(:user_1) { create(:user, :low_priority) }
-      let!(:user_2) { create(:user, :high_priority) }
-      let!(:user_3) { create(:user) }
-
-      it 'returns user with lowest priority first' do
-        expect(user_3).to be_present
-        expect(described_class.by_deliver_priority).to eq([user_2, user_3, user_1])
-      end
-    end
-
     context 'by_last_delivered' do
       let!(:user_1) { create(:user, last_lead_delivered_at: 1.minute.ago.utc) }
       let!(:user_2) { create(:user, last_lead_delivered_at: nil) }

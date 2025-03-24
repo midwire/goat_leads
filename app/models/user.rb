@@ -23,32 +23,12 @@ class User < ApplicationRecord
   enum :status, { available: 0, paused: 1 }
 
   scope :verified, -> { where.not(email_verified_at: nil) }
-  scope :by_deliver_priority, -> { order(deliver_priority: :asc) }
   scope :by_last_delivered, -> { order(arel_table[:last_lead_delivered_at].asc.nulls_first) }
   scope :licensed_in_state, lambda { |state_abbr|
     where('licensed_states @> ARRAY[?]::text[]', state_abbr)
   }
   scope :eligible_for_video_type, lambda { |video_type|
     where('video_types @> ARRAY[?]::text[]', video_type)
-  }
-  scope :eligible_for_lead_type, lambda { |lead_type|
-    joins(:lead_orders)
-        .merge(LeadOrder.active)
-        .merge(LeadOrder.not_canceled)
-        .merge(LeadOrder.not_expired)
-        .merge(LeadOrder.for_lead_type(lead_type))
-        .merge(LeadOrder.for_day_of_week)
-    # where('lead_types @> ARRAY[?]::text[]', lead_type)
-  }
-  scope :eligible_for_lead, lambda { |lead|
-    agent
-        .verified
-        .available
-        .licensed_in_state(lead.rr_state)
-        .eligible_for_lead_type(lead.type)
-        # .eligible_for_video_type(lead.video_type)
-        .by_deliver_priority
-        .by_last_delivered
   }
 
   def verify!

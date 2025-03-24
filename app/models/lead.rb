@@ -7,6 +7,7 @@ class Lead < ApplicationRecord
   has_one :user, through: :lead_order
 
   normalizes :email, with: ->(e) { e.strip.downcase }
+  normalizes :state, with: ->(e) { e.strip.titleize }
   normalizes :phone, with: ->(e) { e.strip.tr('^0-9', '') }
   normalizes :rr_state, with: ->(e) { e.strip.upcase }
 

@@ -15,6 +15,8 @@ module LeadClassMapping
   }.freeze
 
   included do
+    private
+
     def lead_class(lead_program, lead_quality)
       base_class = LEAD_CLASS_MAP[lead_program]
       klass = append_lead_quality(base_class, lead_quality)
@@ -24,8 +26,6 @@ module LeadClassMapping
       Rails.logger.error(msg)
       fail msg
     end
-
-    private
 
     def append_lead_quality(base_class, lead_quality)
       "#{base_class}#{lead_quality}"

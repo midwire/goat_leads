@@ -15,18 +15,21 @@ class LeadOrder < ApplicationRecord
 
   normalizes :agent_email, with: ->(e) { e.strip.downcase }
 
+  # TODO: Turn on this validation once we move to native lead_orders instead of external ones
   # validates :states, presence: true
-  validates :lead_class, presence: true
-  validates :total_lead_order, presence: true
-  validates :days_per_week, presence: true
+  validates :lead_class,
+    :total_lead_order,
+    :days_per_week,
+    :order_id, # has unique index
+    presence: true
   validates :agent_phone, phone_number: true, allow_blank: true
   validates :agent_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
-  validates :order_id, presence: true # has a unique index
 
   validate :validate_permitted_states
   validate :validate_permitted_days_of_week
   validate :validate_lead_caps
 
+  # TODO: Refactor this or get rid of it
   def assign_lead(lead)
     now = Time.current
     lead.update(delivered_at: now)

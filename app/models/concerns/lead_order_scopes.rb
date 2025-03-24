@@ -70,6 +70,9 @@ module LeadOrderScopes
       )
     }
 
+    # NOTE: This is an irreversible sort.
+    # You may see this error IrreversibleOrderError if you try and call '.last' on it
+    # If you need the ".last" lead_order instead of the ".first" use ".by_delivery_priority[-1]"
     scope :by_delivery_priority, lambda {
       # Constants
       three_days_in_seconds = 3 * 24 * 60 * 60 # 3 days
