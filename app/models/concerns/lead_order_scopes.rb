@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module LeadOrderScopes
   extend ActiveSupport::Concern
 
@@ -69,12 +70,71 @@ module LeadOrderScopes
       )
     }
 
+    scope :by_delivery_priority, lambda {
+      # Constants
+      three_days_in_seconds = 3 * 24 * 60 * 60 # 3 days
+      recency_threshold_in_seconds = 1 * 24 * 60 * 60 # 1 day
+      current_time = Time.current
+
+      # Subquery to count delivered leads per lead order (same as with_unreached_total_cap)
+      delivered_leads_subquery = <<-SQL.squish
+        LEFT JOIN (
+          SELECT lead_order_id, COUNT(*) AS leads_delivered_count
+          FROM leads
+          GROUP BY lead_order_id
+        ) delivered_leads ON delivered_leads.lead_order_id = lead_orders.id
+      SQL
+
+      # Calculate components of the score
+      # W: Order size weight (total_lead_order)
+      w = 'lead_orders.total_lead_order'
+
+      # B: Backlog factor
+      # time_since_order = current_time - ordered_at (in seconds)
+      time_since_order = <<-SQL.squish
+        EXTRACT(EPOCH FROM (TIMESTAMP '#{current_time.to_formatted_s(:db)}' - lead_orders.ordered_at))
+      SQL
+      # time_ratio = time_since_order / 3 days
+      time_ratio = "(#{time_since_order}::float / #{three_days_in_seconds})"
+      # fulfillment_ratio = delivered_leads / total_lead_order
+      fulfillment_ratio = <<-SQL.squish
+        (COALESCE(delivered_leads.leads_delivered_count, 0)::float / NULLIF(lead_orders.total_lead_order, 0))
+      SQL
+      # backlog_factor = CASE WHEN fulfillment_ratio < time_ratio THEN 1 + (time_ratio - fulfillment_ratio) ELSE 1 END
+      backlog_factor = <<-SQL.squish
+        CASE
+          WHEN #{fulfillment_ratio} < #{time_ratio}
+          THEN 1 + (#{time_ratio} - #{fulfillment_ratio})
+          ELSE 1
+        END
+      SQL
+
+      # R: Recency factor
+      # time_since_last = current_time - last_lead_delivered_at (in seconds)
+      time_since_last = <<-SQL.squish
+        EXTRACT(EPOCH FROM (TIMESTAMP '#{current_time.to_formatted_s(:db)}' - lead_orders.last_lead_delivered_at))
+      SQL
+      # R = CASE WHEN time_since_last > threshold THEN 1 + (time_since_last / 1_day) ELSE 1 END
+      recency_factor = <<-SQL.squish
+        CASE
+          WHEN #{time_since_last} > #{recency_threshold_in_seconds}
+          THEN 1 + (#{time_since_last}::float / #{recency_threshold_in_seconds})
+          ELSE 1
+        END
+      SQL
+
+      # Final score: W * B * R
+      score = "(#{w}::float * (#{backlog_factor}) * (#{recency_factor}))"
+
+      # Join the subquery and order by score (descending) with tiebreaker
+      joins(delivered_leads_subquery)
+          .order(Arel.sql("#{score} DESC"))
+          .order(arel_table[:last_lead_delivered_at].asc.nulls_first)
+    }
+
     # SORTING
     scope :by_last_delivered, lambda {
       order(arel_table[:last_lead_delivered_at].asc.nulls_first)
-    }
-    scope :by_delivery_priority, lambda {
-      # TODO: Calculate the delivery priority and use it here
     }
 
     # LEAD ELIGIBILITY
@@ -93,8 +153,9 @@ module LeadOrderScopes
           .with_unreached_daily_cap
           .with_unreached_total_cap
           .by_last_delivered
-      # .by_delivery_priority # TODO: Enable this when ready
+          .by_delivery_priority
     }
   end
   # rubocop:enable Metrics/BlockLength
 end
+# rubocop:enable Metrics/ModuleLength

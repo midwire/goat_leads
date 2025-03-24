@@ -98,6 +98,136 @@ RSpec.describe LeadOrder, type: :model do
       end
     end
 
+    describe '.by_delivery_priority' do
+      let(:user_1) { create(:user, role: :agent) }
+      let(:user_2) { create(:user, role: :agent) }
+      let(:current_time) { Time.current }
+
+      # Helper to create a LeadOrder with specific attributes
+      def create_lead_order(user:, total_lead_order:, ordered_at:, last_lead_delivered_at: nil,
+        delivered_leads: 0)
+        lead_order = create(
+          :lead_order,
+          user: user,
+          total_lead_order: total_lead_order,
+          ordered_at: ordered_at,
+          last_lead_delivered_at: last_lead_delivered_at,
+          active: true
+        )
+        # Create delivered leads if specified
+        if delivered_leads > 0
+          create_list(:veteran_lead_premium, delivered_leads, lead_order: lead_order,
+            delivered_at: current_time)
+        end
+        lead_order
+      end
+
+      before do
+        # Freeze time for consistent calculations
+        Timecop.freeze(current_time)
+      end
+
+      after do
+        Timecop.return
+      end
+
+      context 'with varying priority factors' do
+        let!(:lead_order_1) do
+          # Larger order, behind schedule, long wait since last lead
+          create_lead_order(
+            user: user_1,
+            total_lead_order: 100, # W = 100
+            ordered_at: current_time - 2.days, # time_ratio = 2/3
+            last_lead_delivered_at: current_time - 3.days, # R = 1 + (3/1) = 4
+            delivered_leads: 10 # fulfillment_ratio = 10/100 = 0.1, B = 1 + (2/3 - 0.1) = 1.5667
+          )
+          # Score = 100 * 1.5667 * 4 ≈ 626.68
+        end
+
+        let!(:lead_order_2) do
+          # Smaller order, on schedule, recent lead
+          create_lead_order(
+            user: user_2,
+            total_lead_order: 50, # W = 50
+            ordered_at: current_time - 1.day, # time_ratio = 1/3
+            last_lead_delivered_at: current_time - 6.hours, # R = 1 (below 1 day threshold)
+            delivered_leads: 20 # fulfillment_ratio = 20/50 = 0.4, B = 1 (on schedule)
+          )
+          # Score = 50 * 1 * 1 = 50
+        end
+
+        it 'sorts lead orders by priority score (descending)' do
+          ordered_lead_orders = described_class.by_delivery_priority
+          expect(ordered_lead_orders[0]).to eq(lead_order_1) # Higher score: 626.68
+          expect(ordered_lead_orders[-1]).to eq(lead_order_2) # Lower score: 50
+        end
+      end
+
+      context 'when scores are equal (tiebreaker)' do
+        let!(:lead_order_1) do
+          # Same score as lead_order_2, but older last_lead_delivered_at
+          create_lead_order(
+            user: user_1,
+            total_lead_order: 50,
+            ordered_at: current_time - 1.day,
+            last_lead_delivered_at: current_time - 2.days, # Older
+            delivered_leads: 20
+          )
+          # Score = 50 * 1 * 1 = 50
+        end
+
+        let!(:lead_order_2) do
+          # Same score as lead_order_1, but more recent last_lead_delivered_at
+          create_lead_order(
+            user: user_2,
+            total_lead_order: 50,
+            ordered_at: current_time - 1.day,
+            last_lead_delivered_at: current_time - 1.day, # More recent
+            delivered_leads: 20
+          )
+          # Score = 50 * 1 * 1 = 50
+        end
+
+        it 'sorts by last_lead_delivered_at (ascending) as a tiebreaker' do
+          ordered_lead_orders = described_class.by_delivery_priority
+          expect(ordered_lead_orders[0]).to eq(lead_order_1) # Older last_lead_delivered_at
+          expect(ordered_lead_orders[-1]).to eq(lead_order_2) # More recent last_lead_delivered_at
+        end
+      end
+
+      context 'when last_lead_delivered_at is NULL' do
+        let!(:lead_order_1) do
+          # No leads delivered yet (NULL last_lead_delivered_at)
+          create_lead_order(
+            user: user_1,
+            total_lead_order: 50,
+            ordered_at: current_time - 1.day,
+            last_lead_delivered_at: nil,
+            delivered_leads: 0
+          )
+          # R = 1 (NULL treated as 0 in calculation), B = 1 + (1/3 - 0) ≈ 1.333, Score = 50 * 1.333 * 1 ≈ 66.67
+        end
+
+        let!(:lead_order_2) do
+          create_lead_order(
+            user: user_2,
+            total_lead_order: 50,
+            ordered_at: current_time - 1.day,
+            last_lead_delivered_at: current_time - 6.hours,
+            delivered_leads: 20
+          )
+          # Score = 50 * 1 * 1 = 50
+        end
+
+        it 'treats NULL last_lead_delivered_at as earliest (NULLS FIRST)' do
+          ordered_lead_orders = described_class.by_delivery_priority
+          # NULL last_lead_delivered_at, but higher score
+          expect(ordered_lead_orders[0]).to eq(lead_order_1)
+          expect(ordered_lead_orders[-1]).to eq(lead_order_2)
+        end
+      end
+    end
+
     describe '.for_lead_type' do
       let(:lead_order) { create(:lead_order, lead_class: 'MyLeadClass') }
 
