@@ -6,6 +6,7 @@ FactoryBot.define do
     lead_class { 'VeteranLeadPremium' }
     active { true }
     max_per_day { 100 }
+    total_lead_order { 200 }
     states { %w[wy or] }
     amount_cents { nil }
     order_id do

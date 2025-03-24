@@ -58,7 +58,12 @@ class LeadAssigner
       user = lead_order.user
       user.update!(last_lead_delivered_at: now)
       lead.update!(delivered_at: now, lead_order: lead_order)
-      lead_order.update!(last_lead_delivered_at: now)
+      fulfilled = lead_order.leads.count >= lead_order.total_lead_order
+      if fulfilled
+        lead_order.update!(last_lead_delivered_at: now, fulfilled_at: now)
+      else
+        lead_order.update!(last_lead_delivered_at: now)
+      end
     end
   end
 end

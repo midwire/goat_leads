@@ -12,9 +12,9 @@
 [] Accept incoming Leads on webhook endpoint (incoming lead handler)
     - The initial endpoint for veteran leads is built and tested
     - We need to test the other lead types and automate feeding leads to the endpoint.
-[] Assign Leads to Agents through LeadOrders
-    - The initial assignment algo. is in written but needs to be refactored to use a dynamic "priority"
-[x] Distribute Leads to Agents Google Sheets
+[x] Assign Leads to Agents through LeadOrders
+[x] Allow distribute Leads to Agents Google Sheets
+[] Wire up writing leads to Agent Google sheets
 [] Distribute Leads to Agents GHL
 [] Distribute Leads to Agents Ringy
 [] Distribute Leads to Agents Webhook
