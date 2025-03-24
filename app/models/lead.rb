@@ -15,7 +15,6 @@ class Lead < ApplicationRecord
     :phone,
     :email,
     :state,
-    :video_type,
     presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :phone, phone_number: true

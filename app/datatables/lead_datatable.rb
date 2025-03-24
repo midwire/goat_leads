@@ -35,9 +35,9 @@ class LeadDatatable < ApplicationDatatable
   # rubocop:disable Naming/AccessorMethodName
   def get_raw_records
     if user.admin?
-      Lead.left_outer_joins(:user).includes(:user)
+      Lead.left_outer_joins(:lead_order).includes(:lead_order)
     else
-      user.leads.left_outer_joins(:user).includes(:user)
+      user.leads
     end
   end
   # rubocop:enable Naming/AccessorMethodName
