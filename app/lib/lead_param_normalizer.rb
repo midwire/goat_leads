@@ -3,7 +3,7 @@
 class LeadParamNormalizer
   # Mapping of webhook keys to model attributes
   PARAMETER_MAPPING = {
-    'bogus' => :the_row
+    'xxtrustedformcerturl' => :trusted_form_url
   }.freeze
 
   # Model attributes that can be used as-is
