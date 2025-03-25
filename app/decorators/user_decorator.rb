@@ -25,4 +25,12 @@ class UserDecorator < ApplicationDecorator
       'N/A'
     end
   end
+
+  def last_activity
+    return 'N/A' if object.sessions.blank?
+
+    # session = object.sessions.sort_by { |sess| -sess.updated_at.to_f }.first
+    session = object.sessions.min_by { |sess| -sess.updated_at.to_f }
+    time_ago_in_words(session.updated_at)
+  end
 end

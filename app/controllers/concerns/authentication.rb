@@ -6,6 +6,7 @@ module Authentication
   included do
     before_action :require_authentication
     before_action :set_current_user
+    before_action :update_session
     helper_method :authenticated?
   end
 
@@ -62,5 +63,9 @@ module Authentication
   def terminate_session
     Current.session.destroy
     cookies.delete(:session_id)
+  end
+
+  def update_session
+    Current.session&.update(updated_at: Time.current)
   end
 end

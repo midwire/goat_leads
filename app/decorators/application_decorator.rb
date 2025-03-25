@@ -39,4 +39,22 @@ class ApplicationDecorator < Draper::Decorator
   def linked_email(email)
     h.email_link(email)
   end
+
+  def time_ago_in_words(past_time)
+    time_diff = Time.current - past_time
+    case time_diff
+    when 0...60
+      "#{time_diff.round} seconds ago"
+    when 60...3600
+      "#{(time_diff / 60).round} minutes ago"
+    when 3600...86400
+      "#{(time_diff / 3600).round} hours ago"
+    when 86400...2592000
+      "#{(time_diff / 86400).round} days ago"
+    when 2592000...31104000
+      "#{(time_diff / 2592000).round} months ago"
+    else
+      "#{(time_diff / 31104000).round} years ago"
+    end
+  end
 end

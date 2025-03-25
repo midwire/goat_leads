@@ -13,9 +13,8 @@ class UserDatatable < ApplicationDatatable
       phone: { source: 'User.phone', cond: :like },
       role: { source: 'User.role', cond: :like },
       status: { source: 'User.status', cond: :like },
+      last_activity: { source: 'Session.updated_at', cond: :like },
       last_lead_delivered_at: { source: 'User.last_lead_delivered_at', cond: :like },
-      daily_lead_cap: { source: 'User.daily_lead_cap', cond: :like },
-      total_lead_cap: { source: 'User.total_lead_cap', cond: :like },
       notes: { source: 'User.notes', cond: :like }
     }
   end
@@ -33,8 +32,7 @@ class UserDatatable < ApplicationDatatable
         status: user.status,
         role: user.role,
         last_lead_delivered_at: user.last_lead_delivered_at,
-        daily_lead_cap: user.daily_lead_cap,
-        total_lead_cap: user.total_lead_cap,
+        last_activity: user.last_activity,
         DT_RowId: record.id
       }
     end
@@ -42,7 +40,9 @@ class UserDatatable < ApplicationDatatable
 
   # rubocop:disable Naming/AccessorMethodName
   def get_raw_records
-    User.unscoped
+    # This should always be a dataset for an Admin user
+    # User.joins(:sessions).includes(:sessions)
+    User.includes(:sessions)
   end
   # rubocop:enable Naming/AccessorMethodName
 end
