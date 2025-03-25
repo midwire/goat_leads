@@ -8,7 +8,7 @@ class LeadSheetWriter
   def distribute_lead(url, lead, sheet_name = 'Sheet1')
     sheets_service.append_to_next_row(url, lead.to_array, sheet_name)
   rescue StandardError => e
-    Rails.logger.error("Failed to write lead to Google Sheet: #{e.message}")
+    Rails.logger.error(">>> Failed to write lead to Google Sheet: #{e.message}")
     raise
   end
 

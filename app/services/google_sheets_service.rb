@@ -66,7 +66,7 @@ class GoogleSheetsService
   def find_spreadsheet_by_name(name)
     # Search for spreadsheets by name, restricting to Google Sheets MIME type
     with_error_handling do
-      Rails.logger.debug "Searching for spreadsheet with name: '#{name}'"
+      Rails.logger.debug ">>> Searching for spreadsheet with name: '#{name}'"
       sanitized_name = name.to_s.strip.gsub(/['"]/, '') # Remove quotes to avoid query issues
       query = %(name='#{sanitized_name}' and mimeType='application/vnd.google-apps.spreadsheet')
 
@@ -82,7 +82,7 @@ class GoogleSheetsService
   def get_spreadsheet_by_url(url)
     with_error_handling do
       spreadsheet_id = extract_spreadsheet_id(url)
-      Rails.logger.debug "Fetching spreadsheet with ID: #{spreadsheet_id}"
+      Rails.logger.debug ">>> Fetching spreadsheet with ID: #{spreadsheet_id}"
       @sheets_service.get_spreadsheet(spreadsheet_id)
     end
   end
@@ -132,13 +132,13 @@ class GoogleSheetsService
   def with_error_handling
     yield
   rescue Google::Apis::AuthorizationError => e
-    Rails.logger.error "Authorization Error: #{e.inspect} (Status: #{e.status_code})"
+    Rails.logger.error ">>> Authorization Error: #{e.inspect} (Status: #{e.status_code})"
     raise
   rescue Google::Apis::ClientError => e
-    Rails.logger.error "Client Error: #{e.inspect} (Status: #{e.status_code})"
+    Rails.logger.error ">>> Client Error: #{e.inspect} (Status: #{e.status_code})"
     raise
   rescue StandardError => e
-    Rails.logger.error "Unexpected error in find_spreadsheet_by_name: #{e.inspect}"
+    Rails.logger.error ">>> Unexpected error in find_spreadsheet_by_name: #{e.inspect}"
     raise
   end
 end

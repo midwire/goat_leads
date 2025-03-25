@@ -10,7 +10,7 @@ class EmailJob
     mailer = mailer_class.constantize
     mailer.send(mailer_action, *args).deliver_now
   rescue StandardError => e
-    Rails.logger.error { "Failed to send email: #{e.message}" }
+    Rails.logger.error { ">>> Failed to send email: #{e.message}" }
     raise e
   end
 end

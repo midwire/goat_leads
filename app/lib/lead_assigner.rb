@@ -14,14 +14,14 @@ class LeadAssigner
 
         if assign_lead_to_lead_order?(lead, lead_order)
           user = lead_order.user
-          Rails.logger.info "Lead #{lead.id} assigned to user #{user.id} (#{user.email_address})"
+          Rails.logger.info ">>> Lead #{lead.id} assigned to user #{user.id} (#{user.email_address})"
           return lead_order
         end
 
         attempt += 1
       end
 
-      Rails.logger.warn "Failed to assign lead #{lead.id} after #{max_attempts} attempts"
+      Rails.logger.warn ">>> Failed to assign lead #{lead.id} after #{max_attempts} attempts"
       nil
     end
 
@@ -46,10 +46,10 @@ class LeadAssigner
         true
       end
     rescue ActiveRecord::LockWaitTimeout => e
-      Rails.logger.error "LeadOrder is locked #{lead_order.id}: #{e.message}"
+      Rails.logger.error ">>> LeadOrder is locked #{lead_order.id}: #{e.message}"
       false
     rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error "Failed to assign lead #{lead.id} to lead order #{lead_order.id}: #{e.message}"
+      Rails.logger.error ">>> Failed to assign lead #{lead.id} to lead order #{lead_order.id}: #{e.message}"
       false
     end
 
@@ -60,6 +60,7 @@ class LeadAssigner
       lead.update!(delivered_at: now, lead_order: lead_order)
       fulfilled = lead_order.leads.count >= lead_order.total_lead_order
       if fulfilled
+        Rails.logger.info ">>> LeadOrder #{lead_order.id} is now fulfilled."
         lead_order.update!(last_lead_delivered_at: now, fulfilled_at: now)
       else
         lead_order.update!(last_lead_delivered_at: now)
