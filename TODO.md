@@ -6,6 +6,13 @@
 4. Phase 4 - build Lead portal to replace google sheets. “Lite CRM”
 5. Phase 5 - build CRM to replace GHl with Twilio and email integration and wavv and kixie integration.
 
+## Dev Ops & Maint
+
+[] - Move Postgres to it's own host
+[] - Add recaptcha to user registration
+[] - Add low-level throttling in ApplicationController to mitigate DOS attacks and hacking attempts
+[] - Add favicon and twitter-card
+
 ## Phase 1
 
 [x] Accept incoming LeadOrders on webhook endpoint
@@ -28,6 +35,33 @@
 * Assign leads to google sheet after assignment
 * Google sheet URL will be attached to the lead order
 * Make lead distributor lead-order based instead of user-based
+
+## Scaling and Distribution
+
+1. Move the Database:
+
+* Set up a new Linode VM, install PostgreSQL 15.10, and configure it for remote access.
+* Export your database from the original VM and import it to the new VM.
+* Update your Rails app to connect to the new database VM.
+* Secure the connection and shut down the old database.
+
+2. Scale the Database:
+
+* Vertically scale the database VM.
+* Optimize indexes, partition large tables, and set up replication.
+* Use connection pooling and consider sharding for extreme scale.
+
+3. Scale the Application:
+
+* Add more app servers with a load balancer.
+* Implement caching, background jobs, and query optimization.
+* Use a CDN for static assets.
+
+4. Improve Infrastructure:
+
+* Set up high availability, use Block Storage, and monitor performance.
+
+
 
 ## Currently In-Progress
 
@@ -56,7 +90,7 @@ Guessing we will build each of these out with the appropriate functionality.
 
 ## Completed Incoming Lead Endpoints
 
-* https://crm.goatleads.com/leads/veteran_lead - All veteran lead types
+* https://crm.goatleads.com/hooks/leads - All veteran lead types
 
 ## Links to remember
 
@@ -83,12 +117,6 @@ Spreadsheet format
 
 ## Questions
 
-* When an agent registers on the site what fields are required?
-*   email - currently required
-*   password/password confirmation - currently required
-*   first/last name
-*   phone
-*   licensed states
 * When they click on the CRM link at crm.goatleads.com what should they see? In other words what functionality do we want for the CRM portion of the site?
 *   Lead cards with clickable telephone and email links? Notes, Date Contacted, etc?
 
@@ -111,6 +139,7 @@ Push leads into our system, assign them and push to another system
 * Reports based of agency name, or agent, date ranges
 
 ## Old
+
 1. Setup Stripe integration and user-subscriptions and one-off payments for lead orders
 2. Build out agent ability to order leads
 3. Build out lead order history

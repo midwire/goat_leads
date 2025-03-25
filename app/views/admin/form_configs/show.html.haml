@@ -21,7 +21,7 @@
     %tr
       %th Field
       %th Description
-    - WebhookController::ALLOWED_PARAMS.each do |field, desc|
+    - LeadsController::ALLOWED_PARAMS.each do |field, desc|
       - cls = desc.match?('REQUIRED') ? 'bold' : ''
       %tr
         %td{class: cls}
