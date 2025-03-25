@@ -3,10 +3,7 @@
 class LeadParamNormalizer
   # Mapping of webhook keys to model attributes
   PARAMETER_MAPPING = {
-    'step_2_-_military_status' => :military_status,
-    'step_3_-_marital_status' => :marital_status,
-    'step_4_-_how_much_coverage' => :needed_coverage,
-    'step_6_-_best_time_to_contact' => :contact_time_of_day
+    'bogus' => :the_row
   }.freeze
 
   # Model attributes that can be used as-is
@@ -18,7 +15,9 @@ class LeadParamNormalizer
 
   def normalize
     permitted_params = @raw_params.permit(*(PARAMETER_MAPPING.keys + DIRECT_ATTRIBUTES))
+    normalize_multiple_fields(permitted_params)
     normalized = permitted_params.to_h.each_with_object({}) do |(key, value), hash|
+
       # Check if the key is in the mapping
       if PARAMETER_MAPPING.key?(key)
         model_key = PARAMETER_MAPPING[key]
@@ -28,6 +27,7 @@ class LeadParamNormalizer
         hash[key.to_sym] = normalize_value(key.to_sym, value)
         # Ignore any other keys (e.g., extra_field)
       end
+
     end
 
     add_defaults(normalized)
@@ -53,6 +53,14 @@ class LeadParamNormalizer
     params[:full_name] ||= make_fullname(params[:first_name], params[:last_name])
     params[:first_name] ||= make_firstname(params[:full_name])
     params[:last_name] ||= make_lastname(params[:full_name])
+    params[:dob] ||= make_dob
+  end
+
+  def normalize_multiple_fields(params)
+    if params[:dob_month] && params[:dob_day] && params[:dob_year]
+      params[:dob] = "#{params[:dob_year]}-#{params[:dob_month]}-#{params[:dob_day]}"
+    end
+    nil
   end
 
   def make_fullname(first_name, last_name)
@@ -65,5 +73,8 @@ class LeadParamNormalizer
 
   def make_lastname(full_name)
     full_name.split.last
+  end
+
+  def make_dob
   end
 end

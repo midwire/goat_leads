@@ -111,6 +111,9 @@ end
 #  desired_monthly_contrib :string
 #  desired_retirement_age  :string
 #  dob                     :date
+#  dob_day                 :string
+#  dob_month               :string
+#  dob_year                :string
 #  email                   :string
 #  employment_status       :string
 #  favorite_hobby          :string

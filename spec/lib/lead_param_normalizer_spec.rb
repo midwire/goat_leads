@@ -46,6 +46,17 @@ RSpec.describe LeadParamNormalizer, type: :lib do
     it 'ignores unmapped and non-model parameters' do
       expect(norm_params).not_to have_key(:ref_id)
     end
+
+    context 'with multiple dob fields' do
+      let(:raw_params) do
+        params = param_fixture(:veteran_lead_premium_multiple_dob)
+        ActionController::Parameters.new(params)[:form]
+      end
+
+      it 'normalizes DOB' do
+        expect(norm_params[:dob]).to be_a(Time)
+      end
+    end
   end
   # rubocop:enable Layout/LineLength
 end

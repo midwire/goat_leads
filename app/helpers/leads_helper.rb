@@ -12,9 +12,15 @@ module LeadsHelper
   end
 
   def visible_lead_data
-    data = Class.new.extend(CsvConfig).agent_visible_columns_hash
+    data = user_approrpriate_columns
     data.reject do |col, _data|
       hidden_card_columns.include?(col)
     end
+  end
+
+  def user_approrpriate_columns
+    return Class.new.extend(CsvConfig).agent_visible_columns_hash if @current_user&.agent?
+
+    Class.new.extend(CsvConfig).admin_visible_columns_hash
   end
 end

@@ -16,9 +16,7 @@
 ## Phase 1
 
 [x] Accept incoming LeadOrders on webhook endpoint
-[] Accept incoming Leads on webhook endpoint (incoming lead handler)
-    - The initial endpoint for veteran leads is built and tested
-    - We need to test the other lead types and automate feeding leads to the endpoint.
+[x] Accept incoming Leads on webhook endpoint (incoming lead handler)
 [x] Assign Leads to Agents through LeadOrders
 [x] Allow distribute Leads to Agents Google Sheets
 [] Wire up writing leads to Agent Google sheets
