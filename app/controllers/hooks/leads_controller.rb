@@ -74,6 +74,7 @@ class Hooks::LeadsController < WebhookController
     parser = LeadParser.new(lead_params)
     lead = parser.model_instance
     if lead.save
+      AssignLeadsJob.perform_async
       head :created
     else
       head :unprocessable_content
@@ -86,8 +87,3 @@ class Hooks::LeadsController < WebhookController
     params.require(:form).permit(ALLOWED_PARAMS.keys)
   end
 end
-
-{
-  'form' => { 'ref_id' => 2371544,
-'parent_url' => 'https://quote.unitedseniorsavingsorg.com/?utm_source=fb&utm_medium=Facebook_Mobile_Feed&utm_campaign=FFL+Jobs+|+FEX+Premium+Campaign+(Video+and+Image)+|+State+Specific&utm_content=Nevada+-+Dynamic+Images+%26+Video&utm_adset=Nevada&utm_site_source=fb&utm_owner=RoundRobin&fbc_id=120220207455950655&h_ad_id=120220207455940655&fbclid=IwZXh0bgNhZW0BMABhZGlkAascPbOV7y8BHRz6PL7Hene9gvZFUQwh_LUyakRn4D95XpoamjuaGlHb8iYgcQ4FQI_tKQ_aem_GaD99molZri9TRGdp_ICug&utm_id=120219512347280655&utm_term=120220207455950655', 'ip_address' => '70.173.92.210', 'user_agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/22B91 [FBAN/FBIOS;FBAV/499.0.0.53.105;FBBV/693867054;FBDV/iPhone15,3;FBMD/iPhone;FBSN/iOS;FBSV/18.1.1;FBSS/3;FBID/phone;FBLC/en_US;FBOP/5;FBRV/697301994;IABMV/1]', 'is_dropoff' => false, 'utm_source' => 'fb', 'utm_medium' => 'Facebook_Mobile_Feed', 'utm_campaign' => 'FFL Jobs | FEX Premium Campaign (Video and Image) | State Specific', 'utm_content' => 'Nevada - Dynamic Images & Video', 'utm_adset' => 'Nevada', 'utm_site_source' => 'fb', 'utm_owner' => 'RoundRobin', 'fbc_id' => '120220207455950655', 'h_ad_id' => '120220207455940655', 'fbclid' => 'IwZXh0bgNhZW0BMABhZGlkAascPbOV7y8BHRz6PL7Hene9gvZFUQwh_LUyakRn4D95XpoamjuaGlHb8iYgcQ4FQI_tKQ_aem_GaD99molZri9TRGdp_ICug', 'utm_id' => '120219512347280655', 'utm_term' => '120220207455950655', 'state' => 'Nevada', 'step_2_-_gender' => 'Female', 'date_of_birth' => '05-20-1964', 'step_4_-_have_life_insurance' => 'No', 'step_5_-_how_much_coverage' => '$15,000', 'step_6_-_who_will_be_the_beneficiary' => 'My Children', 'beneficiary_name' => 'Andrea Duran', 'step_8_-_medical_question' => 'Yes', 'favorite_hobby' => 'Crafting', 'full_name' => 'Barbara Duran', 'email' => 'barbaraduran.1964@gmail.com', 'phone' => '+17023387532', 'xxtrustedformcerturl' => 'https://cert.trustedform.com/34d6f7ca4069099b022da889babc04689a47b6cb' }, 'lead' => {}
-}

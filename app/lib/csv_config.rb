@@ -142,10 +142,10 @@ module CsvConfig
         searchable: true,
         sortable: true
       },
-      'user_id' => {
+      'owner' => {
         method: 'owner',
         display: 'Owner',
-        source: 'User.email_address',
+        source: 'LeadOrder.user_id',
         cond: :like,
         agent_visible: false,
         searchable: true,
