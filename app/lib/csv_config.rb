@@ -79,6 +79,24 @@ module CsvConfig
         searchable: false,
         sortable: true
       },
+      'gender' => {
+        method: 'gender',
+        display: 'Gender',
+        source: 'Lead.gender',
+        cond: :like,
+        agent_visible: true,
+        searchable: false,
+        sortable: true
+      },
+      'location' => {
+        method: 'location',
+        display: 'Location',
+        source: 'Lead.location',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
       'marital_status' => {
         method: 'marital_status',
         display: 'Marital Status',
@@ -97,6 +115,33 @@ module CsvConfig
         searchable: true,
         sortable: true
       },
+      'health_history' => {
+        method: 'health_history',
+        display: 'History of cancer, heart attack, diabetes or stroke',
+        source: 'Lead.health_history',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'favorite_hobby' => {
+        method: 'favorite_hobby',
+        display: 'Favorite Hobby',
+        source: 'Lead.favorite_hobby',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'has_life_insurance' => {
+        method: 'has_life_insurance',
+        display: 'Has Life Insurance',
+        source: 'Lead.has_life_insurance',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
       'needed_coverage' => {
         method: 'needed_coverage',
         display: 'Needed Coverage',
@@ -106,10 +151,91 @@ module CsvConfig
         searchable: true,
         sortable: true
       },
+      'beneficiary' => {
+        method: 'beneficiary',
+        display: 'Beneficiary',
+        source: 'Lead.beneficiary',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'beneficiary_name' => {
+        method: 'beneficiary_name',
+        display: 'Beneficiary Name',
+        source: 'Lead.beneficiary_name',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
       'contact_time_of_day' => {
         method: 'contact_time_of_day',
         display: 'Best Time Of Day To Contact You',
         source: 'Lead.contact_time_of_day',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'current_retirement_plan' => {
+        method: 'current_retirement_plan',
+        display: 'Current Retirement Plan',
+        source: 'Lead.current_retirement_plan',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'desired_monthly_contrib' => {
+        method: 'desired_monthly_contrib',
+        display: 'Desired Montly Contribution',
+        source: 'Lead.desired_monthly_contrib',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'desired_retirement_age' => {
+        method: 'desired_retirement_age',
+        display: 'Desired Retirement Age',
+        source: 'Lead.desired_retirement_age',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'retirement_age' => {
+        method: 'retirement_age',
+        display: 'Retirement Age',
+        source: 'Lead.retirement_age',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'employment_status' => {
+        method: 'employment_status',
+        display: 'Employment Status',
+        source: 'Lead.employment_status',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'mortgage_balance' => {
+        method: 'mortgage_balance',
+        display: 'Mortgage Balance',
+        source: 'Lead.mortgage_balance',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'mortgage_payment' => {
+        method: 'mortgage_payment',
+        display: 'Mortgage Payment',
+        source: 'Lead.mortgage_payment',
         cond: :like,
         agent_visible: true,
         searchable: true,
@@ -164,6 +290,15 @@ module CsvConfig
         method: 'campaign_id',
         display: 'Campaign',
         source: 'Lead.campaign_id',
+        cond: :like,
+        agent_visible: true,
+        searchable: true,
+        sortable: true
+      },
+      'ip_address' => {
+        method: 'ip_address',
+        display: 'IP Address',
+        source: 'Lead.ip_address',
         cond: :like,
         agent_visible: true,
         searchable: true,

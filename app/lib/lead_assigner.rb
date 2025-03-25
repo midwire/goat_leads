@@ -33,13 +33,13 @@ class LeadAssigner
 
     def assign_lead_to_lead_order?(lead, lead_order)
       ActiveRecord::Base.transaction do
-        # Lock the lead_order row to prevent race conditions
-        lead_order.lock!
-
         # Double-check availability within transaction
         return false unless lead_order.active &&
             lead_order.states.include?(lead.rr_state) &&
             lead_order.lead_class = lead.type
+
+        # Lock the lead_order row to prevent race conditions
+        lead_order.lock!
 
         assign_lead!(lead, lead_order)
 
