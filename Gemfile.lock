@@ -648,6 +648,7 @@ DEPENDENCIES
   capistrano-rake (~> 0.2)
   capistrano-rbenv (~> 2.1)
   capistrano-yarn (~> 2.0)
+  chronic (~> 0.10)
   config (~> 5.0)
   cssbundling-rails
   database_cleaner

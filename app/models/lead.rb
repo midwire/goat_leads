@@ -16,6 +16,7 @@ class Lead < ApplicationRecord
     :phone,
     :email,
     :state,
+    :dob,
     presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :phone, phone_number: true

@@ -41,7 +41,7 @@ class LeadParamNormalizer
     # when :id
     #   value.to_i # Convert to integer
     when :dob
-      Date.parse(value) # Convert to Date object
+      Chronic.parse(value) # Convert to Date object
     else
       value # Pass through unchanged for direct matches like name, email
     end
