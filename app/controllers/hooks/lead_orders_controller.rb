@@ -18,7 +18,7 @@ class Hooks::LeadOrdersController < WebhookController
       head :created
     else
       Rails.logger.error(
-        "Failed to create Lead Order: RowID: #{params[:row_number]} - #{lead_order.errors.full_messages}"
+        ">>> Failed to create Lead Order: RowID: #{params[:row_number]} - #{lead_order.errors.full_messages}"
       )
       head :unprocessable_content
     end
@@ -38,9 +38,9 @@ class Hooks::LeadOrdersController < WebhookController
 
   def error_message
     if @lead_order.present?
-      "Failed to update Lead Order: - #{@lead_order&.errors&.full_messages}"
+      ">>> Failed to update Lead Order: - #{@lead_order&.errors&.full_messages}"
     else
-      "Lead order not found for ID: #{params[:id]}"
+      ">>> Lead order not found for ID: #{params[:id]}"
     end
   end
 
