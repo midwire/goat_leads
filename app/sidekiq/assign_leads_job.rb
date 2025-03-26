@@ -4,7 +4,7 @@ class AssignLeadsJob
   include Sidekiq::Job
   sidekiq_options queue: :critical,
     lock: :until_executed,
-    on_conflict: :reject
+    on_conflict: :log
   # lock: :while_executing,
   # lock_timeout: nil,
   # on_conflict: {
