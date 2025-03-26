@@ -6,20 +6,27 @@
     %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
     %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
     %meta{:content => "yes", :name => "mobile-web-app-capable"}/
+
+    = render("/layouts/favicon")
+    = render("/layouts/twitter_card")
+
     = csrf_meta_tags
     = csp_meta_tag
+
     = yield :head
+
     %link{:href => "/icon.png", :rel => "icon", :type => "image/png"}/
     %link{:href => "/icon.svg", :rel => "icon", :type => "image/svg+xml"}/
     %link{:href => "/icon.png", :rel => "apple-touch-icon"}/
+
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
   %body
-    = render(partial: 'layouts/navbar')
+    = render(partial: '/layouts/navbar')
     .container-fluid
       .row
         .col-md-12
-          = render(partial: 'layouts/flash')
+          = render(partial: '/layouts/flash')
           = yield
-          = render(partial: 'layouts/footer')
+          = render(partial: '/layouts/footer')

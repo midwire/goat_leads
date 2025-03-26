@@ -8,7 +8,7 @@
 
 ## Dev Ops & Maint
 
-[] - Move Postgres to it's own host
+[x] - Move Postgres to it's own host
 [] - Add recaptcha to user registration
 [] - Add low-level throttling in ApplicationController to mitigate DOS attacks and hacking attempts
 [] - Add favicon and twitter-card
@@ -20,6 +20,7 @@
 [x] Assign Leads to Agents through LeadOrders
 [x] Allow distribute Leads to Agents Google Sheets
 [] Wire up writing leads to Agent Google sheets
+[] Send email notifications on lead assignment?
 [] Distribute Leads to Agents GHL
 [] Distribute Leads to Agents Ringy
 [] Distribute Leads to Agents Webhook
