@@ -17,6 +17,9 @@
 
 [x] Accept incoming LeadOrders on webhook endpoint
 [x] Accept incoming Leads on webhook endpoint (incoming lead handler)
+[] Prepare active lead-forms to send a properly formatted lead
+  * Working on this but some forms have a non-standard DOB asking for both the complete DOB as well as dropdowns for only month and day
+  * We have some form sending us leads without the necessary data from (https://quote4.myaffordableveteraninsurance.com/us-veterans) but I can't find it in leadcapture to fix it.
 [x] Assign Leads to Agents through LeadOrders
 [x] Allow distribute Leads to Agents Google Sheets
 [] Wire up writing leads to Agent Google sheets

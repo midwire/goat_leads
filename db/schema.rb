@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_26_160250) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_26_184516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -173,6 +173,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_160250) do
     t.string "dob_month"
     t.string "dob_day"
     t.string "lead_form_id"
+    t.string "utm_ad_platform"
     t.index ["delivered_at"], name: "index_leads_on_delivered_at"
     t.index ["dob"], name: "index_leads_on_dob"
     t.index ["email"], name: "index_leads_on_email"

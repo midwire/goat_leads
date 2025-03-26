@@ -132,6 +132,7 @@ end
 #  type                    :string
 #  unique                  :boolean
 #  user_agent              :string
+#  utm_ad_platform         :string
 #  utm_adset               :string
 #  utm_campaign            :string
 #  utm_content             :string
