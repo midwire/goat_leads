@@ -29,5 +29,27 @@ module MpLeadCommon
       'DOB' => :dob
     }
   end
+
+  def to_ringy_format
+    lead = decorate
+    {
+      phone_number: lead.phone,
+      first_name: lead.first_name,
+      last_name: lead.last_name,
+      email: lead.email,
+      street_address: lead.address,
+      city: lead.city,
+      state: lead.state,
+      zip_code: lead.zip,
+      birthday: lead.dob&.to_s,
+      age: lead.age,
+      health: lead.health_history,
+      beneficiary: lead.beneficiary,
+      beneficiary_name: lead.beneficiary_name,
+      mortgage_balance: lead.mortgage_balance,
+      mortgage_payment: lead.mortgage_payment,
+      lead_source: Settings.whitelabel.site_title
+    }
+  end
   # rubocop:enable Metrics/MethodLength
 end

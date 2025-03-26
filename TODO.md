@@ -98,6 +98,7 @@ Guessing we will build each of these out with the appropriate functionality.
 
 * zoom.fflall.com - Zoom Meetings
 * https://mycrmcenter.com/update-lead-order - CRM lead orders
+* https://mycrmcenter.com/submit-ringy-info - Ringy Info
 * https://app.agentcrmcenter.com/v2/preview/PibNxV8i7yM9IrKTOztp - Site preview
 * https://mycrmcenter.com/update-lead-order - Lead Orders
 * https://app.leadcapture.io/lead-form/20843 - Lead Forms

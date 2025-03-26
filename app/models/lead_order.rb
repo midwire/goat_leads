@@ -37,6 +37,10 @@ class LeadOrder < ApplicationRecord
     update(last_lead_delivered_at: now)
   end
 
+  def ringy_enabled?
+    ringy_sid.present? && ringy_auth_token.present?
+  end
+
   private
 
   def upcase_states

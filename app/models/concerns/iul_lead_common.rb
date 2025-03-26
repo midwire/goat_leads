@@ -26,4 +26,23 @@ module IulLeadCommon
       'Status' => :new_lead
     }
   end
+
+  def to_ringy_format
+    lead = decorate
+    {
+      phone_number: lead.phone,
+      first_name: lead.first_name,
+      last_name: lead.last_name,
+      email: lead.email,
+      iul_goal: lead.iul_goal,
+      employment_status: lead.employment_status,
+      desired_contribution: lead.desired_monthly_contrib,
+      current_retirement_plan: lead.current_retirement_plan,
+      birthday: lead.dob&.to_s,
+      desired_retirement_age: lead.desired_retirement_age,
+      state: lead.state,
+      owner: lead.owner,
+      lead_source: Settings.whitelabel.site_title
+    }
+  end
 end

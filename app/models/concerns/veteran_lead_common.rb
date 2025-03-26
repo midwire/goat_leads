@@ -27,4 +27,24 @@ module VeteranLeadCommon
       'Age' => :current_age
     }
   end
+
+  def to_ringy_format
+    lead = decorate
+    {
+      phone_number: lead.phone,
+      first_name: lead.first_name,
+      last_name: lead.last_name,
+      email: lead.email,
+      state: lead.state,
+      birthday: lead.dob&.to_s,
+      marital_status: lead.marital_status,
+      military_status: lead.military_status,
+      how_much_coverage_do_you_need: lead.needed_coverage,
+      best_time_of_day_to_contact: lead.contact_time_of_day,
+      platform: lead.platform,
+      age: lead.age,
+      military_branch: lead.branch_of_service,
+      lead_source: Settings.whitelabel.site_title
+    }
+  end
 end

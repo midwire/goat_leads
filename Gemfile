@@ -62,10 +62,12 @@ gem 'premailer-rails', '~> 1.12' # Styling for emails
 gem 'config', '~> 5.0' # Rails yaml settings
 gem 'slack-notifier', '~> 2.4' # Notify slack channels
 gem 'exception_notification', '~> 5.0'
-gem 'google-apis-sheets_v4', '~> 0.39' # Google sheets
-gem 'google-apis-drive_v3', '~> 0.62' # To control access to sheets
+gem 'google-apis-sheets_v4', '~> 0.39', require: false # Google sheets
+gem 'google-apis-drive_v3', '~> 0.62', require: false # To control access to sheets
 gem 'money-rails', '~> 1.15' # Deal with money
 gem 'chronic', '~> 0.10' # Date Time Parsing
+gem 'faraday', '~> 2.12', require: false # Rest client for integration
+gem 'faraday-retry', '~> 2.2', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

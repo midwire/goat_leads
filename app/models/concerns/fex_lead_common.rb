@@ -32,5 +32,26 @@ module FexLeadCommon
       'Favorite Hobby' => :favorite_hobby
     }
   end
+
+  def to_ringy_format
+    lead = decorate
+    {
+      phone_number: lead.phone,
+      first_name: lead.first_name,
+      last_name: lead.last_name,
+      email: lead.email,
+      dob: lead.dob&.to_s,
+      ad: lead.ad,
+      status: 'New Lead',
+      state: lead.state,
+      notes: '',
+      amt_requested: lead.amt_requested,
+      beneficiary: lead.beneficiary,
+      beneficiary_name: lead.beneficiary_name,
+      age: lead.age,
+      platform: lead.platform,
+      lead_source: Settings.whitelabel.site_title
+    }
+  end
   # rubocop:enable Metrics/MethodLength
 end

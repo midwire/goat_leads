@@ -1,70 +1,7 @@
 # frozen_string_literal: true
 
-class Lead < ApplicationRecord
-  before_save :set_rr_state
-
-  belongs_to :lead_order, optional: true
-  has_one :user, through: :lead_order
-
-  normalizes :email, with: ->(e) { e.strip.downcase }
-  normalizes :state, with: ->(e) { e.strip.titleize }
-  normalizes :phone, with: ->(e) { e.strip.tr('^0-9', '') }
-  normalizes :rr_state, with: ->(e) { e.strip.upcase }
-
-  validates :first_name,
-    :last_name,
-    :phone,
-    :email,
-    :state,
-    :dob,
-    presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :phone, phone_number: true
-  validates :state, state: true
-  validates :rr_state, state_abbreviation: true
-
-  scope :unassigned, -> { where(delivered_at: nil) }
-  scope :oldest_first, -> { order(lead_date: :asc) }
-  scope :delivered_today_by_type, lambda { |lead_class|
-    today = Date.current
-    where(type: lead_class)
-        .where(delivered_at: today.beginning_of_day..today.end_of_day)
-  }
-
-  ########################################
-  # Abstract Methods
-
-  # Don't allow Lead base class to be instantiated
-  def initialize(*args)
-    fail('Cannot instantiate Lead base class directly.') if instance_of?(Lead)
-
-    super
-  end
-
-  def to_ringy_format
-    fail('Define this method for the child class.') if instance_of?(Lead)
-
-    super
-  end
-
-  ########################################
-
-  def delivered?
-    delivered_at.present?
-  end
-
-  # Transforms the lead to an array for Agent display
-  # Each Lead child class must define 'spreadsheet_data'
-  def to_array
-    decorated = decorate
-    spreadsheet_data.values.map { |method| decorated.public_send(method) }
-  end
-
-  private
-
-  def set_rr_state
-    self.rr_state = State.code_from_name(state)
-  end
+class FinalExpenseLeadSpanish < Lead
+  include FexLeadCommon
 end
 
 # == Schema Information
