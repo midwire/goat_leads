@@ -150,6 +150,7 @@ end
 #  campaign_id             :string
 #  external_lead_id        :string
 #  google_click_id         :string
+#  lead_form_id            :string
 #  lead_order_id           :bigint
 #  utm_id                  :string
 #

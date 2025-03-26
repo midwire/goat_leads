@@ -37,6 +37,7 @@ class Hooks::LeadsController < WebhookController
     iul_goal: 'IUL goal - string',
     last_name: 'Last Name string - REQUIRED',
     lead_class: 'Lead Class Name string - "VeteranLeadPremium", etc. - REQUIRED',
+    lead_form_id: 'Lead form ID - String',
     lead_form_name: 'Lead form name - string',
     lead_order_id: 'Lead order ID - string',
     lead_program: 'Lead program - string',
