@@ -41,6 +41,10 @@ class LeadOrder < ApplicationRecord
     ringy_sid.present? && ringy_auth_token.present?
   end
 
+  def webhook_enabled?
+    webhook_url.present?
+  end
+
   private
 
   def upcase_states
@@ -126,6 +130,7 @@ end
 #  total_lead_order       :integer
 #  total_leads            :integer
 #  url_source             :string
+#  webhook_url            :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  order_id               :string

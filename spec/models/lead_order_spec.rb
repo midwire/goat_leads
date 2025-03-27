@@ -361,6 +361,7 @@ end
 #  total_lead_order       :integer
 #  total_leads            :integer
 #  url_source             :string
+#  webhook_url            :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  order_id               :string

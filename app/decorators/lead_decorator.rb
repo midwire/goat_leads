@@ -40,13 +40,6 @@ class LeadDecorator < ApplicationDecorator
     calculate_age(object.dob)
   end
 
-  def calculate_age(dob)
-    current_date = Date.current
-    age = current_date.year - dob.year
-    age -= 1 if current_date < Date.new(current_date.year, dob.month, dob.day)
-    age
-  end
-
   def created_at
     datetime_format(object.created_at)
   end
@@ -54,4 +47,14 @@ class LeadDecorator < ApplicationDecorator
   def new_lead
     'New Lead'
   end
+
+  private
+
+  def calculate_age(dob)
+    current_date = Date.current
+    age = current_date.year - dob.year
+    age -= 1 if current_date < Date.new(current_date.year, dob.month, dob.day)
+    age
+  end
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_26_184516) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_27_134917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -65,6 +65,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_184516) do
     t.string "notes"
     t.datetime "ordered_at"
     t.datetime "last_lead_delivered_at"
+    t.string "webhook_url"
     t.index ["active"], name: "index_lead_orders_on_active"
     t.index ["agent_email"], name: "index_lead_orders_on_agent_email"
     t.index ["agent_phone"], name: "index_lead_orders_on_agent_phone"

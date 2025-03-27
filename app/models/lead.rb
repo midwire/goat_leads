@@ -42,9 +42,11 @@ class Lead < ApplicationRecord
   end
 
   def to_ringy_format
-    fail('Define this method for the child class.') if instance_of?(Lead)
+    fail('Define the "to_ringy_format" method for the child class.')
+  end
 
-    super
+  def to_webhook_format
+    fail('Define the "to_webhook_format" method for the child class.')
   end
 
   ########################################

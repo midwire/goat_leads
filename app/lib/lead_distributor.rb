@@ -4,6 +4,7 @@ class LeadDistributor
   class << self
     def distrbute_lead(lead)
       send_to_ringy(lead) if lead.lead_order.ringy_enabled?
+      send_to_webhook(lead) if lead.lead_order.webhook_enabled?
     end
 
     private
@@ -18,6 +19,21 @@ class LeadDistributor
         Rails.logger.info("Lead #{lead.id} successfully sent to Ringy: #{response[:data]}")
       else
         Rails.logger.error("Failed to send lead #{lead.id} to Ringy: #{response[:error]}")
+      end
+
+      response
+    end
+
+    def send_to_webhook(lead)
+      lead_order = lead.lead_order
+      webhook_service = WebhookService.new(lead_order.webhook_url)
+      lead_data = lead.to_webhook_format
+      response = webhook_service.create_lead(lead_data)
+
+      if response[:success]
+        Rails.logger.info("Lead #{lead.id} successfully sent to Webhook: #{response[:data]}")
+      else
+        Rails.logger.error("Failed to send lead #{lead.id} to Webhook: #{response[:error]}")
       end
 
       response
