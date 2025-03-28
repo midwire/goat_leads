@@ -8,7 +8,7 @@ RSpec.shared_context 'a Faraday service' do
 
   describe '#build_connection' do
     it 'configures Faraday with the correct middleware' do
-      connection = service.send(:build_connection, base_url)
+      connection = service.send(:build_connection, base_url: base_url, form_url_encode: form_url_encode)
       expect(connection.builder.handlers).to include(Faraday::Response::Json)
       expect(connection.builder.handlers).to include(Faraday::Retry::Middleware)
       expect(connection.url_prefix.to_s).to eq(base_url.to_s) if base_url
@@ -41,7 +41,7 @@ RSpec.shared_context 'a Faraday service' do
         result = service.send(:handle_response, response)
         expect(result).to eq(
           success: false,
-          error: '>>> Client error: 400',
+          error: 'Client error: 400',
           details: { error: 'Invalid data' }
         )
       end
@@ -52,7 +52,7 @@ RSpec.shared_context 'a Faraday service' do
 
       it 'returns a server error' do
         result = service.send(:handle_response, response)
-        expect(result).to eq(success: false, error: '>>> Server error: 500')
+        expect(result).to eq(success: false, error: 'Server error: 500')
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.shared_context 'a Faraday service' do
 
       it 'returns an unexpected response error' do
         result = service.send(:handle_response, response)
-        expect(result).to eq(success: false, error: '>>> Unexpected response: 301')
+        expect(result).to eq(success: false, error: 'Unexpected response: 301')
       end
     end
   end

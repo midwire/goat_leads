@@ -52,4 +52,18 @@ module MpLeadCommon
     }
   end
   # rubocop:enable Metrics/MethodLength
+
+  def sms_message(lead)
+    lead = lead.decorate
+    [
+      'New MP Lead',
+      "Name: #{lead.first_name} #{lead.last_name}",
+      "Phone: #{lead.phone}",
+      "Email: #{lead.email}",
+      "State: #{lead.state}",
+      "DOB/Age: #{lead.dob}/#{lead.age}",
+      '',
+      'Check Your Email For More Details!'
+    ].join("\n")
+  end
 end

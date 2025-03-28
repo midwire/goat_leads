@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_134917) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_27_205352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -221,6 +221,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_134917) do
     t.boolean "send_email", default: true
     t.integer "daily_lead_cap"
     t.integer "total_lead_cap"
+    t.string "ghl_company_id"
+    t.string "ghl_location_id"
+    t.string "ghl_access_token"
+    t.string "ghl_refresh_token"
+    t.date "ghl_refresh_date"
     t.index ["deliver_priority"], name: "index_users_on_deliver_priority"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["email_verified_at"], name: "index_users_on_email_verified_at"

@@ -8,10 +8,13 @@ module FaradayService
 
   private
 
-  def build_connection(base_url = nil)
+  def build_connection(base_url: nil, form_url_encode: false)
     Faraday.new(url: base_url) do |conn|
       # Automatically parse JSON responses
       conn.response :json, content_type: /\bjson$/
+
+      # Have Faraday convert the payload if necessary
+      conn.request :url_encoded if form_url_encode
 
       # Retry on transient failures (e.g., 429, 503)
       conn.request :retry, max: 3, interval: 1, backoff_factor: 2
@@ -28,11 +31,11 @@ module FaradayService
     when 401
       { success: false, error: unauthorized_error_message }
     when 400..499
-      { success: false, error: ">>> Client error: #{response.status}", details: response.body }
+      { success: false, error: "Client error: #{response.status}", details: response.body }
     when 500..599
-      { success: false, error: ">>> Server error: #{response.status}" }
+      { success: false, error: "Server error: #{response.status}" }
     else
-      { success: false, error: ">>> Unexpected response: #{response.status}" }
+      { success: false, error: "Unexpected response: #{response.status}" }
     end
   end
 

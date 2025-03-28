@@ -22,7 +22,7 @@ RSpec.describe LeadParamNormalizer, type: :lib do
           'contact_time_of_day'=>'Afternoon',
           'phone'=>'+15308678274',
           'state'=>'California',
-          "trusted_form_url" => "https://cert.trustedform.com/6b4c52af255d4a8d87969b8efd3d6b82b3a8d0aa",
+          'trusted_form_url' => 'https://cert.trustedform.com/6b4c52af255d4a8d87969b8efd3d6b82b3a8d0aa',
           'dob'=>Chronic.parse(raw_params[:dob]),
           'ip_address'=>'166.198.38.54',
           'utm_source'=>'an',

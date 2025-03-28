@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   # auth routes
-  resource :session
+  resource :session, only: %i[new create destroy]
   resource :registration, only: %i[new create]
   resources :passwords, param: :token
 
@@ -26,6 +26,10 @@ Rails.application.routes.draw do
   namespace :hooks do
     resources :leads, only: %i[create]
     resources :lead_orders, only: %i[create update]
+
+    # HL CRM Authentication
+    get 'crm_initiate', to: 'crm_oauth#initiate', as: :crm_initiate
+    get 'crm_oauth', to: 'crm_oauth#oauth', as: :crm_oauth
   end
 
   # Agents can edit their own info

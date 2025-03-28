@@ -25,6 +25,7 @@ RSpec.describe RingyService, type: :service do
   end
   # For shared examples
   let(:service_args) { [ringy_sid, ringy_auth_token] }
+  let(:form_url_encode) { false }
 
   before do
     # Stub all HTTP requests
@@ -76,7 +77,7 @@ RSpec.describe RingyService, type: :service do
 
       it 'returns a failure response with the error details' do
         result = service.create_lead(lead_data)
-        expect(result).to eq(success: false, error: '>>> Client error: 400', details: error_body)
+        expect(result).to eq(success: false, error: 'Client error: 400', details: error_body)
       end
     end
 

@@ -103,6 +103,7 @@ Layout/LineLength:
     - '^ *#'
   Exclude:
     - 'app/views/**/*'
+    - 'spec/**/*'
 
 Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
@@ -205,6 +206,9 @@ RSpec/NestedGroups:
   Enabled: false
 
 RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
   Enabled: false
 
 ########################################

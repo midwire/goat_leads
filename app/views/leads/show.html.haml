@@ -24,8 +24,7 @@
               = @lead.current_age
         .card-body
           .card-text
-            -# - Class.new.extend(CsvConfig).agent_visible_columns_hash.each do |colname, hash|
-            - lead_card_body_data.each do |colname, hash|
+            - lead_card_body_data(@current_user).each do |colname, hash|
               .row.hover-row
                 .col-auto.fixed-left.bold
                   = hash[:display]

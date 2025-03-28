@@ -68,7 +68,10 @@ end
 #  email_address          :string           not null
 #  email_verified_at      :datetime
 #  first_name             :string
+#  ghl_access_token       :string
 #  ghl_api_key            :string
+#  ghl_refresh_date       :date
+#  ghl_refresh_token      :string
 #  google_sheet_url       :string
 #  last_lead_delivered_at :datetime
 #  last_name              :string
@@ -88,6 +91,8 @@ end
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  external_id            :string
+#  ghl_company_id         :string
+#  ghl_location_id        :string
 #
 # Indexes
 #

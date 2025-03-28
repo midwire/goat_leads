@@ -45,6 +45,14 @@ class LeadOrder < ApplicationRecord
     webhook_url.present?
   end
 
+  def sms_enabled?
+    send_text.present? && agent_phone.present?
+  end
+
+  def email_enabled?
+    send_email.present? && agent_email.present?
+  end
+
   private
 
   def upcase_states

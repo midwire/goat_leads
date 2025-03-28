@@ -54,4 +54,23 @@ module FexLeadCommon
     }
   end
   # rubocop:enable Metrics/MethodLength
+
+  def sms_message(lead)
+    lead = lead.decorate
+    [
+      'New FEX Lead! Sell It!',
+      "Name: #{lead.first_name} #{lead.last_name}",
+      "Phone: #{lead.phone}",
+      "Email: #{lead.email}",
+      "State: #{lead.state}",
+      "DOB/Age: #{lead.dob}/#{lead.age}",
+      "Ad: #{lead.ad}",
+      "Lead Type: #{lead.type}",
+      "OTP Code: #{lead.otp_code}",
+      '',
+      'OTP Now ENABLED on all FEX Leads From Google/YouTube!',
+      '',
+      'Check Your Email For More Details!'
+    ].join("\n")
+  end
 end

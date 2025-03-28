@@ -45,4 +45,21 @@ module IulLeadCommon
       lead_source: Settings.whitelabel.site_title
     }
   end
+
+  def sms_message(lead)
+    lead = lead.decorate
+    [
+      'New IUL Lead! Sell It!',
+      "Name: #{lead.first_name} #{lead.last_name}",
+      "Phone: #{lead.phone}",
+      "Email: #{lead.email}",
+      "DOB/Age: #{lead.dob}/#{lead.age}",
+      "Goal: #{lead.iul_goal}",
+      "State: #{lead.state}",
+      "Monthly Contribution: #{lead.monthly_contribution}",
+      "Lead Type: #{lead.type}",
+      '',
+      'Check Your Email For More Details!'
+    ].join("\n")
+  end
 end

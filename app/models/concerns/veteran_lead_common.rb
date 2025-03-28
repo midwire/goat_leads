@@ -47,4 +47,19 @@ module VeteranLeadCommon
       lead_source: Settings.whitelabel.site_title
     }
   end
+
+  def sms_message(lead)
+    lead = lead.decorate
+    [
+      'New Veteran Lead! Sell It!',
+      "Name: #{lead.first_name} #{lead.last_name}",
+      "Phone: #{lead.phone}",
+      "Email: #{lead.email}",
+      "Coverage Requested: #{lead.needed_coverage}",
+      "State: #{lead.state}",
+      "Lead Type: #{lead.type}",
+      '',
+      'Check Your Email For More Details!'
+    ].join("\n")
+  end
 end

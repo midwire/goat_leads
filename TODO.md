@@ -22,6 +22,7 @@
 [x] Allow distribute Leads to Agents Google Sheets
 [] Wire up writing leads to Agent Google sheets
 [] Send email notifications on lead assignment?
+[] Send SMS notifications on lead assignment
 [] Distribute Leads to Agents GHL
 [x] Distribute Leads to Agents Ringy
 [x] Distribute Leads to Agents Webhook
@@ -104,6 +105,7 @@ Guessing we will build each of these out with the appropriate functionality.
 * https://docs.google.com/spreadsheets/d/1q_GkCYBSQ_zLRm1I0fVde8Nu5r751otb_FjKEdI0FxQ/edit?gid=0#gid=0 - IUL Leads Example
 * https://docs.google.com/spreadsheets/d/1wBqtF-NN-HsX7Xri0a7Ck4pdDrbNRsdbj7xP2VENS3I/edit?gid=0#gid=0 - Agent Lead Spreadsheet Example
 * https://docs.google.com/spreadsheets/d/1zFKhSUJpb1ZiAWi8C-oExnu3RYGIIZzv9lmq_OevbaA/edit?gid=0#gid=0 - Lead Assignment Spreadsheet Example
+* https://youtu.be/RQ4S_nSKR38 - Intro Video
 
 ### Spreadsheet Links
 

@@ -8,7 +8,7 @@ class RingyService
 
     @sid = sid
     @auth_token = auth_token
-    @connection = build_connection('https://app.ringy.com')
+    @connection = build_connection(base_url: 'https://app.ringy.com')
   end
 
   def create_lead(lead_data)
