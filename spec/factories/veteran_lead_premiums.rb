@@ -13,6 +13,7 @@ FactoryBot.define do
     needed_coverage { ['250,000+', '40,000 - 50,000', '20,000 - 30,000'].sample }
     contact_time_of_day { %w[Afternoon Evening Morning].sample }
     ad { Faker::Lorem.word }
+    age { 56 }
     adset_id { Faker::Lorem.words(number: 3).join(' ') }
     platform { %w[yt fb ig].sample }
     campaign_id { Faker::Lorem.words(number: 5).join(' ') }

@@ -13,6 +13,7 @@ FactoryBot.define do
       random_string = (0...30).map { rand(65..90).chr }.join + (0...30).map { rand(10).to_s }.join
       random_string.chars.sample(30).join
     end
+    google_sheet_url { 'https://docs.example.com/spreadsheets/d/17Q3XFm2asdfzSZJd6Tvj2-kRB1CSasdf2K7BKLGHRPQ14' }
 
     trait :inactive do
       active { false }

@@ -40,6 +40,13 @@
       - elsif @lead.type.match?(/^FinalExpense/)
         = render(partial: '/user_mailer/new_lead/final_expense', locals: {lead: @lead, lead_order: @lead_order})
 
+      - if @lead_order.google_sheet_url.present?
+        %div
+          %strong
+            Google Sheet:
+          %a{href: @lead_order.google_sheet_url}
+            = @lead_order.google_sheet_url
+
     .card-footer.text-muted
       %div
         %strong
@@ -53,11 +60,6 @@
         %strong
           Total Received:
         = @lead_order.leads_received_count
-      - if @lead_order.google_sheet_url.present?
-        %div
-          %strong
-            Google Sheet:
-          = @lead_order.google_sheet_url
 
 %p
   %strong

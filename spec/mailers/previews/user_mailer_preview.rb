@@ -58,7 +58,15 @@ class UserMailerPreview < ActionMailer::Preview
   def user
     @user ||= begin
       u = User.find_or_initialize_by(external_id: 'mailer-test')
-      u.update(FactoryBot.attributes_for(:user, :agent, :confirmed))
+      u.update(
+        FactoryBot.attributes_for(
+          :user,
+          :agent,
+          :confirmed,
+          password: 'asdfasdf',
+          password_confirmation: 'asdfasdf'
+        )
+      )
       u
     end
   end
