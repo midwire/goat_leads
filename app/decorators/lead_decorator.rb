@@ -48,6 +48,12 @@ class LeadDecorator < ApplicationDecorator
     datetime_format(object.created_at)
   end
 
+  def date_of_birth
+    return nil if object.dob.blank?
+
+    mdy_date(object.dob)
+  end
+
   def new_lead
     'New Lead'
   end

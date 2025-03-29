@@ -33,3 +33,12 @@
         .card-footer.text-muted
           Lead generated
           = @lead.days_ago
+
+      .btn-group{role: :group}
+        - if @lead.lead_order&.ghl_enabled?
+          = link_to('Send to GHL', send_lead_path(:ghl, @lead), class: %i[btn btn-sm btn-primary])
+        - if @lead.lead_order&.ringy_enabled?
+          = link_to('Send to Ringy', send_lead_path(:ringy, @lead), class: %i[btn btn-sm btn-primary])
+        - if @lead.lead_order&.webook_enabled?
+          = link_to('Send to Webhook', send_lead_path(:webhook, @lead), class: %i[btn btn-sm btn-primary])
+

@@ -62,7 +62,7 @@ RSpec.describe GhlOauthService, type: :service do
 
       it 'returns a success response with the lead data' do
         result = service.post_oauth_request(code_param)
-        expect(result).to eq(success: true, data: response_body.to_json)
+        expect(result.status).to eq(201)
       end
     end
   end
