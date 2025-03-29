@@ -1,0 +1,67 @@
+.card
+  .card-header
+    %h4
+      New
+      = succeed '!' do
+        = @lead.display_type
+  .card-body
+    %h5.cart-title.bg-light
+
+      %strong
+        Name:
+      = @lead.display_name
+
+    .card-text
+      %div
+        %strong
+          Phone:
+        = @lead.linked_phone
+      %div
+        %strong
+          Email:
+        = @lead.linked_email
+      %div
+        %strong
+          DOB/Age:
+        = @lead.dob
+        = precede '/ ' do
+          = @lead.age
+      %div
+        %strong
+          State:
+        = @lead.state
+
+      - if @lead.type.match?(/^Veteran/)
+        = render(partial: '/user_mailer/new_lead/veteran', locals: {lead: @lead, lead_order: @lead_order})
+      - elsif @lead.type.match?(/^MortgageProtection/)
+        = render(partial: '/user_mailer/new_lead/mortgage_protection', locals: {lead: @lead, lead_order: @lead_order})
+      - elsif @lead.type.match?(/^IndexUniversal/)
+        = render(partial: '/user_mailer/new_lead/index_universal', locals: {lead: @lead, lead_order: @lead_order})
+      - elsif @lead.type.match?(/^FinalExpense/)
+        = render(partial: '/user_mailer/new_lead/final_expense', locals: {lead: @lead, lead_order: @lead_order})
+
+    .card-footer.text-muted
+      %div
+        %strong
+          Lead Order Date:
+        = @lead_order.ordered_date
+      %div
+        %strong
+          Total Ordered:
+        = @lead_order.total_lead_order
+      %div
+        %strong
+          Total Received:
+        = @lead_order.leads_received_count
+      - if @lead_order.google_sheet_url.present?
+        %div
+          %strong
+            Google Sheet:
+          = @lead_order.google_sheet_url
+
+%p
+  %strong
+    = precede '-- ' do
+      The
+    = @app_title
+    Team

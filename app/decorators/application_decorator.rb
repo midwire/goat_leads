@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationDecorator < Draper::Decorator
+  include ActionView::Helpers::UrlHelper
+
   DATE_FORMAT = :mdy_slash
 
   # Define methods for all decorated objects.
@@ -13,6 +15,20 @@ class ApplicationDecorator < Draper::Decorator
   def self.collection_decorator_class
     PaginatingDecorator
   end
+
+  def linked_phone
+    return nil if object.phone.blank?
+
+    tel_to(phone)
+  end
+
+  def linked_email
+    return nil if object.email.blank?
+
+    mail_to(email)
+  end
+
+  private
 
   def mdy_date(date)
     return '' if date.blank?
@@ -34,10 +50,6 @@ class ApplicationDecorator < Draper::Decorator
 
   def comma_number(number)
     h.number_with_delimiter(number, delimiter: ',')
-  end
-
-  def linked_email(email)
-    h.email_link(email)
   end
 
   def time_ago_in_words(past_time)

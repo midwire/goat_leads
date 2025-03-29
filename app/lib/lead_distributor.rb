@@ -6,6 +6,7 @@ class LeadDistributor
       send_to_ringy(lead) if lead.lead_order.ringy_enabled?
       send_to_webhook(lead) if lead.lead_order.webhook_enabled?
       send_to_sms(lead) if lead.lead_order.sms_enabled?
+      send_to_email(lead) if lead.lead_order.email_enabled?
     end
 
     private
@@ -56,6 +57,10 @@ class LeadDistributor
         Rails.logger.error(msg)
         SlackPipe.send_msg(msg)
       end
+    end
+
+    def send_to_email(lead)
+      EmailJob.perform_async('UserMailer', 'new_lead', lead.id)
     end
   end
 end
