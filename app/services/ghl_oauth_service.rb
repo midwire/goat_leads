@@ -6,7 +6,7 @@ class GhlOauthService
   MARKETPLACE_URL = 'https://marketplace.leadconnectorhq.com' unless defined?(MARKETPLACE_URL)
   TOKEN_URL = 'https://services.leadconnectorhq.com/oauth/token' unless defined?(TOKEN_URL)
 
-  attr_reader :ghl_redirect_url
+  attr_reader :ghl_redirect_url, :faraday_response
 
   def initialize(client_id, client_secret, local_oauth_url)
     @client_id = client_id
@@ -24,7 +24,8 @@ class GhlOauthService
       req.body = payload(code_param)
     end
 
-    handle_response(response)
+    @faraday_response = handle_response(response)
+    response
   end
 
   private
@@ -32,7 +33,7 @@ class GhlOauthService
   def options
     {
       response_type: 'code',
-      local_oauth_url: @local_oauth_url,
+      redirect_uri: @local_oauth_url,
       client_id: @client_id,
       scope: [
         'contacts.write',

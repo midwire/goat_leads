@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   # Agents can edit their own info
   resources :users, only: %i[edit update]
+  get 'crm_cancel', to: 'crm_cancel#cancel', as: :crm_cancel
   resources :email_verifications, only: %i[show new], param: :token do
     collection do
       post :resend

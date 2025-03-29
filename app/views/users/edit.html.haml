@@ -10,5 +10,17 @@
         = form.text_field(:licensed_states, multiple: true, value: @user.licensed_states.join(','))
         %small.form-text.text-muted
           Comma-separated list of states where you are licensed
+        %div.my-3
+          GHL Integration:
+          - if @user.ghl_integration?
+            %span.badge.bg-success
+              Integrated
+            %div.mt-2
+              = link_to('Turn off Integration', crm_cancel_path, class: %w[btn btn-sm btn-info])
+          - else
+            %span.badge.bg-warning
+              Not Integrated
+            %div.mt-2
+              = link_to('Turn on Integration', hooks_crm_initiate_path, class: %w[btn btn-sm btn-info])
         .mt-3
           = form.submit('Save')

@@ -16,6 +16,8 @@ class SessionsController < ApplicationController
   def create
     user = User.authenticate_by(params.permit(:email_address, :password))
     if user
+      # Login successful - store GHL integration if appropriate
+      persist_ghl_integration(user)
       if user.verified?
         start_new_session_for user
         redirect_to after_authentication_url
@@ -30,5 +32,32 @@ class SessionsController < ApplicationController
   def destroy
     terminate_session
     redirect_to new_session_path
+  end
+
+  private
+
+  def persist_ghl_integration(user)
+    # Store GHL integration data if necessary
+    json = session[:ghl]
+    return if json.blank?
+
+    # Store access_token
+    data = JSON.parse(ghl_json)
+
+    ghl_data = ghl_attributes(data)
+    user.update!(ghl_data) if ghl_data.any?
+
+    # Delete cookie
+    session.delete(:ghl)
+  end
+
+  def ghl_attributes(data)
+    {
+      ghl_company_id: data['company_id'],
+      ghl_location_id: data['location_id'],
+      ghl_access_token: data['access_token'],
+      ghl_refresh_token: data['refresh_token'],
+      ghl_refresh_date: data['refresh_token'].present? ? Date.current : nil
+    }
   end
 end

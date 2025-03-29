@@ -38,6 +38,23 @@ class User < ApplicationRecord
   def verified?
     email_verified_at.present?
   end
+
+  def ghl_integration?
+    ghl_access_token.present? &&
+        ghl_refresh_token.present? &&
+        ghl_location_id.present? &&
+        ghl_company_id.present?
+  end
+
+  def ghl_remove_integration!
+    update!(
+      ghl_company_id: nil,
+      ghl_location_id: nil,
+      ghl_access_token: nil,
+      ghl_refresh_token: nil,
+      ghl_refresh_date: nil
+    )
+  end
 end
 
 # == Schema Information
