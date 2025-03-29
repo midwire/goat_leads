@@ -18,6 +18,22 @@ FactoryBot.define do
     trait :inactive do
       active { false }
     end
+
+    trait :veteran do
+      lead_class { 'VeteranLeadPremium' }
+    end
+
+    trait :iul do
+      lead_class { 'IndexUniversalLifeLeadPremium' }
+    end
+
+    trait :fex do
+      lead_class { 'FinalExpenseLeadPremium' }
+    end
+
+    trait :mp do
+      lead_class { 'MortgageProtectionLeadPremium' }
+    end
   end
 end
 

@@ -7,9 +7,8 @@ class LeadDistributor
       send_to_webhook(lead) if lead.lead_order.webhook_enabled?
       send_to_sms(lead) if lead.lead_order.sms_enabled?
       send_to_email(lead) if lead.lead_order.email_enabled?
+      send_to_ghl(lead) if lead.lead_order.ghl_enabled?
     end
-
-    private
 
     def send_to_ringy(lead)
       lead_order = lead.lead_order
@@ -61,6 +60,20 @@ class LeadDistributor
 
     def send_to_email(lead)
       EmailJob.perform_async('UserMailer', 'new_lead', lead.id)
+    end
+
+    def send_to_ghl(lead)
+      user = lead.user
+      service = GhlService.new(user.ghl_access_token)
+      response = service.create_lead(lead)
+
+      if response[:success]
+        Rails.logger.info("Lead #{lead.id} successfully sent to GHL: #{response[:data]}")
+      else
+        msg = "GhlService failed to create lead: #{lead.id}, message: #{response[:error]}"
+        Rails.logger.error(msg)
+        SlackPipe.send_msg(msg)
+      end
     end
   end
 end

@@ -2,9 +2,7 @@
 
 class EmailJob
   include Sidekiq::Job
-  sidekiq_options queue: :mailer,
-    lock: :while_executing,
-    on_conflict: :reschedule
+  sidekiq_options queue: :mailer
 
   def perform(mailer_class, mailer_action, *args)
     mailer = mailer_class.constantize

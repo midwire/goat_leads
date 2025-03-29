@@ -13,6 +13,7 @@ RSpec.describe LeadDistributor, type: :service do
       webhook_enabled?: webhook_enabled,
       sms_enabled?: sms_enabled,
       email_enabled?: email_enabled,
+      ghl_enabled?: ghl_enabled,
       ringy_sid: 'sid123',
       ringy_auth_token: 'token123',
       webhook_url: 'https://webhook.example.com',
@@ -22,6 +23,7 @@ RSpec.describe LeadDistributor, type: :service do
   let(:webhook_enabled) { false }
   let(:sms_enabled) { false }
   let(:email_enabled) { false }
+  let(:ghl_enabled) { false }
   let(:ringy_service) { instance_double(RingyService) }
   let(:webhook_service) { instance_double(WebhookService) }
   let(:twilio_service) { instance_double(TwilioService) }

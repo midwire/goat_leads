@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   # Agents can edit their own info
   resources :users, only: %i[edit update]
-  get 'crm_cancel', to: 'crm_cancel#cancel', as: :crm_cancel
+  get 'crm_cancel', to: 'crm#cancel', as: :crm_cancel
   resources :email_verifications, only: %i[show new], param: :token do
     collection do
       post :resend
@@ -46,6 +46,9 @@ Rails.application.routes.draw do
     end
   end
   resources :leads, only: %i[index show destroy], concerns: %i[with_datatable]
+
+  ## Send Leads to external systems
+  get 'send_lead/:service/:id', to: 'lead_distribution#send_lead', as: :send_lead
 
   # Admin Interfaces
   namespace :admin do
