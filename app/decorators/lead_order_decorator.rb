@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LeadOrderDecorator < Draper::Decorator
+class LeadOrderDecorator < ApplicationDecorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through
@@ -30,6 +30,12 @@ class LeadOrderDecorator < Draper::Decorator
     return 'Not Canceled' if object.canceled_at.blank?
 
     object.canceled_at
+  end
+
+  def ordered_date
+    return mdy_date(object.ordered_at) if object.ordered_at.present?
+
+    mdy_date(object.created_at)
   end
 
   def active

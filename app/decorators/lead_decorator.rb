@@ -20,6 +20,10 @@ class LeadDecorator < ApplicationDecorator
     [fname, lname].join(' ')
   end
 
+  def display_type
+    object.type.gsub(/([A-Z])/, ' \1').strip.titleize
+  end
+
   def days_ago
     date = object.created_at
     return 'invalid date' unless date.respond_to?(:to_date)

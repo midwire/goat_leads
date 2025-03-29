@@ -53,6 +53,10 @@ class LeadOrder < ApplicationRecord
     send_email.present? && agent_email.present?
   end
 
+  def leads_received_count
+    leads.count
+  end
+
   private
 
   def upcase_states

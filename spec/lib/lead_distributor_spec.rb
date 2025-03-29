@@ -12,6 +12,7 @@ RSpec.describe LeadDistributor, type: :service do
       ringy_enabled?: ringy_enabled,
       webhook_enabled?: webhook_enabled,
       sms_enabled?: sms_enabled,
+      email_enabled?: email_enabled,
       ringy_sid: 'sid123',
       ringy_auth_token: 'token123',
       webhook_url: 'https://webhook.example.com',
@@ -20,6 +21,7 @@ RSpec.describe LeadDistributor, type: :service do
   let(:ringy_enabled) { false }
   let(:webhook_enabled) { false }
   let(:sms_enabled) { false }
+  let(:email_enabled) { false }
   let(:ringy_service) { instance_double(RingyService) }
   let(:webhook_service) { instance_double(WebhookService) }
   let(:twilio_service) { instance_double(TwilioService) }
@@ -31,6 +33,7 @@ RSpec.describe LeadDistributor, type: :service do
     allow(RingyService).to receive(:new).and_return(ringy_service)
     allow(WebhookService).to receive(:new).and_return(webhook_service)
     allow(TwilioService).to receive(:new).and_return(twilio_service)
+    allow(EmailJob).to receive(:perform_async).and_return(nil)
     allow(Rails).to receive(:logger).and_return(logger)
     allow(logger).to receive(:info)
     allow(logger).to receive(:error)
@@ -126,18 +129,37 @@ RSpec.describe LeadDistributor, type: :service do
       end
     end
 
+    context 'when only email is enabled' do
+      let(:email_enabled) { true }
+      let(:email_response) { {} }
+
+      before do
+        allow(EmailJob).to receive(:perform_async).and_return(email_response)
+      end
+
+      it 'sends the email and does not log on success' do
+        described_class.distribute_lead(lead)
+        expect(EmailJob).to have_received(:perform_async)
+        expect(logger).not_to have_received(:error)
+        expect(SlackPipe).not_to have_received(:send_msg)
+      end
+    end
+
     context 'when all services are enabled' do
       let(:ringy_enabled) { true }
       let(:webhook_enabled) { true }
       let(:sms_enabled) { true }
+      let(:email_enabled) { true }
       let(:ringy_response) { { success: true, data: { vendorResponseId: 'abc123' } } }
       let(:webhook_response) { { success: true, data: { id: 'web123' } } }
       let(:twilio_response) { { success: true, message_sid: 'SM123456' } }
+      let(:email_response) { {} }
 
       before do
         allow(ringy_service).to receive(:create_lead).and_return(ringy_response)
         allow(webhook_service).to receive(:create_lead).and_return(webhook_response)
         allow(twilio_service).to receive(:send_sms).and_return(twilio_response)
+        allow(EmailJob).to receive(:perform_async).and_return(email_response)
       end
 
       it 'sends the lead to all enabled services' do
@@ -145,6 +167,7 @@ RSpec.describe LeadDistributor, type: :service do
         expect(ringy_service).to have_received(:create_lead)
         expect(webhook_service).to have_received(:create_lead)
         expect(twilio_service).to have_received(:send_sms).with('+19876543210', 'Test SMS message')
+        expect(EmailJob).to have_received(:perform_async)
         expect(logger).to have_received(:info).exactly(3).times # For Ringy and Webhook success
         expect(logger).not_to have_received(:error)
       end
@@ -156,6 +179,7 @@ RSpec.describe LeadDistributor, type: :service do
         expect(RingyService).not_to have_received(:new)
         expect(WebhookService).not_to have_received(:new)
         expect(TwilioService).not_to have_received(:new)
+        expect(EmailJob).not_to have_received(:perform_async)
         expect(logger).not_to have_received(:info)
         expect(logger).not_to have_received(:error)
         expect(SlackPipe).not_to have_received(:send_msg)

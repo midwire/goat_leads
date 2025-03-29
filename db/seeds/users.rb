@@ -13,11 +13,32 @@ user.update!(
   password_confirmation: 'asdfasdf',
   email_verified_at: Time.now.utc,
   licensed_states: State.all,
-  lead_types: lead_const,
   video_types: %w[dom other]
 )
 user = User.find_or_create_by(
   email_address: 'admin@example.com'
+)
+user.update!(
+  password: 'asdfasdf',
+  password_confirmation: 'asdfasdf',
+  email_verified_at: Time.now.utc,
+  role: :admin
+)
+
+# Jeromy
+user = User.find_or_create_by(
+  email_address: 'leadsupport@goatleads.com'
+)
+user.update!(
+  password: 'asdfasdf',
+  password_confirmation: 'asdfasdf',
+  email_verified_at: Time.now.utc,
+  role: :admin
+)
+
+# Mike
+user = User.find_or_create_by(
+  email_address: 'mpfeil@fflall.com'
 )
 user.update!(
   password: 'asdfasdf',

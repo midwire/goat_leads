@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :veteran_lead_premium do
+  factory :final_expense_lead_premium do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     phone { Faker::Base.numerify('1##########') }
     email { Faker::Internet.email }
     state { 'Washington' }
     dob { Faker::Date.between(from: '1930-01-01', to: 21.years.ago) }
-    marital_status { Faker::Demographic.marital_status }
-    military_status { Faker::Military.army_rank }
-    needed_coverage { ['250,000+', '40,000 - 50,000', '20,000 - 30,000'].sample }
+
+    otp_code { Faker::Base.numerify('######') }
+
     contact_time_of_day { %w[Afternoon Evening Morning].sample }
-    ad { Faker::Lorem.word }
-    age { 56 }
+    ad { %w[Google Youtube TikTok Facebook].sample }
     adset_id { Faker::Lorem.words(number: 3).join(' ') }
     platform { %w[yt fb ig].sample }
     campaign_id { Faker::Lorem.words(number: 5).join(' ') }
