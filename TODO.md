@@ -20,12 +20,12 @@
 [x] Prepare active lead-forms to send a properly formatted lead
 [x] Assign Leads to Agents through LeadOrders
 [x] Allow distribute Leads to Agents Google Sheets
-[] Wire up writing leads to Agent Google sheets
-[] Send email notifications on lead assignment?
-[] Send SMS notifications on lead assignment
-[] Distribute Leads to Agents GHL
+[x] Send email notifications on lead assignment?
+[x] Send SMS notifications on lead assignment
+[x] Distribute Leads to Agents GHL
 [x] Distribute Leads to Agents Ringy
 [x] Distribute Leads to Agents Webhook
+[] Turn on lead distribution in production
 [] Build Reporting Dashboard to monitor costs
 [] Build Manager interface to handle Lead returns
 
