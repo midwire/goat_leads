@@ -1,0 +1,18 @@
+%aside.main-sidebar.elevation-4.position-fixed.h-100.bg-dark{'data-bs-theme' => "dark"}
+  .d-flex.align-items-center.justify-content-center.sidebar-header
+    %a.brand-link{ href: root_url }
+      %img.brand-image.navbar-brand-img.img-circle.elevation-3{ src: asset_url("#{Whitelabel.label}/the-goat.webp"), alt: "Goat Leads Logo", style: "opacity: .8" }
+      -# %span.brand-text.font-weight-light Goat Leads
+
+  .sidebar
+    %nav.mt-2
+      %ul.nav.nav-pills.nav-sidebar.flex-column{ "data-bs-accordion": "true" }
+        %li.nav-item
+          %a.nav-link{ href: "#" }
+            %i.nav-icon.bi.bi-speedometer
+            %span Dashboard
+        %li.nav-item
+          %a.nav-link{ href: leads_path }
+            %i.nav-icon.bi.bi-people
+            %span Leads
+

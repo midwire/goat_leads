@@ -10,6 +10,14 @@ import "./src/add_datatables";
 window.bootstrap = bootstrap;
 
 document.addEventListener('turbo:load', function() {
+  // Navbar Toggler
+  const toggler = document.querySelector(".navbar-toggler");
+  const sidebar = document.querySelector(".main-sidebar");
+  const wrapper = document.querySelector("#wrapper");
+
+  toggler.addEventListener("click", () => {
+    wrapper.classList.toggle("sidebar-open");
+  });
 
   document.querySelectorAll('.toast').forEach((toast) => {
     return new bootstrap.Toast(toast).show();

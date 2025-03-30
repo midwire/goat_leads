@@ -1,0 +1,10 @@
+%body
+  %div#wrapper.d-flex
+    = render "/layouts/#{Whitelabel.label}/side_bar"
+    %div#page-content-wrapper.d-flex.flex-column
+      = render "/layouts/#{Whitelabel.label}/top_nav_bar"
+
+    #main-content.container-fluid
+      = render(partial: '/layouts/flash')
+      = yield
+      = render(partial: '/layouts/footer')
