@@ -1,0 +1,22 @@
+.container-fluid
+  .row
+    .col.md
+      = render(partial: 'stat_widget',
+        locals: {title: 'Lead Orders', stat: @lead_order_count, color: :blue})
+    .col.md
+      = render(partial: 'stat_widget',
+        locals: {title: 'Fulfilled Orders', stat: @lead_fulfilled_count, color: :green})
+    .col.md
+      = render(partial: 'stat_widget',
+        locals: {title: 'Total Leads', stat: @lead_count, color: :yellow})
+    - if @current_user.admin?
+      .col.md
+        = render(partial: 'stat_widget',
+          locals: {title: 'Unassigned Leads', stat: @unassigned_lead_count, color: :red})
+  .row.py-3
+    .col.md-6
+      = render(partial: "line_chart_widget",
+        locals: {data: @leads_by_day, legend: 'Leads by day'})
+    .col.md-6
+      -# = render(partial: "line_chart_widget",
+      -#   locals: {data: Lead.group_by_day(:created_at).count})

@@ -71,6 +71,7 @@ namespace :assets do
       execute <<-SCRIPT
         export PATH="$PATH:/home/deploy/.nvm/versions/node/v18.17.1/bin:/opt/rbenv/shims"
         export RAILS_ENV=#{fetch(:rails_env)}
+        export WHITELABEL=#{ENV['WHITELABEL']}
         cd #{release_path}
         bundle exec rake assets:clobber
         bundle exec rake assets:precompile
