@@ -1,0 +1,60 @@
+%nav.navbar.navbar-expand-md.navbar-light.navbar-white.fixed-top.ms-auto.bg-light{'data-bs-theme' => 'light'}
+  %div.container-fluid
+
+    %button.navbar-toggler{"aria-controls" => "navbarCollapse", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarCollapse", "data-bs-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    #navbarCollapse.collapse.navbar-collapse
+      %ul.navbar-nav.me-auto
+        %li.nav-item.d-none.d-md-block
+          %a.nav-link.sidebar-toggle{ href: "#", title: 'Toggle Sidebar' }
+            %i.bi.bi-square-fill
+        %li.nav-item
+          = nav_link('Home', leads_path)
+        %li.nav-item
+          = nav_link('Order Leads', new_lead_order_path)
+        %li.nav-item.dropdown
+          .nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :role => "button"}
+            Support
+          .dropdown-menu
+            %a.dropdown-item.nav-link{href: faqs_path}
+              FAQs
+            %a.dropdown-item.nav-link{href: welcome_terms_path}
+              Terms &amp; Conditions
+            %a.dropdown-item.nav-link{href: welcome_privacy_path}
+              Privacy Policy
+
+          -# %a.nav-link{ "data-bs-toggle": "dropdown", href: "#" }
+          -#   %i.bi.bi-bell
+          -#   %span.badge.badge-warning 15
+          -# .dropdown-menu.dropdown-menu-right
+          -#   .card-footer.text-center
+          -#     %a{ href: "#" } See all alerts
+        -# %li.nav-item
+        -#   %a.nav-link{ "data-bs-toggle": "dropdown", href: "#" }
+        -#     %i.bi.bi-envelope
+        -#     %span.badge.badge-success 3
+        -#   .dropdown-menu.dropdown-menu-right
+        -#     .card-footer.text-center
+        -#       %a{ href: "#" } See all messages
+
+      %form.form-inline.ms-auto.me-3.d-none.d-md-flex
+        .input-group.input-group-sm
+          %input.form-control.form-control-sm{ type: "search", placeholder: "Search", "aria-label": "Search" }
+          .input-group-append
+            %button.btn.btn-sm.btn-default{ type: "submit" }
+              %i.fas.fa-search
+
+      %ul.navbar-nav
+        // Session-related
+        - if authenticated?
+          %li.nav-item.dropdown
+            .nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
+              = @current_user.email_address
+            .dropdown-menu
+              %a.dropdown-item.nav-link{href: edit_user_path(@current_user)}
+                Account Settings
+              %a.dropdown-item.nav-link{href: session_path, method: :delete, data: { 'turbo-method': :delete }}
+                Sign Out
+        - else
+          = link_to "Sign up", new_registration_path, class: "navbar-link btn btn-sm btn-secondary"
+          = link_to "Sign in", new_session_path, class: "navbar-link btn btn-sm btn-primary"

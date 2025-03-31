@@ -3,8 +3,16 @@
 # rubocop:disable Rails/OutputSafety
 class ApplicationDatatable < AjaxDatatablesRails::ActiveRecord
   include Rails.application.routes.url_helpers
+  extend Forwardable
+
+  def_delegator :@view, :user_initial_circle
 
   self.nulls_last = true
+
+  def initialize(params, opts = {})
+    @view = opts[:view_context]
+    super
+  end
 
   private
 

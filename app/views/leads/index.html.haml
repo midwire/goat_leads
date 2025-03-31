@@ -1,30 +1,34 @@
 -# Page variables
 - if @current_user.admin?
-  - column_hash =  Class.new.extend(CsvConfig).admin_visible_columns_hash
+  -# - column_hash =  Class.new.extend(CsvConfig).admin_visible_columns_hash
   - page_title = 'Admin Leads'
 - else
-  - column_hash =  Class.new.extend(CsvConfig).agent_visible_columns_hash
+  -# - column_hash =  Class.new.extend(CsvConfig).agent_visible_columns_hash
   - page_title = 'My Leads'
 
 .container-fluid
   %h1.title
     = page_title
 
-%table#leads-datatable.table.table-hover{'data-source' => datatable_leads_path(format: :json)}
+%table#leads-datatable.table.table-striped.table-hover{'data-source' => datatable_leads_path(format: :json)}
   %thead
     %tr
-      - column_hash.each do |colname, hash|
-        %th{scope: 'col'}
-          = hash[:display]
+      %th Name
+      %th Phone
+      %th Email
+      %th Created
+      %th Lead Type
   %tbody
 
 #user_id{data: {token: Current.user&.id&.to_s}}
 #csrf_token{data: {token: form_authenticity_token}}
-#javascript_data{data: {columns: column_hash.keys}}
+#javascript_data{data: {columns: lead_table_data, lead_url: lead_url(:id)}}
 
 :javascript
 
   document.addEventListener("turbo:load", function() {
+
+    const $table = $('#leads-datatable');
 
     var keys = $('#javascript_data').data('columns');
     var token = $('#csrf_token').data('token');
@@ -38,13 +42,13 @@
         i++;
       }
 
-      $('#leads-datatable').dataTable({
+      $table.dataTable({
         processing: true,
         serverSide: true,
         stateSave: true,
-        scrollX: true,
-        scrollXInner: "110%",
-        bScrollCollapse: true,
+        scrollX: false,
+        //scrollXInner: "110%",
+        //bScrollCollapse: true,
         bDestroy: true,
 
         ajax: {
@@ -59,5 +63,17 @@
         columns: columns
       });
     }
+
+    // Make entire row clickable
+    // $('.dataTable').on('click', 'tr', function() {
+    //   const dataTable = $table.DataTable();
+    //   const data = dataTable.row(this).data();
+    //   const url = $('#javascript_data').data('lead-url');
+    //   let leadUrl = url.replace("id", data['id']);
+    //   //console.log('lead_id: ', data['id']);
+    //   //window.location
+    //   window.open(leadUrl, "_self");
+    // })
+
   });
 

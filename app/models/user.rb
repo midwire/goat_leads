@@ -30,6 +30,9 @@ class User < ApplicationRecord
   scope :eligible_for_video_type, lambda { |video_type|
     where('video_types @> ARRAY[?]::text[]', video_type)
   }
+  scope :with_leads, lambda {
+    joins(:leads)
+  }
 
   def verify!
     update!(email_verified_at: Time.current.utc)

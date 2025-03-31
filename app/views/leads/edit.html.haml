@@ -1,0 +1,101 @@
+.container-fluid
+  .row
+    .col.md-12
+      = bootstrap_form_for(@lead) do |form|
+        = form.text_field(:first_name)
+        = form.text_field(:last_name)
+        = form.email_field(:email)
+        = form.text_field(:phone)
+        = form.date_field(:dob)
+        = form.number_field(:age)
+        = form.text_field(:gender)
+        = form.text_field(:address)
+        = form.text_field(:city)
+        = form.text_field(:state)
+        = form.text_field(:zip)
+
+        .accordion.w-100{id: 'LeadInfoAccordion'}
+          - head_id = "heading-LI"
+          - collapse_id = "collapse-LI"
+          .accordion-item
+            %h2.accordion-header{id: head_id}
+              %button.accordion-button{"aria-controls" => collapse_id, "aria-expanded" => "false",
+                "data-bs-target" => "##{collapse_id}", "data-bs-toggle" => "collapse", :type => "button"}
+                .bold
+                  Lead Data
+            .accordion-collapse.collapse{id: collapse_id, 'aria-labelledby' => head_id}
+              .accordion-body
+                = form.text_field(:type, readonly: true)
+                = form.text_field(:ad, readonly: true)
+                = form.text_field(:favorite_hobby)
+                = form.text_field(:needed_coverage)
+                = form.text_field(:has_life_insurance)
+                = form.text_field(:beneficiary)
+                = form.text_field(:beneficiary_name)
+                = form.text_field(:marital_status)
+                = form.text_field(:monthly_contribution)
+                = form.text_field(:desired_monthly_contrib)
+                = form.text_field(:health_history)
+                = form.text_field(:contact_time_of_day)
+
+        .accordion.w-100{id: 'IULAccordion'}
+          - head_id = "heading-IUL"
+          - collapse_id = "collapse-IUL"
+          .accordion-item
+            %h2.accordion-header{id: head_id}
+              %button.accordion-button{"aria-controls" => collapse_id, "aria-expanded" => "false",
+                "data-bs-target" => "##{collapse_id}", "data-bs-toggle" => "collapse", :type => "button"}
+                .bold
+                  IUL Lead Data
+            .accordion-collapse.collapse{id: collapse_id, 'aria-labelledby' => head_id}
+              .accordion-body
+                = form.text_field(:iul_goal)
+                = form.text_field(:employment_status)
+                = form.text_field(:current_retirement_plan)
+                = form.text_field(:desired_retirement_age)
+
+        .accordion.w-100{id: 'MPAccordion'}
+          - head_id = "heading-MP"
+          - collapse_id = "collapse-MP"
+          .accordion-item
+            %h2.accordion-header{id: head_id}
+              %button.accordion-button{"aria-controls" => collapse_id, "aria-expanded" => "false",
+                "data-bs-target" => "##{collapse_id}", "data-bs-toggle" => "collapse", :type => "button"}
+                .bold
+                  Mortgage Protection Lead Data
+            .accordion-collapse.collapse{id: collapse_id, 'aria-labelledby' => head_id}
+              .accordion-body
+                = form.text_field(:health_history)
+                = form.text_field(:mortgage_balance)
+                = form.text_field(:mortgage_payment)
+
+        .accordion.w-100{id: 'VetAccordion'}
+          - head_id = "heading-Vet"
+          - collapse_id = "collapse-Vet"
+          .accordion-item
+            %h2.accordion-header{id: head_id}
+              %button.accordion-button{"aria-controls" => collapse_id, "aria-expanded" => "false",
+                "data-bs-target" => "##{collapse_id}", "data-bs-toggle" => "collapse", :type => "button"}
+                .bold
+                  Veteran Lead Data
+            .accordion-collapse.collapse{id: collapse_id, 'aria-labelledby' => head_id}
+              .accordion-body
+                = form.text_field(:military_status)
+
+        .card-footer.text-muted
+          Lead generated
+          = @lead.days_ago
+
+        .mt-3
+          = form.submit('Save')
+
+      .btn-group{role: :group}
+        - if @lead.lead_order&.ghl_enabled?
+          = link_to('Send to GHL', send_lead_path(:ghl, @lead), class: %i[btn btn-sm btn-primary])
+        - if @lead.lead_order&.ringy_enabled?
+          = link_to('Send to Ringy', send_lead_path(:ringy, @lead), class: %i[btn btn-sm btn-primary])
+        - if @lead.lead_order&.webhook_enabled?
+          = link_to('Send to Webhook', send_lead_path(:webhook, @lead), class: %i[btn btn-sm btn-primary])
+
+      .mt-3
+        = link_to('Back to leads', leads_path)

@@ -55,4 +55,36 @@ module ApplicationHelper
       text
     end
   end
+
+  def user_initial_circle(full_name, size: 40)
+    # Calculate font size and positioning based on circle size
+    font_size = size * 0.4 # 40% of the circle size for readability
+    text_x = size / 2
+    text_y = size / 2 + font_size * 0.20 # Adjust for vertical centering
+
+    # Generate the SVG
+    content_tag(:svg, width: size, height: size, class: 'rounded-circle') do
+      concat(content_tag(:circle, nil, cx: size / 2, cy: size / 2, r: size / 2, fill: random_dark_color))
+      concat(content_tag(:text, initials_from_fullname(full_name), x: text_x, y: text_y, fill: '#ffffff',
+        "font-size": font_size, "font-family": 'Arial, sans-serif', "text-anchor": 'middle',
+        "dominant-baseline": 'middle'))
+    end
+  end
+
+  def random_dark_color
+    # Generate a random dark color
+    # random_color = '#%06x' % (rand * 0xffffff)
+    hue = rand(0..360)
+    saturation = rand(20..50)
+    lightness = rand(10..40)
+    "hsl(#{hue}, #{saturation}%, #{lightness}%)"
+  end
+
+  def initials_from_fullname(full_name)
+    # Extract initials from full name
+    parts = full_name.split(/\s+/)
+    first_initial = parts.first[0] || ''
+    last_initial = parts.last[0] || ''
+    "#{first_initial}#{last_initial}"
+  end
 end

@@ -18,5 +18,7 @@
 = f.text_field :agent_phone
 = f.check_box(:active)
 .actions.mb-3
-  = link_to('Cancel', lead_orders_path, class: %i[btn btn-secondary])
   = f.submit 'Save'
+
+.mt-3
+  = link_to('Back to lead orders', lead_orders_path)

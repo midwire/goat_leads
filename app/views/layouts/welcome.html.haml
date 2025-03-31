@@ -7,7 +7,7 @@
     %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
     %meta{:content => "yes", :name => "mobile-web-app-capable"}/
 
-    = render("/layouts/favicon")
+    -# = render("/layouts/favicon")
     = render("/layouts/twitter_card")
 
     = csrf_meta_tags
@@ -21,12 +21,16 @@
 
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
-    = stylesheet_link_tag "application", "data-turbo-track": "reload"
-  %body
-    = render(partial: '/layouts/navbar')
-    .container-fluid
-      .row
-        .col-md-12
-          = render(partial: '/layouts/flash')
-          = yield
-          = render(partial: '/layouts/footer')
+    = stylesheet_link_tag("#{Whitelabel.label}", "data-turbo-track": "reload")
+
+  -# Load the whitelabled layout
+  = render("/layouts/#{Whitelabel.label}/welcome_layout")
+
+  -# %body
+  -#   = render(partial: '/layouts/navbar')
+  -#   .container-fluid
+  -#     .row
+  -#       .col-md-12
+  -#         = render(partial: '/layouts/flash')
+  -#         = yield
+  -#         = render(partial: '/layouts/footer')

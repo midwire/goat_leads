@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class LeadDatatable < ApplicationDatatable
-
   def view_columns
     # Declare strings in this format: ModelName.column_name
     # or in aliased_join_table.column_name format
@@ -45,12 +44,28 @@ class LeadDatatable < ApplicationDatatable
 
   private
 
+  # rubocop:disable Rails/OutputSafety
   def format_value(key, value, record)
-    return value unless key == :type
+    special_keys = %i[full_name email phone]
+    return value unless special_keys.include?(key)
 
-    url = lead_path(record)
-    buttoned(url, value)
+    case key
+    when :full_name
+      path = edit_lead_path(record)
+      circle = linked(path, user_initial_circle(value))
+      name = linked(path, value)
+      "#{circle} #{name}".html_safe
+    when :phone
+      linked("tel:#{value}", value)
+    when :email
+      linked("mailto:#{value}", value)
+    when :type
+      buttoned(lead_path(record), value)
+    else
+      value
+    end
   end
+  # rubocop:enable Rails/OutputSafety
 
   def user
     @user ||= options[:user]

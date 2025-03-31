@@ -1,27 +1,26 @@
+-# Page variables
 - if @current_user.admin?
-  - page_title = 'Admin Lead Orders'
+  - column_hash =  Class.new.extend(CsvConfig).admin_visible_columns_hash
+  - page_title = 'Admin Leads'
 - else
-  - page_title = 'My Lead Orders'
-- columns = display_table_cols(@current_user)
+  - column_hash =  Class.new.extend(CsvConfig).agent_visible_columns_hash
+  - page_title = 'My Leads'
 
 .container-fluid
-  %h1
+  %h1.title
     = page_title
 
-  %table#lead-orders-datatable.table.table-hover{'data-source' => datatable_lead_orders_path(format: :json)}
-    %thead
-      %tr
-        - columns.values.each do |label|
-          %th{scope: 'col'}= label
-    %tbody
+%table#leads-datatable.table.table-hover{'data-source' => datatable_leads_path(format: :json)}
+  %thead
+    %tr
+      - column_hash.each do |colname, hash|
+        %th{scope: 'col'}
+          = hash[:display]
+  %tbody
 
-  %br
-
-  = link_to('Order New Leads', new_lead_order_path, class: %i[btn btn-primary]) unless @current_user.admin?
-
-#user_id{data: {token: @current_user&.id&.to_s}}
+#user_id{data: {token: Current.user&.id&.to_s}}
 #csrf_token{data: {token: form_authenticity_token}}
-#javascript_data{data: {columns: columns.keys.map(&:to_s)}}
+#javascript_data{data: {columns: column_hash.keys}}
 
 :javascript
 
@@ -39,17 +38,17 @@
         i++;
       }
 
-      $('#lead-orders-datatable').dataTable({
+      $('#leads-datatable').dataTable({
         processing: true,
         serverSide: true,
         stateSave: true,
-        scrollX: false,
-        // scrollXInner: "110%",
-        // bScrollCollapse: true,
+        scrollX: true,
+        scrollXInner: "110%",
+        bScrollCollapse: true,
         bDestroy: true,
 
         ajax: {
-          url: $('#lead-orders-datatable').data('source'),
+          url: $('#leads-datatable').data('source'),
           type: 'POST',
           data: {
             authenticity_token: token,
