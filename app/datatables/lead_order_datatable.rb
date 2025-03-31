@@ -22,6 +22,7 @@ class LeadOrderDatatable < ApplicationDatatable
     }
   end
 
+  # rubocop:disable Metrics/AbcSize
   def data
     records.map do |record|
       lead_order = record.decorate
@@ -45,6 +46,7 @@ class LeadOrderDatatable < ApplicationDatatable
       }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Naming/AccessorMethodName
   def get_raw_records

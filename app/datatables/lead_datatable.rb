@@ -44,6 +44,7 @@ class LeadDatatable < ApplicationDatatable
 
   private
 
+  # rubocop:disable Rails/OutputSafety
   def format_value(key, value, record)
     special_keys = %i[full_name email phone]
     return value unless special_keys.include?(key)
@@ -64,6 +65,7 @@ class LeadDatatable < ApplicationDatatable
       value
     end
   end
+  # rubocop:enable Rails/OutputSafety
 
   def user
     @user ||= options[:user]
