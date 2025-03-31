@@ -22,7 +22,6 @@ class LeadOrderDatatable < ApplicationDatatable
     }
   end
 
-  # rubocop:disable Metrics/AbcSize
   def data
     records.map do |record|
       lead_order = record.decorate
@@ -34,8 +33,9 @@ class LeadOrderDatatable < ApplicationDatatable
         days_per_week: lead_order.days_per_week,
         max_per_day: lead_order.max_per_day,
         total_lead_order: lead_order.total_lead_order,
-        # lead_class: linked(edit_lead_order_url(lead_order), lead_order.lead_class, 'Edit Lead Order'),
-        lead_class: buttoned(edit_lead_order_url(lead_order), lead_order.lead_class),
+        lead_class: linked(edit_lead_order_url(lead_order), lead_order.lead_class, 'Edit Lead Order'),
+        # lead_class: buttoned(edit_lead_order_url(lead_order), lead_order.lead_class),
+        # lead_class: lead_order.lead_class,
         paused_until: lead_order.paused_until,
         states: lead_order.states,
         agent_email: lead_order.agent_email,
@@ -45,7 +45,6 @@ class LeadOrderDatatable < ApplicationDatatable
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Naming/AccessorMethodName
   def get_raw_records

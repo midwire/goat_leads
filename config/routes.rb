@@ -45,7 +45,7 @@ Rails.application.routes.draw do
       patch :cancel
     end
   end
-  resources :leads, only: %i[index show destroy], concerns: %i[with_datatable]
+  resources :leads, only: %i[index show destroy edit], concerns: %i[with_datatable]
 
   ## Send Leads to external systems
   get 'send_lead/:service/:id', to: 'lead_distribution#send_lead', as: :send_lead

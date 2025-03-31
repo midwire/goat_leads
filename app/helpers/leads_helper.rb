@@ -5,6 +5,16 @@ module LeadsHelper
     visible_lead_data(user)
   end
 
+  def lead_table_data
+    %w[
+      full_name
+      phone
+      email
+      created_at
+      type
+    ]
+  end
+
   private
 
   def hidden_card_columns

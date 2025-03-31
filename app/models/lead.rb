@@ -2,6 +2,7 @@
 
 class Lead < ApplicationRecord
   before_save :set_rr_state
+  before_save :set_full_name
 
   belongs_to :lead_order, optional: true
   has_one :user, through: :lead_order
@@ -66,6 +67,12 @@ class Lead < ApplicationRecord
 
   def set_rr_state
     self.rr_state = State.code_from_name(state)
+  end
+
+  def set_full_name
+    return if full_name.present?
+
+    self.full_name = "#{first_name} #{last_name}"
   end
 end
 

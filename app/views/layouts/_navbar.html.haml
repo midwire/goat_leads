@@ -3,8 +3,6 @@
     %a.navbar-brand{:href => root_url}
       %img.img-fluid{src: asset_url("goat_leads_logo.webp"), width: '80px'}
 
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
-      %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto
         %li.nav-item
@@ -16,6 +14,9 @@
         %li.nav-item
           = nav_link('G.O.A.T. CRM', root_path)
       %ul.navbar-nav
+        %li.nav-item.d-md-none
+          %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
+            %span.navbar-toggler-icon
         - if authenticated?
           %li.nav-item.dropdown
             %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}

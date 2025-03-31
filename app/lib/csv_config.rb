@@ -14,7 +14,7 @@ module CsvConfig
         cond: :eq,
         searchable: true,
         sortable: true,
-        agent_visible: false
+        agent_visible: true
       },
       'type' => {
         method: 'type',
@@ -38,6 +38,24 @@ module CsvConfig
         method: 'last_name',
         display: 'Last Name',
         source: 'Lead.last_name',
+        cond: :like,
+        searchable: true,
+        sortable: true,
+        agent_visible: true
+      },
+      'full_name' => {
+        method: 'full_name',
+        display: 'Name',
+        source: 'Lead.full_name',
+        cond: :like,
+        searchable: true,
+        sortable: true,
+        agent_visible: true
+      },
+      'created_at' => {
+        method: 'created_at',
+        display: 'Created',
+        source: 'Lead.created_at',
         cond: :like,
         searchable: true,
         sortable: true,

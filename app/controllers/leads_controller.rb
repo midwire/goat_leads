@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LeadsController < ApplicationController
-  before_action :set_lead, only: %i[show destroy]
+  before_action :set_lead, only: %i[show destroy edit]
 
   # GET /leads
   def index
@@ -10,6 +10,10 @@ class LeadsController < ApplicationController
 
   # GET /leads/:id
   def show
+  end
+
+  # GET /leads/:id/edit
+  def edit
   end
 
   # DELETE /leads/1
@@ -29,7 +33,13 @@ class LeadsController < ApplicationController
   # POST /leads/datatable
   def datatable
     respond_to do |format|
-      format.json { render json: LeadDatatable.new(params, user: @current_user) }
+      format.json do
+        render json: LeadDatatable.new(
+          params,
+          user: @current_user,
+          view_context: view_context
+        )
+      end
     end
   end
 
