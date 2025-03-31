@@ -50,6 +50,9 @@ Rails.application.routes.draw do
   ## Send Leads to external systems
   get 'send_lead/:service/:id', to: 'lead_distribution#send_lead', as: :send_lead
 
+  ### DASHBOARD
+  resource :dashboard, only: %i[show]
+
   # Admin Interfaces
   namespace :admin do
     resources :users, concerns: %i[with_datatable]

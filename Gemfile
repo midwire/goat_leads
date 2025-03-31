@@ -69,6 +69,8 @@ gem 'chronic', '~> 0.10' # Date Time Parsing
 gem 'faraday', '~> 2.12', require: false # Rest client for integration
 gem 'faraday-retry', '~> 2.2', require: false # Auto-retry for Faraday
 gem 'twilio-ruby', '~> 7.5', require: false # Send SMS messages
+gem 'chartkick', '~> 5.1' # Charts for widgets
+gem 'groupdate', '~> 6.5' # Group by time scopes
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
