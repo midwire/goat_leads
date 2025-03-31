@@ -18,6 +18,10 @@
           .dropdown-menu
             %a.dropdown-item.nav-link{href: faqs_path}
               FAQs
+            %a.dropdown-item.nav-link{href: welcome_terms_path}
+              Terms &amp; Conditions
+            %a.dropdown-item.nav-link{href: welcome_privacy_path}
+              Privacy Policy
 
           -# %a.nav-link{ "data-bs-toggle": "dropdown", href: "#" }
           -#   %i.bi.bi-bell
@@ -48,7 +52,7 @@
               = @current_user.email_address
             .dropdown-menu
               %a.dropdown-item.nav-link{href: edit_user_path(@current_user)}
-                Profile
+                Account Settings
               %a.dropdown-item.nav-link{href: session_path, method: :delete, data: { 'turbo-method': :delete }}
                 Sign Out
         - else
