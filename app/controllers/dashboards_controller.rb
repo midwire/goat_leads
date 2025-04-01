@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DashboardsController < ApplicationController
+  # rubocop:disable Metrics/AbcSize
   def show
     if @current_user.admin?
       @lead_order_count = LeadOrder.count
@@ -16,6 +17,7 @@ class DashboardsController < ApplicationController
       @leads_by_day = @current_user.leads.group_by_day(:created_at).count
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -27,9 +29,10 @@ class DashboardsController < ApplicationController
 
     # Convert to Chartkick-compatible format: { "Type1" => { date1 => count1, date2 => count2 }, "Type2" => { ... } }
     Lead.distinct.pluck(:type).index_with do |type|
-      leads.select do |k, _|
+      leads = leads.select do |k, _|
         k.first == type
-      end.transform_keys(&:last).transform_values { |v| v }
+      end
+      leads.transform_keys(&:last).transform_values { |v| v }
     end
   end
 end

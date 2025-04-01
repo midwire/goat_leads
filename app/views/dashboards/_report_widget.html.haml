@@ -4,9 +4,12 @@
       %h3.mt-0
         = title
     %p.card-text
-      - data.each do |line|
-        .text
-          = line
+      - data.each do |key, value|
+        .row
+          .col.md-6
+            = key
+          .col.md-6
+            = value
   .card-footer.justify-content-center.text-center
     %span More Info
     %i.bi.bi-link-45deg

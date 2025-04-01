@@ -25,10 +25,10 @@ RSpec.describe DashboardsHelper, type: :helper do
 
   describe '#lead_types_without_orders' do
     context 'with lead types and lead order types' do
-      it 'returns lead types that have no matching lead orders' do
+      it 'returns lead types that have no matching lead orders with their counts' do
         result = helper.lead_types_without_orders(lead_types: lead_types, lead_order_types: lead_order_types)
-        expected = %w[FinalExpenseLeadSpanish IndexUniversalLifeLeadPremium]
-        expect(result).to match_array(expected)
+        expected = { 'FinalExpenseLeadSpanish' => 536, 'IndexUniversalLifeLeadPremium' => 674 }
+        expect(result).to eq(expected)
       end
     end
 
@@ -78,7 +78,8 @@ RSpec.describe DashboardsHelper, type: :helper do
 
       it 'returns all lead types' do
         result = helper.lead_types_without_orders(lead_types: lead_types, lead_order_types: lead_order_types)
-        expect(result).to match_array(%w[FinalExpenseLeadPremium VeteranLeadPremium])
+        expected = { 'FinalExpenseLeadPremium' => 2344, 'VeteranLeadPremium' => 10430 }
+        expect(result).to eq(expected)
       end
     end
   end
