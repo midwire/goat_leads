@@ -29,7 +29,7 @@ class DashboardsController < ApplicationController
     Lead.distinct.pluck(:type).index_with do |type|
       leads.select do |k, _|
         k.first == type
-      end.transform_keys { |k| k.last }.transform_values { |v| v }
+      end.transform_keys(&:last).transform_values { |v| v }
     end
   end
 end
