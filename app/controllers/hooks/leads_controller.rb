@@ -82,7 +82,7 @@ class Hooks::LeadsController < WebhookController
       head :created
     else
       msg = <<~STRING
-        Failed to save lead #{lead.lead_class},
+        Failed to save lead #{lead.type},
         Form ID: #{lead.lead_form_id},
         Msg: #{lead.errors.full_messages}
       STRING
