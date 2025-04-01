@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_205352) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_01_185542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "ad_daily_spend_summaries", force: :cascade do |t|
+    t.date "date", null: false
+    t.string "platform", null: false
+    t.string "campaign"
+    t.string "lead_type", null: false
+    t.decimal "ad_spend", precision: 10, scale: 2, default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign"], name: "index_ad_daily_spend_summaries_on_campaign"
+    t.index ["date", "lead_type", "platform", "campaign"], name: "idx_on_date_lead_type_platform_campaign_567fd7b4b4", unique: true
+    t.index ["lead_type"], name: "index_ad_daily_spend_summaries_on_lead_type"
+    t.index ["platform"], name: "index_ad_daily_spend_summaries_on_platform"
+  end
 
   create_table "faqs", force: :cascade do |t|
     t.integer "order"
@@ -21,6 +35,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_205352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order"], name: "index_faqs_on_order", unique: true
+  end
+
+  create_table "lead_daily_summaries", force: :cascade do |t|
+    t.date "date", null: false
+    t.string "lead_type", null: false
+    t.integer "lead_count", default: 0, null: false
+    t.decimal "total_cost", precision: 10, scale: 2, default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date", "lead_type"], name: "index_lead_daily_summaries_on_date_and_lead_type", unique: true
   end
 
   create_table "lead_orders", force: :cascade do |t|

@@ -63,6 +63,10 @@ class Lead < ApplicationRecord
     spreadsheet_data.values.map { |method| decorated.public_send(method) }
   end
 
+  def lead_class
+    type
+  end
+
   private
 
   def set_rr_state
