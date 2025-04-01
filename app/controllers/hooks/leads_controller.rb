@@ -81,6 +81,13 @@ class Hooks::LeadsController < WebhookController
       AssignLeadsJob.perform_async
       head :created
     else
+      msg = <<~STRING
+        Failed to save lead #{lead.lead_class},
+        Form ID: #{lead.lead_form_id},
+        Msg: #{lead.errors.full_messages}
+      STRING
+      Rails.logger.error(msg)
+      SlackPipe.send_msg(msg)
       head :unprocessable_content
     end
   end
