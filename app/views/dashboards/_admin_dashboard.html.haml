@@ -13,16 +13,14 @@
       = render(partial: 'stat_widget',
         locals: {title: 'Unassigned Leads', stat: @unassigned_lead_count, color: :red})
 
-  .row.py-3
-    .col.md-6
+  .row.py-3.d-flex.align-items-stretch
+    .col-md-6.d-flex
       = render(partial: "line_chart_widget",
         locals: {data: @leads_by_day, legend: 'Leads by day'})
-    .col.md-6
-      = render(partial: "line_chart_widget",
-        locals: {data: @leads_by_type_per_day, legend: 'Leads by type per day'})
+    .col-md-6.d-flex
+      = render(partial: "report_widget",
+        locals: {title: 'Lead Types Without Orders', data: lead_types_without_orders})
 
   .row.py-3
     .col.md-6
-      = render(partial: "report_widget",
-        locals: {title: 'Lead Types Without Orders', data: lead_types_without_orders})
     .col.md-6
