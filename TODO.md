@@ -26,41 +26,8 @@
 [x] Distribute Leads to Agents Ringy
 [x] Distribute Leads to Agents Webhook
 [] Turn on lead distribution in production
-[] Build Reporting Dashboard to monitor costs
+[.] Build Reporting Dashboard to monitor costs
 [] Build Manager interface to handle Lead returns
-
-
-## Priorities
-
-* Build distribution system first
-* Assign leads to google sheet after assignment
-* Google sheet URL will be attached to the lead order
-* Make lead distributor lead-order based instead of user-based
-
-## Scaling and Distribution
-
-1. Move the Database:
-
-* Set up a new Linode VM, install PostgreSQL 15.10, and configure it for remote access.
-* Export your database from the original VM and import it to the new VM.
-* Update your Rails app to connect to the new database VM.
-* Secure the connection and shut down the old database.
-
-2. Scale the Database:
-
-* Vertically scale the database VM.
-* Optimize indexes, partition large tables, and set up replication.
-* Use connection pooling and consider sharding for extreme scale.
-
-3. Scale the Application:
-
-* Add more app servers with a load balancer.
-* Implement caching, background jobs, and query optimization.
-* Use a CDN for static assets.
-
-4. Improve Infrastructure:
-
-* Set up high availability, use Block Storage, and monitor performance.
 
 
 

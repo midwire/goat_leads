@@ -1,0 +1,13 @@
+.card.rounded-3.shadow-sm
+  .card-body
+    .card-title
+      %h3.mt-0
+        = title
+    %p.card-text
+      - data.each do |line|
+        .text
+          = line
+  .card-footer.justify-content-center.text-center
+    %span More Info
+    %i.bi.bi-link-45deg
+

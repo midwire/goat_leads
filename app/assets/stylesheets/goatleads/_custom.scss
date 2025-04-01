@@ -93,7 +93,7 @@ $mobile-breakpoint: 768px !default;
   left: 0;
   z-index: 1030;
   transform: translateX(0); // Default state: visible
-  transition: transform 0.3s ease-in-out; // Apply transition on all screen sizes
+  transition: transform 0.1s ease-in-out; // Apply transition on all screen sizes
 
   .sidebar-header {
     height: $navbar-height !important;

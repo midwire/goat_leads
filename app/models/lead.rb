@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'groupdate'
-
 class Lead < ApplicationRecord
   before_save :set_rr_state
   before_save :set_full_name

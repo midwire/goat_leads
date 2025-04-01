@@ -1,6 +1,6 @@
 .card.rounded-3.shadow-sm
   .card-body
-    = line_chart(data, class: 'line-chart')
+    = line_chart(data, class: 'line-chart', library: { maintainAspectRatio: false })
   .card-footer.justify-content-center.text-center
     %span
       = legend
