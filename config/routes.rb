@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   namespace :hooks do
     resources :leads, only: %i[create]
     resources :lead_orders, only: %i[create update]
+    resources :ad_daily_spend_summaries, only: %i[create]
 
     # HL CRM Authentication
     get 'crm_initiate', to: 'crm_oauth#initiate', as: :crm_initiate
