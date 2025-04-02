@@ -35,6 +35,37 @@
 [] Native lead-orders
 [] Native lead forms
 
+
+## Ad Spend Info
+
+### Spreadsheet Headers
+
+Vet Leads Daily Spend (Jobs Ad Manager) FB
+FEX Leads Daily Spend (Jobs Ad Manager) FB
+IUL Leads Daily Spend (Jobs Ad Manager) FB
+MP Leads Daily Spend (Jobs Ad Manager) FB
+Vet Leads Daily Spend (Allegiance Manager) FB
+Spanish FEX Leads
+IUL Leads Daily Spend (Allegiance Ad Manager) FB
+MP Leads Daily Spend (Allegiance Ad Manager) FB
+VET Google Demand Gen
+VET Google Search
+VET Google PMax
+FEX Google Demand Gen
+FEX Google Search
+FEX Google PMax
+IUL Ad Google Demand Gen
+IUL Ad Google Search
+IUL Ad Google PMax
+MP Ad Google Demand Gen
+MP Ad GoogleSearch
+MP Ad Google PMax
+Vet Leads Daily Spend TikTok
+FEX Leads Daily Spend TikTok
+IUL Leads Daily Spend TikTok
+MP Leads Daily Spend TikTok
+Annuity Leads Daily Spend (Jobs Ad Manager) FB
+
 ## Currently In-Progress
 
 Waiting for access to do stripe integration

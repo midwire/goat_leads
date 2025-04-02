@@ -8,6 +8,7 @@ class LeadDailySummaryImporter
     @sheet_id = sheet_id
   end
 
+  # rubocop:disable Metrics/AbcSize
   def import
     # Fetch data from Google Sheets
     data = fetch_spreadsheet_data
@@ -31,6 +32,7 @@ class LeadDailySummaryImporter
     Rails.logger.error("Failed to import LeadDailySummary data: #{e.message}")
     raise
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
