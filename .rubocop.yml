@@ -69,6 +69,12 @@ Style/DoubleNegation:
 Style/SignalException:
   EnforcedStyle: semantic
 
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - 'script/**/*'
+    - 'bin/**/*'
+
 Style/ClassAndModuleChildren:
   Enabled: false
 

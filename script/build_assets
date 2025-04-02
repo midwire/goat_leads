@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+source .env
+export WHITELABEL=$WHITELABEL
+
+yarn build
+yarn build:css
+rails server

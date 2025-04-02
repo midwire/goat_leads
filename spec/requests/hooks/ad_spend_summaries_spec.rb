@@ -8,7 +8,7 @@ module Hooks
     let(:summary) { create(:ad_daily_spend_summary) }
     let(:valid_params) do
       {
-        data: attributes_for(:ad_daily_spend_summary)
+        ad_daily_spend_summary: attributes_for(:ad_daily_spend_summary)
       }
     end
 
@@ -28,7 +28,7 @@ module Hooks
 
       context 'with invalid params' do
         it 'returns a unprocessable response' do
-          valid_params[:data][:lead_type] = nil
+          valid_params[:ad_daily_spend_summary][:lead_type] = nil
           post url, params: valid_params
           expect(response).to have_http_status(:unprocessable_content)
         end

@@ -10,7 +10,7 @@ class GhlService
 
     @auth_token = auth_token
     @version = version
-    @connection = build_connection(base_url: 'https://services.leadconnectorhq.com/opportunities')
+    @connection = build_connection(base_url: 'https://services.leadconnectorhq.com')
   end
 
   def create_lead(lead_data)

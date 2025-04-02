@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  include VerifyRecaptcha
+
   allow_unauthenticated_access only: %i[new create]
 
   layout 'welcome'
@@ -13,21 +15,28 @@ class SessionsController < ApplicationController
     @user = User.new
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     user = User.authenticate_by(params.permit(:email_address, :password))
-    if user
-      # Login successful - store GHL integration if appropriate
-      persist_ghl_integration(user)
-      if user.verified?
-        start_new_session_for user
-        redirect_to after_authentication_url
+    if verify_recaptcha(params[:recaptcha_token], 'signin')
+      if user
+        # Login successful - store GHL integration if appropriate
+        persist_ghl_integration(user)
+        if user.verified?
+          start_new_session_for user
+          redirect_to after_authentication_url
+        else
+          redirect_to new_session_path, alert: 'You have not verified your email address.'
+        end
       else
-        redirect_to new_session_path, alert: 'You have not verified your email address.'
+        redirect_to new_session_path, alert: 'Invalid email address or password.'
       end
     else
-      redirect_to new_session_path, alert: 'Invalid email address or password.'
+      flash.now[:alert] = 'reCAPTCHA verification failed. Are you a bot?'
+      render :new, status: :unprocessable_entity
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
     terminate_session

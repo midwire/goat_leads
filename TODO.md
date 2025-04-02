@@ -9,7 +9,7 @@
 ## Dev Ops & Maint
 
 [x] - Move Postgres to it's own host
-[] - Add recaptcha to user registration
+[x] - Add recaptcha to user registration
 [] - Add low-level throttling in ApplicationController to mitigate DOS attacks and hacking attempts
 [] - Add favicon and twitter-card
 
@@ -29,7 +29,11 @@
 [.] Build Reporting Dashboard to monitor costs
 [] Build Manager interface to handle Lead returns
 
+## Phase 2
 
+[] Stripe integration
+[] Native lead-orders
+[] Native lead forms
 
 ## Currently In-Progress
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RegistrationsController < ApplicationController
+  include VerifyRecaptcha
+
   allow_unauthenticated_access only: %i[new create]
 
   layout 'welcome'
@@ -19,14 +21,16 @@ class RegistrationsController < ApplicationController
   # POST /registration
   def create
     user = User.new(user_params)
-    if user.save
-      # start_new_session_for user
-      # redirect_to after_authentication_url, notice: 'Signed up.'
-      UserMailer.verify_email(user.id).deliver_now
-      redirect_to new_session_url, notice: 'Check your email for verification instructions.'
+    if verify_recaptcha(recaptcha_param, 'signup')
+      if user.save
+        UserMailer.verify_email(user.id).deliver_now
+        redirect_to new_session_url, notice: 'Check your email for verification instructions.'
+      else
+        redirect_to new_registration_url,
+          alert: user.errors.full_messages.to_sentence
+      end
     else
-      redirect_to new_registration_url,
-        alert: user.errors.full_messages.to_sentence
+      redirect_to new_registration_url, alert: 'reCAPTCHA verification failed. Are you a bot?'
     end
   end
 
@@ -34,5 +38,9 @@ class RegistrationsController < ApplicationController
 
   def user_params
     params.expect(user: %i[email_address password password_confirmation])
+  end
+
+  def recaptcha_param
+    params.expect(user: %i[recaptcha_token])[:recaptcha_token]
   end
 end

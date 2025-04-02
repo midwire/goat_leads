@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-FactoryBot.define do
-  factory :lead_daily_summary do
-    date { '2025-04-01' }
-    lead_type { 'MyString' }
-    lead_count { 1 }
-    total_cost { '9.99' }
-  end
+require 'rails_helper'
+
+RSpec.describe LeadDailySummary, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end
 
 # == Schema Information

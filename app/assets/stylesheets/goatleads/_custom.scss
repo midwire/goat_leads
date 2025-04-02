@@ -5,6 +5,19 @@ $sidebar-width: 250px !default;
 $navbar-height: 60px !default;
 $mobile-breakpoint: 768px !default;
 
+#wrapper {
+  min-height: 100vh;
+}
+
+// Utility
+.toast {
+  position: absolute;
+  top: $navbar-height + 50;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Navbar
 .navbar-brand-img {
   max-width: 40px;
   max-height: 40px;
@@ -15,10 +28,6 @@ $mobile-breakpoint: 768px !default;
 }
 .user-panel .image svg {
   margin-right: 10px;
-}
-
-#wrapper {
-  min-height: 100vh;
 }
 
 // Forms

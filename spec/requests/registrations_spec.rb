@@ -7,10 +7,11 @@ RSpec.describe 'Registrations', type: :request do
     {
       email_address: Faker::Internet.email,
       password: 'asdfasdf',
-      password_confirmation: 'asdfasdf'
+      password_confirmation: 'asdfasdf',
+      recaptcha_token: recaptcha_token
     }
   end
-
+  let(:recaptcha_token) { 'bogus' }
   let(:invalid_attributes) do
     valid_attributes.merge(password_confirmation: 'bogus')
   end
@@ -23,6 +24,10 @@ RSpec.describe 'Registrations', type: :request do
   end
 
   describe 'POST /create' do
+    before do
+      allow_any_instance_of(RegistrationsController).to receive(:verify_recaptcha).and_return(true)
+    end
+
     context 'with valid parameters' do
       it 'creates a new User' do
         expect do
@@ -33,6 +38,18 @@ RSpec.describe 'Registrations', type: :request do
       it 'redirects to the login page' do
         post registration_url, params: { user: valid_attributes }
         expect(response).to redirect_to(new_session_url)
+      end
+
+      context 'with invalid recaptcha_token' do
+        before do
+          allow_any_instance_of(RegistrationsController).to receive(:verify_recaptcha).and_return(false)
+        end
+
+        it 'spec_name' do
+          post registration_url, params: { user: valid_attributes }
+          expect(response).to redirect_to(new_registration_url)
+          expect(flash[:alert]).to match(/reCAPTCHA verification failed/)
+        end
       end
     end
 
