@@ -100,10 +100,11 @@ namespace :ad_spend_csv do
     campaign = str
         .gsub('leads', '')          # Remove 'leads'
         .gsub('daily spend', '')    # Remove 'daily spend'
-        .gsub(/\(\s*\)/, '')       # Remove empty parentheses
-        .gsub(/\s+/, ' ')          # Normalize whitespace
-        .gsub(%r{[()]}, '')
-        .strip                     # Remove leading/trailing whitespace
+        .gsub('ad', '')             # Remove 'ad'
+        .gsub(/\(\s*\)/, '')        # Remove empty parentheses
+        .gsub(/\s+/, ' ')           # Normalize whitespace
+        .gsub(%r{[()]}, '')         # Remove parens
+        .strip                      # Remove leading/trailing whitespace
 
     result[:campaign] = campaign.empty? ? nil : campaign
 
