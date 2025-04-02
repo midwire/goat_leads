@@ -16,11 +16,18 @@
   .row.py-3.d-flex.align-items-stretch
     .col-md-6.d-flex
       = render(partial: "line_chart_widget",
-        locals: {data: @leads_by_day, legend: 'Leads by day'})
+        locals: {data: @leads_by_day, legend: 'Leads Per Day'})
     .col-md-6.d-flex
       = render(partial: "report_widget",
         locals: {title: 'Lead Types Without Orders', data: lead_types_without_orders})
 
+  -# .row.py-3
+  -#   .col.md-12
+  -#     = render(partial: "line_chart_widget",
+  -#       locals: {data: @leads_by_type_per_day, legend: 'Leads Per Day By Type'})
+
   .row.py-3
-    .col.md-6
-    .col.md-6
+    .col.md-12
+      = render(partial: "lead_counts_per_day",
+        locals: {legend: 'Lead Rollups - Year To Date', data: @leads_by_type_per_day})
+

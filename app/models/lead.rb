@@ -32,6 +32,70 @@ class Lead < ApplicationRecord
         .where(delivered_at: today.beginning_of_day..today.end_of_day)
   }
 
+  # Scope to filter by date range
+  scope :between_dates, ->(start_date, end_date) { where(created_at: start_date..end_date) }
+
+  # Scope to filter by lead type
+  scope :for_lead_type, ->(lead_type) { where(type: lead_type) }
+
+  scope :counts_rollup, lambda { |start_date, end_date|
+    # Lead.select(
+    #   "CASE WHEN type LIKE '%Spanish' THEN type ELSE REGEXP_REPLACE(type, '(Aged|Otp|Premium|Standard)$', '') END AS lead_category",
+    #   'COUNT(*) AS lead_count',
+    #   "COUNT(*)::float / (DATE_PART('day', '#{end_date}'::timestamp - '#{start_date}'::timestamp) + 1) AS avg_leads_per_day"
+    # )
+    #     .where(created_at: start_date..end_date)
+    #     .group("CASE WHEN type LIKE '%Spanish' THEN type ELSE REGEXP_REPLACE(type, '(Aged|Otp|Premium|Standard)$', '') END")
+    #     .order('lead_category')
+
+    sql = <<-SQL
+      WITH daily_counts AS (
+        SELECT
+          CASE
+            WHEN type LIKE '%Spanish' THEN type
+            ELSE REGEXP_REPLACE(type, '(Aged|Otp|Premium|Standard)$', '')
+          END AS lead_category,
+          DATE(created_at) AS lead_date,
+          COUNT(*) AS daily_lead_count
+        FROM
+          leads
+        WHERE
+          created_at BETWEEN :start_date AND :end_date
+        GROUP BY
+          CASE
+            WHEN type LIKE '%Spanish' THEN type
+            ELSE REGEXP_REPLACE(type, '(Aged|Otp|Premium|Standard)$', '')
+          END,
+          DATE(created_at)
+      ),
+      category_totals AS (
+        SELECT
+          lead_category,
+          SUM(daily_lead_count) AS lead_count,
+          AVG(daily_lead_count) AS avg_leads_per_day
+        FROM
+          daily_counts
+        GROUP BY
+          lead_category
+      )
+      SELECT
+        lead_category,
+        lead_count,
+        avg_leads_per_day,
+        (lead_count::float / SUM(lead_count) OVER ()) * 100 AS percent_of_total
+      FROM
+        category_totals
+      ORDER BY
+        lead_category
+    SQL
+
+    # Execute the raw SQL with sanitized parameters
+    result = ActiveRecord::Base.connection.exec_query(
+      ActiveRecord::Base.sanitize_sql_array([sql, { start_date: start_date, end_date: end_date }])
+    )
+    result.to_a
+  }
+
   ########################################
   # Abstract Methods
 

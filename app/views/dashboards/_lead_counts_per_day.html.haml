@@ -1,0 +1,35 @@
+.card.rounded-3.shadow-sm.h-100.w-100.d-flex.flex-column
+  .card-body
+    %table.table.table-striped
+      %tr
+        %th.text-end
+        - data.each do |lead_type|
+          %th.text-end= lead_type['lead_category']
+        %th.text-end Totals
+      %tr
+        %th.text-end Total Leads
+        - sum = 0
+        - data.each do |lead_type|
+          - sum += lead_type['lead_count'].to_i
+          %td.text-end= lead_type['lead_count'].to_i
+        %td.text-end= sum
+      %tr
+        %th.text-end Avg Leads P/Day
+        - sum = 0
+        - data.each do |lead_type|
+          - sum += lead_type['avg_leads_per_day'].to_i
+          %td.text-end= lead_type['avg_leads_per_day'].to_i
+        %td.text-end= sum
+      %tr
+        %th.text-end % of Total Volume
+        - sum = 0
+        - data.each do |lead_type|
+          - sum += lead_type['percent_of_total']
+          %td.text-end= format('%.2f', lead_type['percent_of_total'])
+        %td.text-end= sum
+
+  .card-footer.justify-content-center.text-center
+    %span
+      = legend
+    %i.bi.bi-link-45deg
+
