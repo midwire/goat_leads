@@ -38,16 +38,8 @@ class Lead < ApplicationRecord
   # Scope to filter by lead type
   scope :for_lead_type, ->(lead_type) { where(type: lead_type) }
 
+  # rubocop:disable Metrics/BlockLength
   scope :counts_rollup, lambda { |start_date, end_date|
-    # Lead.select(
-    #   "CASE WHEN type LIKE '%Spanish' THEN type ELSE REGEXP_REPLACE(type, '(Aged|Otp|Premium|Standard)$', '') END AS lead_category",
-    #   'COUNT(*) AS lead_count',
-    #   "COUNT(*)::float / (DATE_PART('day', '#{end_date}'::timestamp - '#{start_date}'::timestamp) + 1) AS avg_leads_per_day"
-    # )
-    #     .where(created_at: start_date..end_date)
-    #     .group("CASE WHEN type LIKE '%Spanish' THEN type ELSE REGEXP_REPLACE(type, '(Aged|Otp|Premium|Standard)$', '') END")
-    #     .order('lead_category')
-
     sql = <<-SQL
       WITH daily_counts AS (
         SELECT
@@ -95,6 +87,7 @@ class Lead < ApplicationRecord
     )
     result.to_a
   }
+  # rubocop:enable Metrics/BlockLength
 
   ########################################
   # Abstract Methods
