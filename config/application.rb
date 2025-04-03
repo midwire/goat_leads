@@ -41,9 +41,6 @@ module GoatLeads
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    # Only allow web console on local networks
-    config.web_console.permissions = '192.168.0.0/16'
-
     # Configure which whitelabel we are using
     def whitelabel
       @whitelabel ||= ENV.fetch('WHITELABEL', '')
