@@ -3,6 +3,9 @@
 class LeadOrder < ApplicationRecord
   include LeadOrderScopes
 
+  after_create_commit { broadcast_create }
+  after_update_commit { broadcast_update }
+
   before_validation :upcase_states
   before_validation :downcase_days_per_week
 
@@ -101,6 +104,32 @@ class LeadOrder < ApplicationRecord
     return nil if total_lead_order.to_i >= max_per_day.to_i
 
     errors.add(:total_lead_order, "must be greater or equal to max_per_day: #{max_per_day.to_i}")
+  end
+
+  def broadcast_create
+    broadcast_replace_to('lead_order_count',
+      target: 'lead_order_count_widget',
+      partial: 'dashboards/stat_widget',
+      locals: {
+        title: 'Lead Orders',
+        stat: LeadOrder.count,
+        color: :blue,
+        id: 'lead_order_count_widget',
+        turbo_stream: 'lead_order_count'
+      })
+  end
+
+  def broadcast_update
+    broadcast_replace_to('fulfilled_order_count',
+      target: 'fulfilled_order_count_widget',
+      partial: 'dashboards/stat_widget',
+      locals: {
+        title: 'Fulfilled Orders',
+        stat: LeadOrder.fulfilled.count,
+        color: :green,
+        id: 'fulfilled_order_count_widget',
+        turbo_stream: 'fulfilled_order_count'
+      })
   end
 end
 

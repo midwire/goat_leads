@@ -2,16 +2,22 @@
   .row
     .col.md
       = render(partial: 'stat_widget',
-        locals: {title: 'Lead Orders', stat: @lead_order_count, color: :blue})
+        locals: {title: 'Lead Orders', stat: @lead_order_count, color: :blue,
+        id: 'lead_order_count_widget', turbo_stream: 'lead_order_count'})
     .col.md
       = render(partial: 'stat_widget',
-        locals: {title: 'Fulfilled Orders', stat: @lead_fulfilled_count, color: :green})
+        locals: {title: 'Fulfilled Orders', stat: @lead_fulfilled_count, color: :green,
+        id: 'fulfilled_order_count_widget', turbo_stream: 'fulfilled_order_count'})
     .col.md
       = render(partial: 'stat_widget',
-        locals: {title: 'Total Leads', stat: @lead_count, color: :yellow})
+        locals: {title: 'Total Leads', stat: @lead_count, color: :yellow,
+        id: 'lead_count_widget', turbo_stream: 'lead_count'})
     .col.md
       = render(partial: 'stat_widget',
-        locals: {title: 'Unassigned Leads', stat: @unassigned_lead_count, color: :red})
+        locals: {title: 'Unassigned Leads', stat: @unassigned_lead_count, color: :red,
+        id: 'unassigned_lead_count_widget', turbo_stream: 'unassigned_lead_count'})
+
+  -# = console if Rails.env.development?
 
   .row.py-3.d-flex.align-items-stretch
     .col-md-6.d-flex

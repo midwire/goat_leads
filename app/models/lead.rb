@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Lead < ApplicationRecord
+  after_create_commit { broadcast_create }
+  after_update_commit { broadcast_update }
+
   before_save :set_rr_state
   before_save :set_full_name
 
@@ -125,6 +128,32 @@ class Lead < ApplicationRecord
   end
 
   private
+
+  def broadcast_create
+    broadcast_replace_to('lead_count',
+      target: 'lead_count_widget',
+      partial: 'dashboards/stat_widget',
+      locals: {
+        title: 'Total Leads',
+        stat: Lead.count,
+        color: :yellow,
+        id: 'lead_count_widget',
+        turbo_stream: 'lead_count'
+      })
+  end
+
+  def broadcast_update
+    broadcast_replace_to('unassigned_lead_count',
+      target: 'unassigned_lead_count_widget',
+      partial: 'dashboards/stat_widget',
+      locals: {
+        title: 'Unassigned Leads',
+        stat: Lead.unassigned.count,
+        color: :red,
+        id: 'unassigned_lead_count_widget',
+        turbo_stream: 'unassigned_lead_count'
+      })
+  end
 
   def set_rr_state
     self.rr_state = State.code_from_name(state)
