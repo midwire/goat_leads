@@ -28,3 +28,33 @@ NPN - unique to each agent which gets sent with integration from GHL.
 * https://docs.google.com/spreadsheets/d/1zFKhSUJpb1ZiAWi8C-oExnu3RYGIIZzv9lmq_OevbaA/edit?gid=0#gid=0 - Lead Assignment Spreadsheet Example
 * https://docs.google.com/spreadsheets/d/1wkGDPQA2KwCYLC4TtICdGKQQJHWlhii9bZ6T7eEbhyc/edit?exids=71471483%2C71471477 - Lead Count/Costs By Day (All Lead Types) - Dashboard
 *
+
+## UTM Parameters
+
+utm_source = Facebook or YouTube
+utm_medium  = Location of Ad
+utm_campaign = Campaign Name
+utm_content  = Ad Name
+utm_site_source = ig, fb or yt
+utm_owner = RoundRobin (this is for the future if we want to run an ad for an individual
+utm_adset = Adset name of Ad
+utm_ad_platform = fb, ig, an <<<<<<---- New Field we will use for all reporting. This data is captured on google sheets in field Lead Attribution Platform
+
+Current FB UTM String 03/29/2025
+utm_source={{site_source_name}}&utm_medium={{placement}}&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_adset={{adset.name}}&utm_site_source={{site_source_name}}&utm_owner=RoundRobin&fbc_id={{adset.id}}&h_ad_id={{ad.id}}
+
+New UTM String 03/29/2025
+utm_source={{site_source_name}}&utm_medium={{placement}}&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_adset={{adset.name}}&utm_site_source={{site_source_name}}&utm_owner=RoundRobin&fbc_id={{adset.id}}&h_ad_id={{ad.id}}&utm_ad_platform={{site_source_name}}
+
+Ad Platform
+fb - Facebook
+ig - Instagram
+an - Audience Network
+dg - Google Demand Generation
+sh - Google Search
+px - Google Performance Max
+tk - TikTok
+ob - Outbrain
+tb - Taboola
+bg - Bing
+

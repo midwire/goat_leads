@@ -9,15 +9,15 @@ class DashboardsController < ApplicationController
 
   private
 
-  def report
-    @report ||= LeadVolumeReport.new(
+  def lead_volume_report
+    LeadVolumeReport.new(
       start_date: Date.current.beginning_of_year,
       end_date: Date.current
     )
   end
 
   def leads_counts_by_type
-    report.leads_by_type_per_day_table
+    lead_volume_report.leads_by_type_per_day_table
   end
 
   def set_admin_data
