@@ -3,7 +3,7 @@
 %div{class: "widget-bg-#{color}", id: id}
   .card.rounded-3.shadow-sm
     .card-body
-      %h3.mt-0
+      %h3.mt-0.statistic{class: ("changed" if local_assigns[:changed])}
         = stat
       %h5.mt-3.mb-3
         = title

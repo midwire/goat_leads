@@ -4,6 +4,7 @@
 $sidebar-width: 250px !default;
 $navbar-height: 60px !default;
 $mobile-breakpoint: 768px !default;
+$highlight-color: $black !default;
 
 #wrapper {
   min-height: 100vh;
@@ -76,6 +77,23 @@ $mobile-breakpoint: 768px !default;
 }
 .widget-bg-red {
   @include widget-bg($red);
+}
+
+// Temporary highlight when a stat changes
+.statistic {
+  color: $white;
+}
+.statistic.changed {
+  color: $highlight-color; // Temporary color
+  animation: fadeBack 1s ease-in-out forwards;
+}
+@keyframes fadeBack {
+  0% {
+    color: $highlight-color;
+  }
+  100% {
+    color: $white;
+  }
 }
 
 // Ensure charts fit within their parent container

@@ -115,7 +115,8 @@ class LeadOrder < ApplicationRecord
         stat: LeadOrder.count,
         color: :blue,
         id: 'lead_order_count_widget',
-        turbo_stream: 'lead_order_count'
+        turbo_stream: 'lead_order_count',
+        changed: true
       })
   end
 
@@ -128,7 +129,8 @@ class LeadOrder < ApplicationRecord
         stat: LeadOrder.fulfilled.count,
         color: :green,
         id: 'fulfilled_order_count_widget',
-        turbo_stream: 'fulfilled_order_count'
+        turbo_stream: 'fulfilled_order_count',
+        changed: true
       })
   end
 end

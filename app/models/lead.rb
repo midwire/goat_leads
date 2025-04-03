@@ -138,7 +138,8 @@ class Lead < ApplicationRecord
         stat: Lead.count,
         color: :yellow,
         id: 'lead_count_widget',
-        turbo_stream: 'lead_count'
+        turbo_stream: 'lead_count',
+        changed: true
       })
   end
 
@@ -151,7 +152,8 @@ class Lead < ApplicationRecord
         stat: Lead.unassigned.count,
         color: :red,
         id: 'unassigned_lead_count_widget',
-        turbo_stream: 'unassigned_lead_count'
+        turbo_stream: 'unassigned_lead_count',
+        changed: true
       })
   end
 

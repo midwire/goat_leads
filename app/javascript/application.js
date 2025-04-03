@@ -84,6 +84,17 @@ document.addEventListener('turbo:load', function() {
 
 });
 
+// Listen for Turbo Stream updates
+document.addEventListener("turbo:stream-render", (event) => {
+  const highlightedElements = document.querySelectorAll("statistic.changed");
+  highlightedElements.forEach((element) => {
+    // Remove the highlight class after the animation duration (2s here)
+    setTimeout(() => {
+      element.classList.remove("changed");
+    }, 2000); // Match the CSS animation duration
+  });
+});
+
 // Fix datatable back-button reinitialization
 document.addEventListener("turbo:before-cache", function() {
   var dataTable = $($.fn.dataTable.tables(true)).DataTable();
