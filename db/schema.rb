@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_01_185542) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_03_143927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_01_185542) do
     t.decimal "ad_spend", precision: 10, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "zap_id"
     t.index ["campaign"], name: "index_ad_daily_spend_summaries_on_campaign"
     t.index ["date", "lead_type", "platform", "campaign"], name: "idx_on_date_lead_type_platform_campaign_567fd7b4b4", unique: true
     t.index ["lead_type"], name: "index_ad_daily_spend_summaries_on_lead_type"

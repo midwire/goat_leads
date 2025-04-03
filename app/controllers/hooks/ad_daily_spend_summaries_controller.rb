@@ -39,7 +39,7 @@ class Hooks::AdDailySpendSummariesController < WebhookController
   end
 
   def ad_spend_params
-    params.expect(ad_daily_spend_summary: %i[date lead_type platform campaign ad_spend])
+    params.expect(ad_daily_spend_summary: %i[date lead_type platform campaign ad_spend zap_id])
   end
 
   def find_existing_summary

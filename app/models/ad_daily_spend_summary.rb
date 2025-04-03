@@ -29,6 +29,7 @@ end
 #  platform   :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  zap_id     :string
 #
 # Indexes
 #
