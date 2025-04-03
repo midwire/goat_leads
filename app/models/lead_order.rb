@@ -121,6 +121,8 @@ class LeadOrder < ApplicationRecord
   end
 
   def broadcast_update
+    return unless saved_change_to_fulfilled_at?
+
     broadcast_replace_to('fulfilled_order_count',
       target: 'fulfilled_order_count_widget',
       partial: 'dashboards/stat_widget',
