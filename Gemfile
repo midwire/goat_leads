@@ -67,7 +67,7 @@ gem 'google-apis-drive_v3', '~> 0.62', require: false # To control access to she
 gem 'money-rails', '~> 1.15' # Deal with money
 gem 'chronic', '~> 0.10' # Date Time Parsing
 gem 'faraday', '~> 2.12', require: false # Rest client for integration
-gem 'faraday-retry', '~> 2.2', require: false # Auto-retry for Faraday
+gem 'faraday-retry', '~> 2.3', require: false # Auto-retry for Faraday
 gem 'twilio-ruby', '~> 7.5', require: false # Send SMS messages
 gem 'chartkick', '~> 5.1' # Charts for widgets
 gem 'groupdate', '~> 6.5' # Group by time scopes
