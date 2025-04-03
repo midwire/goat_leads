@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Lead < ApplicationRecord
-  after_create_commit { broadcast_create }
-  after_update_commit { broadcast_update }
+  # after_create_commit { broadcast_create }
+  # after_update_commit { broadcast_update }
 
   before_save :set_rr_state
   before_save :set_full_name

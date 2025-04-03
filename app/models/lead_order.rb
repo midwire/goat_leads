@@ -3,8 +3,8 @@
 class LeadOrder < ApplicationRecord
   include LeadOrderScopes
 
-  after_create_commit { broadcast_create }
-  after_update_commit { broadcast_update }
+  # after_create_commit { broadcast_create }
+  # after_update_commit { broadcast_update }
 
   before_validation :upcase_states
   before_validation :downcase_days_per_week
