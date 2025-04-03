@@ -84,16 +84,20 @@ document.addEventListener('turbo:load', function() {
 
 });
 
-// Listen for Turbo Stream updates
-document.addEventListener("turbo:stream-render", (event) => {
-  const highlightedElements = document.querySelectorAll("statistic.changed");
-  highlightedElements.forEach((element) => {
-    // Remove the highlight class after the animation duration (2s here)
-    setTimeout(() => {
-      element.classList.remove("changed");
-    }, 2000); // Match the CSS animation duration
-  });
-});
+// Listen for Turbo Stream updates and debounce
+// let timeoutId;
+// document.addEventListener("turbo:stream-render", (event) => {
+//   console.log("Turbo Stream rendered at", new Date());
+//   clearTimeout(timeoutId); // Clear any pending timeout
+//   const changedElements = document.querySelectorAll(".statistic.changed");
+//   if (changedElements.length > 0) {
+//     timeoutId = setTimeout(() => {
+//       changedElements.forEach((element) => {
+//         element.classList.remove("changed");
+//       });
+//     }, 2000);
+//   }
+// });
 
 // Fix datatable back-button reinitialization
 document.addEventListener("turbo:before-cache", function() {
