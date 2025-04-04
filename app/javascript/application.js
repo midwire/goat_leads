@@ -6,8 +6,26 @@ import "./src/add_jquery";
 import "./src/add_datatables";
 import "chartkick/chart.js";
 
-document.addEventListener('turbo:load', () => {
+function isStylesheetLoaded() {
+  const stylesheets = Array.from(document.styleSheets);
+  return stylesheets.some(sheet => sheet.href && sheet.href.includes('goatleads'));
+}
 
+function runOnLoad() {
+  if (isStylesheetLoaded()) {
+    initializeApp();
+  } else {
+    const link = document.querySelector('link[href*="goatleads"]');
+    if (link) {
+      link.addEventListener('load', initializeApp);
+    } else {
+      // Fallback: run after a short delay if no link found
+      setTimeout(initializeApp, 100);
+    }
+  }
+}
+
+function initializeApp() {
   // Navbar and Sidebar Toggling
   const toggler = document.querySelector(".navbar-toggler");
   const sidebarToggler = document.querySelector(".sidebar-toggle");
@@ -59,7 +77,8 @@ document.addEventListener('turbo:load', () => {
 
   // Show toasts
   document.querySelectorAll('.toast').forEach(toast => new bootstrap.Toast(toast).show());
-});
+}
+
 
 // Turbo cache fix for DataTables
 document.addEventListener("turbo:before-cache", () => {
@@ -71,3 +90,4 @@ document.addEventListener("turbo:before-cache", () => {
 
 window.bootstrap = bootstrap;
 
+document.addEventListener('turbo:load', runOnLoad);
