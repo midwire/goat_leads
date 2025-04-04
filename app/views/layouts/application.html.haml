@@ -6,6 +6,7 @@
     %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
     %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
     %meta{:content => "yes", :name => "mobile-web-app-capable"}/
+    %link{rel: "preload", href: asset_path("#{Whitelabel.label}.css"), as: "style"}
 
     -# = render("/layouts/favicon")
     = render("/layouts/twitter_card")
