@@ -101,7 +101,6 @@ Guessing we will build each of these out with the appropriate functionality.
 * https://mycrmcenter.com/update-lead-order - CRM lead orders
 * https://mycrmcenter.com/submit-ringy-info - Ringy Info
 * https://app.agentcrmcenter.com/v2/preview/PibNxV8i7yM9IrKTOztp - Site preview
-* https://mycrmcenter.com/update-lead-order - Lead Orders
 * https://app.leadcapture.io/lead-form/20843 - Lead Forms
 * https://docs.google.com/spreadsheets/d/1iEQBViYSNDJ9pgUjXkPbt2kbtO08II2gQX3l1_ohr68/edit?gid=0#gid=0 - Vet Leads Example
 * https://docs.google.com/spreadsheets/d/1q_GkCYBSQ_zLRm1I0fVde8Nu5r751otb_FjKEdI0FxQ/edit?gid=0#gid=0 - IUL Leads Example

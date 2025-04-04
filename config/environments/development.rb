@@ -98,6 +98,9 @@ Rails.application.configure do
   # Only allow web console on local networks
   config.web_console.permissions = '192.168.0.0/16'
 
+  # Debug assets in development - check log file
+  config.assets.debug = true
+
   # Local tunnels
   config.hosts.clear
 end

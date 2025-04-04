@@ -1,32 +1,21 @@
-// Entry point for the build script in your package.json
-import "@hotwired/turbo-rails"
-import "./controllers"
-import * as bootstrap from "bootstrap"
+import "@hotwired/turbo-rails";
+import "./controllers";
+import * as bootstrap from "bootstrap";
 
-import "./src/add_jquery";
-import "./src/add_datatables";
-import "chartkick/chart.js"
-
-window.bootstrap = bootstrap;
-
-document.addEventListener('turbo:load', function() {
-  // Navbar Toggler
+// Lazy-load heavy libraries only when needed
+document.addEventListener('turbo:load', () => {
+  // Navbar and Sidebar Toggling
   const toggler = document.querySelector(".navbar-toggler");
   const sidebarToggler = document.querySelector(".sidebar-toggle");
-  const sidebar = document.querySelector(".main-sidebar");
   const wrapper = document.querySelector("#wrapper");
+  const breakpoint = 768;
 
-  const breakpoint = 768; // Match CSS breakpoint
-
-  // Load sidebar state from localStorage
+  // Load sidebar state
   const isSidebarOpen = localStorage.getItem("sidebarOpen") === "true";
   const isDesktop = window.innerWidth >= breakpoint;
 
-  // Function to update sidebar state based on window width
   function updateSidebarState() {
-    const isDesktop = window.innerWidth >= breakpoint;
-    // console.log(`Window width: ${window.innerWidth}, isDesktop: ${isDesktop}, sidebarOpen: ${wrapper.classList.contains("sidebar-open")}`);
-    if (isDesktop) {
+    if (window.innerWidth >= breakpoint) {
       wrapper.classList.add("sidebar-open");
       localStorage.setItem("sidebarOpen", "true");
     } else {
@@ -35,76 +24,57 @@ document.addEventListener('turbo:load', function() {
     }
   }
 
-  // Set initial state
+  // Initial state
   updateSidebarState();
 
-  // Debounce function to limit resize event frequency
-  function debounce(func, wait) {
+  // Debounced resize handler
+  const debounce = (func, wait) => {
     let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
+    return (...args) => {
       clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+      timeout = setTimeout(() => func(...args), wait);
     };
-  }
-
-  // Add resize event listener with debounce
+  };
   window.addEventListener('resize', debounce(updateSidebarState, 200));
 
-  // Toggle sidebar on mobile (navbar-toggler)
-  if (toggler) {
-    toggler.addEventListener("click", (event) => {
-      event.preventDefault();
-      wrapper.classList.toggle("sidebar-open");
-      localStorage.setItem("sidebarOpen", wrapper.classList.contains("sidebar-open"));
-    });
-  }
-
-  if (sidebarToggler) {
-    sidebarToggler.addEventListener("click", (event) => {
-      // console.log("Toggle sidebar");
-      event.preventDefault();
-      wrapper.classList.toggle("sidebar-open");
-      localStorage.setItem("sidebarOpen", wrapper.classList.contains("sidebar-open"));
-      const icon = sidebarToggler.querySelector("i");
-      if (wrapper.classList.contains("sidebar-open")) {
-        icon.classList.replace("bi-square", "bi-square-fill");
-      } else {
-        icon.classList.replace("bi-square-fill", "bi-square");
-      }
-    });
-  }
-
-  document.querySelectorAll('.toast').forEach((toast) => {
-    return new bootstrap.Toast(toast).show();
+  // Toggler events
+  toggler?.addEventListener("click", (e) => {
+    e.preventDefault();
+    wrapper.classList.toggle("sidebar-open");
+    localStorage.setItem("sidebarOpen", wrapper.classList.contains("sidebar-open"));
   });
 
+  sidebarToggler?.addEventListener("click", (e) => {
+    e.preventDefault();
+    wrapper.classList.toggle("sidebar-open");
+    localStorage.setItem("sidebarOpen", wrapper.classList.contains("sidebar-open"));
+    const icon = sidebarToggler.querySelector("i");
+    icon.classList.toggle("bi-square-fill", wrapper.classList.contains("sidebar-open"));
+    icon.classList.toggle("bi-square", !wrapper.classList.contains("sidebar-open"));
+  });
+
+  // Show toasts
+  document.querySelectorAll('.toast').forEach(toast => new bootstrap.Toast(toast).show());
 });
 
-// Listen for Turbo Stream updates and debounce
-// let timeoutId;
-// document.addEventListener("turbo:stream-render", (event) => {
-//   console.log("Turbo Stream rendered at", new Date());
-//   clearTimeout(timeoutId); // Clear any pending timeout
-//   const changedElements = document.querySelectorAll(".statistic.changed");
-//   if (changedElements.length > 0) {
-//     timeoutId = setTimeout(() => {
-//       changedElements.forEach((element) => {
-//         element.classList.remove("changed");
-//       });
-//     }, 2000);
-//   }
-// });
+// Lazy-load jQuery, DataTables, and Chartkick only on specific pages
+if (document.querySelector('.needs-jquery')) {
+  import("./src/add_jquery").then(() => console.log("jQuery loaded"));
+}
+if (document.querySelector('.needs-datatables')) {
+  import("./src/add_datatables").then(() => console.log("DataTables loaded"));
+}
+if (document.querySelector('.needs-chartkick')) {
+  import("chartkick/chart.js").then(() => console.log("Chartkick loaded"));
+}
 
-// Fix datatable back-button reinitialization
-document.addEventListener("turbo:before-cache", function() {
-  var dataTable = $($.fn.dataTable.tables(true)).DataTable();
-  if (dataTable !== null) {
-    dataTable.destroy();
-    dataTable = null;
+// Turbo cache fix for DataTables
+document.addEventListener("turbo:before-cache", () => {
+  const dataTable = $?.fn?.dataTable?.tables(true);
+  if (dataTable?.length) {
+    $(dataTable).DataTable().destroy();
   }
 });
+
+window.bootstrap = bootstrap;
 

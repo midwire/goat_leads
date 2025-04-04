@@ -1,4 +1,5 @@
-- if @current_user.admin?
-  = render("admin_dashboard")
-- else
-  = render("agent_dashboard")
+.needs-chartkick
+  - if @current_user.admin?
+    = render("admin_dashboard")
+  - else
+    = render("agent_dashboard")
