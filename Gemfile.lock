@@ -223,7 +223,7 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    faraday-retry (2.3.0)
+    faraday-retry (2.3.1)
       faraday (~> 2.0)
     flay (2.13.3)
       erubi (~> 1.10)
@@ -686,7 +686,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   faraday (~> 2.12)
-  faraday-retry (~> 2.2)
+  faraday-retry (~> 2.3)
   foreman
   google-apis-drive_v3 (~> 0.62)
   google-apis-sheets_v4 (~> 0.39)
