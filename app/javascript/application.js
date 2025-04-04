@@ -20,7 +20,7 @@ function isStylesheetLoaded() {
   const whitelabel = getWhitelabel();
   const stylesheets = Array.from(document.styleSheets);
   const loaded = stylesheets.some(sheet => sheet.href && sheet.href.includes(whitelabel));
-  console.log(`Stylesheet loaded: (${whitelabel})`, loaded);
+  // console.log(`Stylesheet loaded: (${whitelabel})`, loaded);
   return loaded;
 }
 
@@ -37,7 +37,7 @@ function areScriptsLoaded() {
 function hideLoadingOverlay() {
   const overlay = document.getElementById('loading-overlay');
   const wrapper = document.getElementById('wrapper');
-  console.log('Hiding overlay:', overlay, wrapper);
+  // console.log('Hiding overlay:', overlay, wrapper);
   if (overlay && wrapper) {
     overlay.classList.add('hidden');
     wrapper.classList.add('loaded');
@@ -45,7 +45,7 @@ function hideLoadingOverlay() {
 }
 
 function initializeApp() {
-  console.log("Initializing app...");
+  // console.log("Initializing app...");
 
   // Navbar and Sidebar Toggling
   const toggler = document.querySelector(".navbar-toggler");
@@ -103,7 +103,7 @@ function initializeApp() {
   if (isStylesheetLoaded() && areScriptsLoaded()) {
     hideLoadingOverlay();
   } else {
-    console.log("Still Loading...");
+    // console.log("Still Loading...");
     const whitelabel = getWhitelabel();
     const link = document.querySelector(`link[href*="${whitelabel}"]`);
     if (link) {
