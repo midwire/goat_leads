@@ -110,7 +110,7 @@ class LeadOrder < ApplicationRecord
     Rails.cache.write('lead_order_count_changed', true)
   end
 
-  def broadcast_update
+  def flag_widget_update
     return unless saved_change_to_fulfilled_at?
 
     Rails.cache.write('fulfilled_order_count_changed', true)
