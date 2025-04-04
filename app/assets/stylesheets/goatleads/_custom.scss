@@ -22,6 +22,9 @@ $highlight-color: $black !default;
   background: rgba(255, 255, 255, 0.9); // Light overlay
   z-index: 9999; // Above all content
 }
+#loading-overlay.hidden {
+  display: none !important;
+}
 
 // Utility
 .toast {
