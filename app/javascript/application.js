@@ -4,7 +4,7 @@ import * as bootstrap from "bootstrap";
 
 import "./src/add_jquery";
 import "./src/add_datatables";
-import "./src/chartkick/chart.js";
+import "chartkick/chart.js";
 
 document.addEventListener('turbo:load', () => {
 
