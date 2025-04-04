@@ -2,8 +2,30 @@ import "@hotwired/turbo-rails";
 import "./controllers";
 import * as bootstrap from "bootstrap";
 
+// Function to load libraries dynamically
+function loadLibraries() {
+  if (document.querySelector('.needs-jquery') && !window.jQuery) {
+    import("./src/add_jquery")
+      .then(() => console.log("jQuery loaded"))
+      .catch(err => console.error("Failed to load jQuery:", err));
+  }
+  if (document.querySelector('.needs-datatables') && !$.fn.DataTable) {
+    import("./src/add_datatables")
+      .then(() => console.log("DataTables loaded"))
+      .catch(err => console.error("Failed to load DataTables:", err));
+  }
+  if (document.querySelector('.needs-chartkick') && !window.Chartkick) {
+    import("chartkick/chart.js")
+      .then(() => console.log("Chartkick loaded"))
+      .catch(err => console.error("Failed to load Chartkick:", err));
+  }
+}
+
 // Lazy-load heavy libraries only when needed
 document.addEventListener('turbo:load', () => {
+  // Lazy load required libraries
+  loadLibraries();
+
   // Navbar and Sidebar Toggling
   const toggler = document.querySelector(".navbar-toggler");
   const sidebarToggler = document.querySelector(".sidebar-toggle");
@@ -56,18 +78,6 @@ document.addEventListener('turbo:load', () => {
   // Show toasts
   document.querySelectorAll('.toast').forEach(toast => new bootstrap.Toast(toast).show());
 });
-
-// Lazy-load jQuery, DataTables, and Chartkick only on specific pages
-if (document.querySelector('.needs-jquery')) {
-  import("./src/add_jquery").then(() => console.log("jQuery loaded"));
-}
-if (document.querySelector('.needs-datatables')) {
-  import("./src/add_jquery").then(() => console.log("jQuery loaded"));
-  import("./src/add_datatables").then(() => console.log("DataTables loaded"));
-}
-if (document.querySelector('.needs-chartkick')) {
-  import("chartkick/chart.js").then(() => console.log("Chartkick loaded"));
-}
 
 // Turbo cache fix for DataTables
 document.addEventListener("turbo:before-cache", () => {
