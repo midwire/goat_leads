@@ -13,8 +13,8 @@ production:
   - low
   - mailer
 
-:scheduler:
-  :schedule:
-    broadcast_widget_updates:
-      every: '5s'
-      class: BroadcastWidgetUpdatesJob
+# :scheduler:
+#   :schedule:
+#     broadcast_widget_updates:
+#       every: '5s'
+#       class: BroadcastWidgetUpdatesJob

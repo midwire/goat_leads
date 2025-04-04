@@ -3,8 +3,8 @@
 class LeadOrder < ApplicationRecord
   include LeadOrderScopes
 
-  after_create_commit :flag_widget_create
-  after_update_commit :flag_widget_update
+  # after_create_commit :flag_widget_create
+  # after_update_commit :flag_widget_update
 
   before_validation :upcase_states
   before_validation :downcase_days_per_week
