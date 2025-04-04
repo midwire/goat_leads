@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Lead < ApplicationRecord
-  # after_create_commit { broadcast_create }
-  # after_update_commit { broadcast_update }
+  after_create_commit :flag_widget_create
+  after_update_commit :flag_widget_update
 
   before_save :set_rr_state
   before_save :set_full_name
@@ -129,32 +129,16 @@ class Lead < ApplicationRecord
 
   private
 
-  def broadcast_create
-    broadcast_replace_to('lead_count',
-      target: 'lead_count_widget',
-      partial: 'dashboards/stat_widget',
-      locals: {
-        title: 'Total Leads',
-        stat: Lead.count,
-        color: :yellow,
-        id: 'lead_count_widget',
-        turbo_stream: 'lead_count',
-        changed: true
-      })
+  def flag_widget_create
+    Rails.logger.debug('>>> Flagging Lead Count Change')
+    Rails.cache.write('lead_count_changed', true)
   end
 
-  def broadcast_update
-    broadcast_replace_to('unassigned_lead_count',
-      target: 'unassigned_lead_count_widget',
-      partial: 'dashboards/stat_widget',
-      locals: {
-        title: 'Unassigned Leads',
-        stat: Lead.unassigned.count,
-        color: :red,
-        id: 'unassigned_lead_count_widget',
-        turbo_stream: 'unassigned_lead_count',
-        changed: true
-      })
+  def flag_widget_update
+    return unless saved_change_to_delivered_at?
+
+    Rails.logger.debug('>>> Flagging Lead Assigned Change')
+    Rails.cache.write('unassigned_lead_count_changed', true)
   end
 
   def set_rr_state

@@ -52,7 +52,10 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
+  # config.cache_store = :solid_cache_store
+
+  # Use redis db-1 for cache store
+  config.cache_store = :redis_cache_store, { url: 'redis://127.0.0.1:6379/1' }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   # config.active_job.queue_adapter = :solid_queue

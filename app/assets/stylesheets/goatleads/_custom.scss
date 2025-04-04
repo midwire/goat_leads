@@ -118,6 +118,7 @@ $highlight-color: $black !default;
 // Datatables Pagination
 .dt-container {
   .pagination .page-item .page-link {
+    color: $white;
     background-color: $dark-red;
   }
   .pagination .page-item.active .page-link {

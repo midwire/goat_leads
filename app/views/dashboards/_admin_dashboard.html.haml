@@ -17,8 +17,6 @@
         locals: {title: 'Unassigned Leads', stat: @unassigned_lead_count, color: :red,
         id: 'unassigned_lead_count_widget', turbo_stream: 'unassigned_lead_count'})
 
-  = console if Rails.env.development?
-
   .row.py-3.d-flex.align-items-stretch
     .col-md-6.d-flex
       = render(partial: "line_chart_widget",

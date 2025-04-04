@@ -53,10 +53,12 @@ gem 'haml-rails', '~> 2.1' # HAML templates
 gem 'ajax-datatables-rails', '~> 1.5' # Dynamic datatables
 gem 'draper', '~> 4.0' # Decorators
 gem 'bootstrap_form', '~> 5.4' # Bootstrap forms
+gem 'redis', '~> 5.4' # Sidekiq needs Redis
 gem 'sidekiq', '~> 7.3' # Background processing jobs
 gem 'sidekiq-failures', '~> 1.0' # monitor sidekiq failures
-gem 'postmark-rails', '~> 0.22' # Email sending
 gem 'sidekiq-unique-jobs', '~> 8.0' # Prevent duplicate sidekiq jobs
+gem 'sidekiq-scheduler', '~> 5.0' # Schedule sidekiq jobs
+gem 'postmark-rails', '~> 0.22' # Email sending
 gem 'whenever', '~> 1.0', require: false # OOB Task Scheduler
 gem 'premailer-rails', '~> 1.12' # Styling for emails
 gem 'config', '~> 5.0' # Rails yaml settings
