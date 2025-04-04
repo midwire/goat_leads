@@ -4,7 +4,8 @@ class LeadParamNormalizer
   # Mapping of webhook keys to model attributes
   PARAMETER_MAPPING = {
     'xxtrustedformcerturl' => :trusted_form_url,
-    'fbc_id' => :fbclid
+    'fbc_id' => :fbclid,
+    'otp_field' => :otp_code
   }.freeze
 
   # Model attributes that can be used as-is
