@@ -2,29 +2,11 @@ import "@hotwired/turbo-rails";
 import "./controllers";
 import * as bootstrap from "bootstrap";
 
-// Function to load libraries dynamically
-function loadLibraries() {
-  if (document.querySelector('.needs-jquery') && !window.jQuery) {
-    import("./src/add_jquery")
-      .then(() => console.log("jQuery loaded"))
-      .catch(err => console.error("Failed to load jQuery:", err));
-  }
-  if (document.querySelector('.needs-datatables') && !$.fn.DataTable) {
-    import("./src/add_datatables")
-      .then(() => console.log("DataTables loaded"))
-      .catch(err => console.error("Failed to load DataTables:", err));
-  }
-  if (document.querySelector('.needs-chartkick') && !window.Chartkick) {
-    import("chartkick/chart.js")
-      .then(() => console.log("Chartkick loaded"))
-      .catch(err => console.error("Failed to load Chartkick:", err));
-  }
-}
+import "./src/add_jquery";
+import "./src/add_datatables";
+import "./src/chartkick/chart.js";
 
-// Lazy-load heavy libraries only when needed
 document.addEventListener('turbo:load', () => {
-  // Lazy load required libraries
-  loadLibraries();
 
   // Navbar and Sidebar Toggling
   const toggler = document.querySelector(".navbar-toggler");
