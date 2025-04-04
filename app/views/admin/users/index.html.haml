@@ -6,14 +6,9 @@
   %thead
     %tr
       %th{scope: 'col'} ID
-      %th{scope: 'col'} First Name
-      %th{scope: 'col'} Last Name
-      %th{scope: 'col'} Email
+      %th{scope: 'col'} Name
       %th{scope: 'col'} Role
-      %th{scope: 'col'} Phone
-      %th{scope: 'col'} Status
-      %th{scope: 'col'} Last Lead Delivered
-      %th{scope: 'col'} Last Activity
+      %th{scope: 'col'} Last Lead
   %tbody
 
 #user_id{data: {token: Current.user&.id&.to_s}}
@@ -30,9 +25,9 @@
       processing: true,
       serverSide: true,
       stateSave: true,
-      scrollX: true,
-      scrollXInner: "110%",
-      bScrollCollapse: true,
+      scrollX: false,
+      // scrollXInner: "110%",
+      // bScrollCollapse: true,
       bDestroy: true,
 
       ajax: {
@@ -46,14 +41,9 @@
       pagingType: "full_numbers",
       columns: [
         {data: "id"},
-        {data: "first_name"},
-        {data: "last_name"},
-        {data: "email_address"},
+        {data: "fullname"},
         {data: "role"},
-        {data: "phone"},
-        {data: "status"},
         {data: "last_lead_delivered_at"},
-        {data: "last_activity"},
       ]
     });
 

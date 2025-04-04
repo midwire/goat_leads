@@ -64,6 +64,10 @@ class LeadOrder < ApplicationRecord
     leads.count
   end
 
+  def fulfilled?
+    fulfilled_at.present?
+  end
+
   private
 
   def upcase_states

@@ -18,6 +18,7 @@ class LeadOrderDatatable < ApplicationDatatable
       states: { source: 'LeadOrder.states', cond: :like },
       agent_email: { source: 'LeadOrder.agent_email', cond: :like },
       agent_phone: { source: 'LeadOrder.agent_phone', cond: :like },
+      fulfilled: { source: 'LeadOrder.fulfilled_at', cond: :like },
       active: { source: 'LeadOrder.active', cond: :eq }
     }
   end
@@ -37,6 +38,7 @@ class LeadOrderDatatable < ApplicationDatatable
         lead_class: linked(edit_lead_order_url(lead_order), lead_order.lead_class, 'Edit Lead Order'),
         # lead_class: buttoned(edit_lead_order_url(lead_order), lead_order.lead_class),
         # lead_class: lead_order.lead_class,
+        fulfilled: lead_order.fulfilled?,
         paused_until: lead_order.paused_until,
         states: lead_order.states,
         agent_email: lead_order.agent_email,

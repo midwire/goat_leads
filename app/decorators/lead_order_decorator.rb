@@ -41,6 +41,6 @@ class LeadOrderDecorator < ApplicationDecorator
   def active
     return 'paused' unless object.active
 
-    object.active
+    'active'
   end
 end

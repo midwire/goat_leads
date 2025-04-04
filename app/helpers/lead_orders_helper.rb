@@ -9,16 +9,11 @@ module LeadOrdersHelper
         id: 'ID',
         lead_class: 'Lead Type',
         user: 'Owner',
-        agent_email: 'Email To',
-        agent_phone: 'Phone',
-        active: 'Active',
+        fulfilled: 'Fulfilled',
+        active: 'Paused',
         canceled_at: 'Canceled',
         expire_on: 'Expire On',
-        days_per_week: 'Days per Week',
-        max_per_day: 'Max per Day',
-        total_lead_order: 'Total Lead Cap',
-        paused_until: 'Paused Until',
-        states: 'States'
+        total_lead_order: 'Total Leads'
       }
     else
       {
