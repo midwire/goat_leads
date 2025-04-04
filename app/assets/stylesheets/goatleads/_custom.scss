@@ -147,7 +147,8 @@ $highlight-color: $black !default;
   left: 0;
   z-index: 1030;
   transform: translateX(0); // Default state: visible
-  transition: transform 0.1s ease-in-out; // Apply transition on all screen sizes
+  // transition: transform 0.1s ease-in-out; // Apply transition on all screen sizes
+  transition: none !important; // Apply transition immediately
 
   .sidebar-header {
     height: $navbar-height !important;
