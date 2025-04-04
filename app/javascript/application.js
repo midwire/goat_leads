@@ -62,6 +62,7 @@ if (document.querySelector('.needs-jquery')) {
   import("./src/add_jquery").then(() => console.log("jQuery loaded"));
 }
 if (document.querySelector('.needs-datatables')) {
+  import("./src/add_jquery").then(() => console.log("jQuery loaded"));
   import("./src/add_datatables").then(() => console.log("DataTables loaded"));
 }
 if (document.querySelector('.needs-chartkick')) {

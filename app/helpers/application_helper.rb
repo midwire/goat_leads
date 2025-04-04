@@ -50,10 +50,8 @@ module ApplicationHelper
     link_to(phone, "tel:#{phone}")
   end
 
-  def nav_link(text, url)
-    content_tag(:a, href: url, class: "nav-link #{active_class(url)}") do
-      text
-    end
+  def nav_link(url, &block)
+    content_tag(:a, href: url, class: "nav-link #{active_class(url)}", &block)
   end
 
   def user_initial_circle(full_name, size: 40)

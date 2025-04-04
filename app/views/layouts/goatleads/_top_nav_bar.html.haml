@@ -9,9 +9,11 @@
           %a.nav-link.sidebar-toggle{ href: "#", title: 'Toggle Sidebar' }
             %i.bi.bi-square-fill
         %li.nav-item
-          = nav_link('Home', leads_path)
+          = nav_link(leads_path) do
+            Home
         %li.nav-item
-          = nav_link('Order Leads', new_lead_order_path)
+          = nav_link(new_lead_order_path) do
+            Order Leads
         %li.nav-item.dropdown
           .nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :role => "button"}
             Support

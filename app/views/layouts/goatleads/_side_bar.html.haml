@@ -8,15 +8,22 @@
     %nav.mt-2
       %ul.nav.nav-pills.nav-sidebar.flex-column{ "data-bs-accordion": "true" }
         %li.nav-item
-          %a.nav-link{ href: dashboard_path }
-            %i.nav-icon.bi.bi-speedometer
+          = nav_link(dashboard_path) do
+            %i.bi.bi-speedometer
             %span Dashboard
+
         %li.nav-item
-          %a.nav-link{ href: leads_path }
-            %i.nav-icon.bi.bi-people
+          = nav_link(leads_path) do
+            %i.bi.bi-people
             %span Leads
+
         %li.nav-item
-          %a.nav-link{ href: lead_orders_path }
-            %i.nav-icon.bi.bi-bag
+          = nav_link(lead_orders_path) do
+            %i.bi.bi-bag
             %span Lead Orders
 
+        - if @current_user.admin?
+          %li.nav-item
+            = nav_link(admin_users_path) do
+              %i.bi.bi-people-fill
+              %span Users

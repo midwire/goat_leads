@@ -30,6 +30,16 @@ $highlight-color: $black !default;
 .user-panel .image svg {
   margin-right: 10px;
 }
+.navbar {
+  z-index: 1020;
+  .nav-link {
+    color: $link-color;
+  }
+}
+.navbar-toggler {
+  margin-left: auto;
+  padding: 0.25rem 0.5rem;
+}
 
 // Forms
 .form-label {
@@ -146,30 +156,6 @@ $highlight-color: $black !default;
     color: $gray-100;
   }
 }
-
-#main-content {
-  margin-top: $navbar-height + 20;
-}
-
-#page-content-wrapper {
-  margin-left: $sidebar-width;
-  .navbar {
-    margin-left: $sidebar-width !important;
-    height: $navbar-height;
-  }
-}
-
-.navbar {
-  z-index: 1020;
-  .nav-link {
-    color: $link-color;
-  }
-}
-.navbar-toggler {
-  margin-left: auto;
-  padding: 0.25rem 0.5rem;
-}
-
 // When sidebar is hidden (on any screen size)
 #wrapper:not(.sidebar-open) .main-sidebar {
   transform: translateX(-$sidebar-width);
@@ -197,7 +183,6 @@ $highlight-color: $black !default;
     margin-left: 0 !important;
   }
 }
-
 // Mobile: Sidebar is hidden by default, can be toggled
 @media (max-width: $mobile-breakpoint) {
   .main-sidebar {
@@ -221,3 +206,37 @@ $highlight-color: $black !default;
     transform: translateX(0);
   }
 }
+
+
+// Lists
+ol.list-group-flush.lower-alpha {
+  list-style: none;
+  counter-reset: item;
+  li:before {
+    counter-increment: item;
+    content: counter(item, lower-alpha) ") ";
+  }
+}
+ul.checkmarks {
+  li::before {
+    content: '✓';
+    margin-right: 5px;
+    font-size: 120%;
+  }
+  margin-bottom: 15px;
+}
+
+///////////////////////////////////////////////////////////
+// MAIN CONTENT
+#main-content {
+  margin-top: $navbar-height + 20;
+}
+
+#page-content-wrapper {
+  margin-left: $sidebar-width;
+  .navbar {
+    margin-left: $sidebar-width !important;
+    height: $navbar-height;
+  }
+}
+
